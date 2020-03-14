@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfigBean {
-
     @Bean
     public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shirFilter()");
@@ -39,6 +38,10 @@ public class ShiroConfigBean {
         // 设置登录的URL为匿名访问，因为一开始没有用户验证
         filterChainDefinitionMap.put("/login.action", "anon");
 
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/Exception.class", "anon");
         // 我写的url一般都是xxx.action，根据你的情况自己修改
         filterChainDefinitionMap.put("/*.action", "authc");
