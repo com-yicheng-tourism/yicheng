@@ -3,8 +3,9 @@ package com.yicheng.tourism;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplication()
 @MapperScan(value = "com.yicheng.tourism.mapper")
 public class YichengTourismApplication {
 
