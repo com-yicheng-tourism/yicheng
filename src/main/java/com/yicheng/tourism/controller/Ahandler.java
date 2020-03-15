@@ -16,11 +16,11 @@ public class Ahandler {
         return "/page-login";
     }
 
-    @RequestMapping(value="/{page}",method= RequestMethod.GET)
-    public String page(@PathVariable("page") String page) {
-        System.out.println("开始执行"+page+"的跳转");
-        return page;
-    }
+//    @RequestMapping(value="/{page}",method= RequestMethod.GET)
+//    public String page(@PathVariable("page") String page) {
+//        System.out.println("开始执行"+page+"的跳转");
+//        return page;
+//    }
 
     // 属于user角色@RequiresRoles("user")
     // 必须同时属于user和admin角@RequiresRoles({ "user", "admin" })

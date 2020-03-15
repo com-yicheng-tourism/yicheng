@@ -37,6 +37,8 @@ public class ShiroConfigBean {
 //        filterChainDefinitionMap.put("/jquery/*", "anon");
         // 设置登录的URL为匿名访问，因为一开始没有用户验证
         filterChainDefinitionMap.put("/index", "anon");
+        filterChainDefinitionMap.put("/login/getVerifiCode", "anon");
+        filterChainDefinitionMap.put("/login/Login_authentication", "anon");
         //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
