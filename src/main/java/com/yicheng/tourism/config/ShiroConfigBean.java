@@ -34,17 +34,22 @@ public class ShiroConfigBean {
         // 未授权的页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.action");
         // src="jquery/jquery-3.2.1.min.js" 生效
-        filterChainDefinitionMap.put("/jquery/*", "anon");
+//        filterChainDefinitionMap.put("/jquery/*", "anon");
         // 设置登录的URL为匿名访问，因为一开始没有用户验证
-        filterChainDefinitionMap.put("/login.action", "anon");
-
+        filterChainDefinitionMap.put("/index", "anon");
+        //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        //放行异常页面
         filterChainDefinitionMap.put("/Exception.class", "anon");
+        //放行静态资源
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");//img
+        filterChainDefinitionMap.put("/assets/**", "anon");//css,js等
         // 我写的url一般都是xxx.action，根据你的情况自己修改
-        filterChainDefinitionMap.put("/*.action", "authc");
+        filterChainDefinitionMap.put("/action/**", "authc");
         // 退出系统的过滤器
         filterChainDefinitionMap.put("/logout", "logout");
         // 现在资源的角色

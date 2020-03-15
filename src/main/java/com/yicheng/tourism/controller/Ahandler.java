@@ -3,7 +3,9 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class Ahandler {
@@ -11,7 +13,13 @@ public class Ahandler {
     // 登录的url
     @RequestMapping({"/login", "/"})
     public String indexHtml() {
-        return "/index";
+        return "/page-login";
+    }
+
+    @RequestMapping(value="/{page}",method= RequestMethod.GET)
+    public String page(@PathVariable("page") String page) {
+        System.out.println("开始执行"+page+"的跳转");
+        return page;
     }
 
     // 属于user角色@RequiresRoles("user")

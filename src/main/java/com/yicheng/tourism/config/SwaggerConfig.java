@@ -28,7 +28,6 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("驿程旅游网站项目前端对接文档")
                 .description("接口Api")
-                .contact("WJ")
                 .version("v1.0.0")
                 .build();
     }
