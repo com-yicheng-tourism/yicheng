@@ -12,10 +12,17 @@ public class Ahandler {
 
     // 登录的url
     @RequestMapping({"/login", "/"})
-    public String indexHtml() {
+    public String loginHtml() {
         return "/page-login";
     }
-
+    @RequestMapping({"/index"})
+    public String indexHtml() {
+        return "/index";
+    }
+    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    public String registerHtml() {
+        return "/page-register";
+    }
 //    @RequestMapping(value="/{page}",method= RequestMethod.GET)
 //    public String page(@PathVariable("page") String page) {
 //        System.out.println("开始执行"+page+"的跳转");

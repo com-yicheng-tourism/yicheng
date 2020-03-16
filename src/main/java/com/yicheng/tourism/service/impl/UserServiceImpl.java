@@ -1,9 +1,6 @@
 package com.yicheng.tourism.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.yicheng.tourism.config.ApplicationContextHelper;
-import com.yicheng.tourism.config.ShiroConfigBean;
-import com.yicheng.tourism.dto.user.req.UserLoginReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterReq;
 import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.mapper.PermissionMapper;
@@ -15,11 +12,7 @@ import com.yicheng.tourism.util.MD5Util;
 import com.yicheng.tourism.util.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
