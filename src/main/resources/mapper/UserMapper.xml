@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yicheng.tourism.entity.User">
     <id column="serial_id" jdbcType="CHAR" property="serialId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="e_mail" jdbcType="VARCHAR" property="eMail" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="user_pwd" jdbcType="CHAR" property="userPwd" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    serial_id, user_name, nick_name, user_pwd, birthday, profile_pic, user_phone, user_address, 
-    is_logout
+    serial_id, user_name, e_mail, nick_name, user_pwd, birthday, profile_pic, user_phone, 
+    user_address, is_logout
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -106,14 +107,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yicheng.tourism.entity.User">
-    insert into t_user (serial_id, user_name, nick_name, 
-      user_pwd, birthday, profile_pic, 
-      user_phone, user_address, is_logout
-      )
-    values (#{serialId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
-      #{userPwd,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{profilePic,jdbcType=CHAR}, 
-      #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{isLogout,jdbcType=BIT}
-      )
+    insert into t_user (serial_id, user_name, e_mail, 
+      nick_name, user_pwd, birthday, 
+      profile_pic, user_phone, user_address, 
+      is_logout)
+    values (#{serialId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{userPwd,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
+      #{profilePic,jdbcType=CHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
+      #{isLogout,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.User">
     insert into t_user
@@ -123,6 +124,9 @@
       </if>
       <if test="userName != null">
         user_name,
+      </if>
+      <if test="eMail != null">
+        e_mail,
       </if>
       <if test="nickName != null">
         nick_name,
@@ -152,6 +156,9 @@
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null">
         #{nickName,jdbcType=VARCHAR},
@@ -191,6 +198,9 @@
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
+      <if test="record.eMail != null">
+        e_mail = #{record.eMail,jdbcType=VARCHAR},
+      </if>
       <if test="record.nickName != null">
         nick_name = #{record.nickName,jdbcType=VARCHAR},
       </if>
@@ -221,6 +231,7 @@
     update t_user
     set serial_id = #{record.serialId,jdbcType=CHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
+      e_mail = #{record.eMail,jdbcType=VARCHAR},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
       user_pwd = #{record.userPwd,jdbcType=CHAR},
       birthday = #{record.birthday,jdbcType=DATE},
@@ -237,6 +248,9 @@
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        e_mail = #{eMail,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
@@ -265,6 +279,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yicheng.tourism.entity.User">
     update t_user
     set user_name = #{userName,jdbcType=VARCHAR},
+      e_mail = #{eMail,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       user_pwd = #{userPwd,jdbcType=CHAR},
       birthday = #{birthday,jdbcType=DATE},

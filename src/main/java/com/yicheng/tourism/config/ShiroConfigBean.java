@@ -37,8 +37,10 @@ public class ShiroConfigBean {
 //        filterChainDefinitionMap.put("/jquery/*", "anon");
         // 设置登录的URL为匿名访问，因为一开始没有用户验证
         filterChainDefinitionMap.put("/index", "anon");
+        filterChainDefinitionMap.put("/login/getVerifiCode","anon");
         //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger/**","anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
@@ -49,14 +51,14 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/images/**", "anon");//img
         filterChainDefinitionMap.put("/assets/**", "anon");//css,js等
         // 我写的url一般都是xxx.action，根据你的情况自己修改
-        filterChainDefinitionMap.put("/action/**", "authc");
+//        filterChainDefinitionMap.put("/action/**", "authc");
         // 退出系统的过滤器
         filterChainDefinitionMap.put("/logout", "logout");
         // 现在资源的角色
         filterChainDefinitionMap.put("/admin.html", "roles[admin]");
         // filterChainDefinitionMap.put("/user.html", "roles[user]");
         // 最后一班都，固定格式
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

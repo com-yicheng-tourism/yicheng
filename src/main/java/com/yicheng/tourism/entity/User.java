@@ -7,6 +7,8 @@ public class User {
 
     private String userName;
 
+    private String eMail;
+
     private String nickName;
 
     private String userPwd;
@@ -35,6 +37,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail == null ? null : eMail.trim();
     }
 
     public String getNickName() {

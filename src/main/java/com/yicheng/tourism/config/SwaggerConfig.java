@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
+        System.out.println("开始访问swagger-ui.html");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -24,7 +25,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-
+        System.out.println("访问swagger-UI成功");
         return new ApiInfoBuilder()
                 .title("驿程旅游网站项目前端对接文档")
                 .description("接口Api")
