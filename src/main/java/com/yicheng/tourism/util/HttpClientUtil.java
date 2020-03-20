@@ -32,13 +32,35 @@ public final class HttpClientUtil {
 	}
 
 	/**
+	 * 拼接get请求的url请求地址
+	 */
+	public static String getReqtUrl(String url, Map<String, String> params) {
+		StringBuilder builder = new StringBuilder(url);
+		boolean isFirst = true;
+		for (String key : params.keySet()) {
+			if (key != null && params.get(key) != null) {
+				if (isFirst) {
+					isFirst = false;
+					builder.append("?");
+				} else {
+					builder.append("&");
+				}
+				builder.append(key)
+						.append("=")
+						.append(params.get(key));
+			}
+		}
+		return builder.toString();
+	}
+	/**
 	 * 发送get请求
 	 */
 	public static String sendGetRequest(String url) {
 		HttpGet httpGet;
 		String result = null;
 		try {
-			httpGet = new HttpGet(new URL(url).toURI());
+			httpGet = new HttpGet(new URL("http://localhost:8080"+url).toURI());
+			logger.info("执行的URL为:{}","http://localhost:8080"+url);
 			result = doGetRequest(httpGet);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,7 +179,7 @@ public final class HttpClientUtil {
 		BufferedReader in = null;
 		URLConnection connection =null;
 		try{
-			URL realUrl = new URL(url);
+			URL realUrl = new URL("http://localhost:8080"+url);
 			connection = realUrl.openConnection();
 			connection.setConnectTimeout(30000);
 			connection.setReadTimeout(30000);

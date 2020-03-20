@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Api(value = "用户信息接口",description = "用户信息接口")
 @RestController
 @RequestMapping("user")
@@ -25,12 +27,12 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户注册")
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public BaseResponse<String> register( UserRegisterReq userRegisterReq){
+    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    public BaseResponse<String> register( UserRegisterReq userRegisterReq, HttpServletRequest request){
         if (StringUtils.isEmpty(userRegisterReq)){
             return new BaseResponse<>("注册信息不能为空!");
         }
         log.info("请求参数:{}", JSON.toJSONString(userRegisterReq));
-        return new BaseResponse<>(userService.register(userRegisterReq));
+        return new BaseResponse<>(userService.register(userRegisterReq,request));
     }
 }

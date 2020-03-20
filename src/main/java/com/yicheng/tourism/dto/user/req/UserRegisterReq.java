@@ -13,4 +13,6 @@ public class UserRegisterReq {
     private String mail;
     @ApiModelProperty("用户密码,传进来的是明文,存进数据库为密文")
     private String userPassword;
+    @ApiModelProperty("验证码")
+    private String verificationCode;
 }

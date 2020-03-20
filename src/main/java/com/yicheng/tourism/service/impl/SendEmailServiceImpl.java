@@ -84,7 +84,6 @@ public class SendEmailServiceImpl  implements SendEmailService {
         //邮件内容
         mimeMessage.setContent(msg,"text/html;charset=UTF-8");
 
-
         //发送邮件
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
 
