@@ -23,6 +23,26 @@ public class Ahandler {
     public String registerHtml() {
         return "/page-register";
     }
+    @RequestMapping(value = "/dataTable",method = RequestMethod.GET)
+    public String dataTable() {
+        return "/tables-data";
+    }
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
+    public String home() {
+        return "/home";
+    }
+    @RequestMapping(value = "/main",method = RequestMethod.GET)
+    public String main() {
+        return "/main";
+    }
+    @RequestMapping(value = "/userManage",method = RequestMethod.GET)
+    public String userManage() {
+        return "/user-manage";
+    }
+    @RequestMapping(value = "/element",method = RequestMethod.GET)
+    public String testElement() {
+        return "/testElement";
+    }
 //    @RequestMapping(value="/{page}",method= RequestMethod.GET)
 //    public String page(@PathVariable("page") String page) {
 //        System.out.println("开始执行"+page+"的跳转");

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.UserMapperExt">
+    <sql id="Base_Column_List">
+    serial_id, user_name, e_mail, nick_name, user_pwd, birthday, profile_pic, user_phone,
+    user_address, is_logout
+    </sql>
+    <select id="qryByUserName" resultType="com.yicheng.tourism.entity.User">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_user
+        where user_name=#{c}
+    </select>
+    <select id="qryByMail" resultType="com.yicheng.tourism.entity.User">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_user
+        where e_mail=#{c}
+    </select>
+</mapper>

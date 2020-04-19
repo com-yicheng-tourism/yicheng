@@ -22,7 +22,6 @@ public class ShiroConfigBean {
     public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 拦截器.
@@ -40,6 +39,12 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/login/getVerifiCode","anon");
         filterChainDefinitionMap.put("/register","anon");
         filterChainDefinitionMap.put("/#**","anon");
+        //放行数据表格
+        filterChainDefinitionMap.put("/dataTable","anon");
+        filterChainDefinitionMap.put("/home","anon");
+        filterChainDefinitionMap.put("/main","anon");
+        filterChainDefinitionMap.put("/userManage","anon");
+        filterChainDefinitionMap.put("/element","anon");
         //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger/**","anon");

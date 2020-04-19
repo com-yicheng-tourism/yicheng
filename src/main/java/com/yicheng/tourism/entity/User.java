@@ -7,7 +7,7 @@ public class User {
 
     private String userName;
 
-    private String eMail;
+    private String mail;
 
     private String nickName;
 
@@ -39,12 +39,12 @@ public class User {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getMail() {
+        return mail;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail == null ? null : eMail.trim();
+    public void setMail(String mail) {
+        this.mail = mail == null ? null : mail.trim();
     }
 
     public String getNickName() {
