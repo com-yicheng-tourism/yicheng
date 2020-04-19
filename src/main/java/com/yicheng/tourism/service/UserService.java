@@ -3,7 +3,7 @@ package com.yicheng.tourism.service;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
-import com.yicheng.tourism.dto.user.req.UserQryReq;
+import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
 import com.yicheng.tourism.entity.Permission;
 import com.yicheng.tourism.entity.Role;
@@ -58,5 +58,5 @@ public interface UserService {
      * @param param 分页参数
      * @return 数据列表
      */
-    PageInfo<User> qryByCondition(UserQryReq req, PageParam param);
+    BaseResponse<PageInfo<User>> qryByCondition(UserQryConditionReq req);
 }

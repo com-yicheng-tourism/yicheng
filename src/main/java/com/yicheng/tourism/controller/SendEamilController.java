@@ -29,7 +29,7 @@ public class SendEamilController {
         boolean flag = true;
         int i = (int)((Math.random()*9+1)*100000);
         String msg = String.valueOf(i);
-        SessionUtil.doGet("emailCode",msg,request,response);
+        SessionUtil.doGet(receiver,msg,request,response);
         try {
             flag = sendEmailService.SendEamil(msg,receiver);
             if (flag) {

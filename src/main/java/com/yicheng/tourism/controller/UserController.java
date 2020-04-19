@@ -3,7 +3,7 @@ package com.yicheng.tourism.controller;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
-import com.yicheng.tourism.dto.user.req.UserQryReq;
+import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
 import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.model.PageParam;
@@ -34,24 +34,28 @@ public class UserController {
     public BaseResponse<String> register(@RequestBody UserRegisterOrLoginReq userRegisterOrLoginReq, HttpServletRequest request){
         return userService.register(userRegisterOrLoginReq,request);
     }
+
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public BaseResponse<String> login(@RequestBody  UserRegisterOrLoginReq userRegisterOrLoginReq, HttpServletRequest request){
        return userService.login(userRegisterOrLoginReq,request);
     }
+
     @ApiOperation(value = "用户详情")
     @RequestMapping(value = "/detail",method = RequestMethod.GET)
     public BaseResponse<User> detail( String serialCode){
         return userService.getDetail(serialCode);
     }
+
     @ApiOperation(value = "用户编辑/修改")
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public BaseResponse<String> edit(@RequestBody UpdateUserInfoReq req){
         return userService.edit(req);
     }
-    @ApiOperation(value = "用户列表查询")
+
+    @ApiOperation(value = "用户按条件分页查询")
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
-    public BaseResponse<PageInfo<User>> qryByPage(UserQryReq req, PageParam param){
-        return new BaseResponse<>(userService.qryByCondition(req,param));
+    public BaseResponse<PageInfo<User>> qryByPage(UserQryConditionReq req){
+        return userService.qryByCondition(req);
     }
 }

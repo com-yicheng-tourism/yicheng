@@ -21,6 +21,10 @@ public class User {
 
     private String userAddress;
 
+    private String type;
+
+    private Date createTime;
+
     private Boolean isLogout;
 
     public String getSerialId() {
@@ -93,6 +97,22 @@ public class User {
 
     public void setUserAddress(String userAddress) {
         this.userAddress = userAddress == null ? null : userAddress.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Boolean getIsLogout() {

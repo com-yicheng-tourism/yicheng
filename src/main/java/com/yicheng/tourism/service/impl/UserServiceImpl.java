@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.controller.VerCodeController;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
-import com.yicheng.tourism.dto.user.req.UserQryReq;
+import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
 import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.LoginTypeEnum;
@@ -15,7 +15,6 @@ import com.yicheng.tourism.mapper.RoleMapper;
 import com.yicheng.tourism.mapper.UserMapper;
 import com.yicheng.tourism.mapper.UserRoleMapper;
 import com.yicheng.tourism.mapper.ext.UserMapperExt;
-import com.yicheng.tourism.model.PageParam;
 import com.yicheng.tourism.service.UserService;
 import com.yicheng.tourism.service.VerCodeService;
 import com.yicheng.tourism.util.MD5Util;
@@ -31,6 +30,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
             tempUser.setUserPwd(MD5Util.encrypt(req.getUserPassword()));
             tempUser.setMail("");
             tempUser.setSerialId(UUIDUtil.get());
+            tempUser.setType("0");
             tempUser.setIsLogout(true);
             int i = userMapper.insertSelective(tempUser);
             if (i!=0){
@@ -116,8 +117,12 @@ public class UserServiceImpl implements UserService {
             }
         }
         if (req.getRegisterStep()==2){//第二步,邮箱验证
-            String emailCode = SessionUtil.getEmailCode("emailCode", request);
-            if (!StringUtils.isEmpty(emailCode) && !emailCode.equalsIgnoreCase(req.getVerificationCode())){
+            String emailCode = SessionUtil.getEmailCode(req.getMail(), request);
+            log.error("emailCode:{}",emailCode);
+            if (StringUtils.isEmpty(emailCode)){
+                return new BaseResponse<>(RespStatusEnum.VERIFY_CODE_ERROR.getCode(),RespStatusEnum.VERIFY_CODE_ERROR.getMessage());
+            }
+            if (!emailCode.equalsIgnoreCase(req.getVerificationCode())){
                 return new BaseResponse<>(RespStatusEnum.VERIFY_CODE_ERROR.getCode(),RespStatusEnum.VERIFY_CODE_ERROR.getMessage());
             }
             //2.根据邮箱判断用户是否存在
@@ -125,77 +130,18 @@ public class UserServiceImpl implements UserService {
             if (!StringUtils.isEmpty(userByMail)){
                 return new BaseResponse<>(RespStatusEnum.USED_EMAIL.getCode(),RespStatusEnum.USED_EMAIL.getMessage());
             }
+            tempUser.setUserName(req.getUserName());
             tempUser.setMail(req.getMail());
-            UserExample userExample = new UserExample();
-            userExample.createCriteria().andUserNameEqualTo(req.getUserName());
-            int i = userMapper.updateByExampleSelective(tempUser, userExample);
+            tempUser.setCreateTime(new Date());
+//            int i = userMapper.updateByPrimaryKeySelective(tempUser);
+            int i = userMapperExt.updateByUsername(tempUser);
             if (i != 0){
                 return new BaseResponse<>(RespStatusEnum.REGISTER_SUCCESS.getCode(),RespStatusEnum.REGISTER_SUCCESS.getMessage());
             }
-            return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
+//            return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
         }
         return new BaseResponse<>(RespStatusEnum.REGISTER_FAIL.getCode(),RespStatusEnum.REGISTER_FAIL.getMessage());
     }
-
-//    @Override
-//    public String register(UserRegisterOrLoginReq req, HttpServletRequest request) {
-//        UserExample example = new UserExample();
-//        UserExample.Criteria criteria = example.createCriteria();
-//        if(!StringUtils.isEmpty(req.getMail())){
-//            criteria.andEMailEqualTo(req.getMail());
-//            List<User> users = userMapper.selectByExample(example);
-//            if (!CollectionUtils.isEmpty(users)){
-//                return "邮箱已被使用";
-//            }else {
-//                log.info("准备执行session");
-//                String emailCode = SessionUtil.getEmailCode("emailCode", request);
-//                log.info("邮箱验证码:{}",emailCode);
-//                if (!emailCode.equalsIgnoreCase(req.getVerificationCode())){
-//                    return "验证码错误";
-//                }else {
-//                    User user = new User();
-//                    user.seteMail(req.getMail());
-//                    UserExample userExample = new UserExample();
-//                    UserExample.Criteria criteria1 = userExample.createCriteria();
-//                    criteria1.andUserNameEqualTo(req.getUserName());
-////                    int i = userMapper.updateByExample(user, userExample);
-//                    int i = userMapper.updateByExampleSelective(user, userExample);
-//                    if (i!=0){
-//                        return "注册成功";
-//                    }else {
-//                        return "注册失败";
-//                    }
-//                }
-//            }
-//
-//        }else {
-//            if (!StringUtils.isEmpty(req.getUserName())){
-//                criteria.andUserNameEqualTo(req.getUserName());
-//                List<User> users = userMapper.selectByExample(example);
-//                if (!CollectionUtils.isEmpty(users)){
-//                    return "账号已存在!";
-//                }
-//            }
-//            if (!StringUtils.isEmpty(req.getVerificationCode())){
-//                String verCodeText = verCodeService.getVerCodeText(request);
-//                if (!verCodeText.equalsIgnoreCase(req.getVerificationCode())){
-//                    return "验证码错误";
-//                }
-//            }
-//            User user = new User();
-//            user.setUserName(req.getUserName());
-//            user.setUserPwd(MD5Util.encrypt(req.getUserPassword()));
-//            user.seteMail("");
-//            user.setSerialId(UUIDUtil.get());
-//            user.setIsLogout(true);
-//            log.info("待插入的信息:{}",JSON.toJSONString(user));
-//            int i = userMapper.insertSelective(user);
-//            if (i!=0){
-//                return "进行邮箱验证";
-//            }
-//        }
-//        return "注册失败";
-//    }
 
     /**
      * 用户登录
@@ -288,23 +234,23 @@ public class UserServiceImpl implements UserService {
      * 按条件进行用户信息查询
      *
      * @param req   请求参数
-     * @param param 分页参数
      * @return 数据列表
      */
     @Override
-    public PageInfo<User> qryByCondition(UserQryReq req, PageParam param) {
-        PageInfo<User> resultPage=new PageInfo<>();
-        PageHelper.startPage(param.getPageNum(),param.getPageSize());
-        UserExample userExample = new UserExample();
-        List<User> users = userMapper.selectByExample(userExample);
-        if (CollectionUtils.isEmpty(users)) {
-            resultPage.setPageNum(1);
-            resultPage.setPages(1);
-            return resultPage;
+    public BaseResponse<PageInfo<User>> qryByCondition(UserQryConditionReq req) {
+        if (StringUtils.isEmpty(req.getPageNum())){
+            req.setPageNum(1);
         }
-        PageInfo<User> userPageInfo = new PageInfo<>(users);
-
-        return userPageInfo;
+        if (StringUtils.isEmpty(req.getPageSize())){
+            req.setPageSize(10);
+        }
+        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        List<User> users = userMapperExt.qryByCondition(req);
+        if (!CollectionUtils.isEmpty(users)){
+            PageInfo<User> pageInfo = new PageInfo<>(users);
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
+        }
+        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
     }
 
 

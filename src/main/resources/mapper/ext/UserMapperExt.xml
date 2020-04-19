@@ -7,14 +7,68 @@
     </sql>
     <select id="qryByUserName" resultType="com.yicheng.tourism.entity.User">
         select
-        <include refid="Base_Column_List"></include>
+        <include refid="com.yicheng.tourism.mapper.UserMapper.Base_Column_List"></include>
         from t_user
         where user_name=#{c}
     </select>
     <select id="qryByMail" resultType="com.yicheng.tourism.entity.User">
         select
-        <include refid="Base_Column_List"></include>
+        <include refid="com.yicheng.tourism.mapper.UserMapper.Base_Column_List"></include>
         from t_user
-        where e_mail=#{c}
+        where mail=#{c}
     </select>
+    <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.user.req.UserQryConditionReq"
+            resultMap="com.yicheng.tourism.mapper.UserMapper.BaseResultMap">
+        select <include refid="com.yicheng.tourism.mapper.UserMapper.Base_Column_List"></include>
+        from t_user
+        <include refid="qry_sql_where"></include>
+    </select>
+    <sql id="qry_sql_where">
+        <where>
+            <if test="c.keyWords != null and '' != c.keyWords">
+                and user_name like concat("%",#{c.keyWords},"%")
+                    or mail like concat("%",#{c.keyWords},"%")
+                    or nick_name like concat("%",#{c.keyWords},"%")
+                    or user_phone like concat("%",#{c.keyWords},"%")
+                    or user_address like concat("%",#{c.keyWords},"%")
+            </if>
+        </where>
+    </sql>
+    
+    <update id="updateByUsername" parameterType="com.yicheng.tourism.entity.User">
+        update t_user
+        <set>
+            <if test="c.mail != null">
+                mail = #{c.mail,jdbcType=VARCHAR},
+            </if>
+            <if test="c.nickName != null">
+                nick_name = #{c.nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="c.userPwd != null">
+                user_pwd = #{c.userPwd,jdbcType=CHAR},
+            </if>
+            <if test="c.birthday != null">
+                birthday = #{c.birthday,jdbcType=DATE},
+            </if>
+            <if test="c.profilePic != null">
+                profile_pic = #{c.profilePic,jdbcType=CHAR},
+            </if>
+            <if test="c.userPhone != null">
+                user_phone = #{c.userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="c.userAddress != null">
+                user_address = #{c.userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="c.type != null">
+                type = #{c.type,jdbcType=CHAR},
+            </if>
+            <if test="c.createTime != null">
+                create_time = #{c.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="c.isLogout != null">
+                is_logout = #{c.isLogout,jdbcType=BIT},
+            </if>
+        </set>
+        where user_name=#{c.userName}
+    </update>
 </mapper>

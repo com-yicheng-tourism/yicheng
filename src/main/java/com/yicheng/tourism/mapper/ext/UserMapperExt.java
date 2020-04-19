@@ -1,7 +1,10 @@
 package com.yicheng.tourism.mapper.ext;
 
+import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.entity.User;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapperExt {
 
@@ -16,4 +19,16 @@ public interface UserMapperExt {
      * @return
      */
     User qryByMail(@Param("c") String mail);
+
+    /**根据条件进行查询
+     * @param req
+     * @return
+     */
+    List<User> qryByCondition(@Param("c") UserQryConditionReq req);
+
+    /**根虎用户名更新
+     * @param user
+     * @return
+     */
+    int updateByUsername(@Param("c") User user);
 }

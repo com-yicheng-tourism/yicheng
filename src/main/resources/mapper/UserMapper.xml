@@ -11,6 +11,8 @@
     <result column="profile_pic" jdbcType="CHAR" property="profilePic" />
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="is_logout" jdbcType="BIT" property="isLogout" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     serial_id, user_name, mail, nick_name, user_pwd, birthday, profile_pic, user_phone, 
-    user_address, is_logout
+    user_address, type, create_time, is_logout
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -110,11 +112,13 @@
     insert into t_user (serial_id, user_name, mail, 
       nick_name, user_pwd, birthday, 
       profile_pic, user_phone, user_address, 
-      is_logout)
+      type, create_time, is_logout
+      )
     values (#{serialId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{userPwd,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
       #{profilePic,jdbcType=CHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
-      #{isLogout,jdbcType=BIT})
+      #{type,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{isLogout,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.User">
     insert into t_user
@@ -145,6 +149,12 @@
       </if>
       <if test="userAddress != null">
         user_address,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="isLogout != null">
         is_logout,
@@ -177,6 +187,12 @@
       </if>
       <if test="userAddress != null">
         #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isLogout != null">
         #{isLogout,jdbcType=BIT},
@@ -219,6 +235,12 @@
       <if test="record.userAddress != null">
         user_address = #{record.userAddress,jdbcType=VARCHAR},
       </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.isLogout != null">
         is_logout = #{record.isLogout,jdbcType=BIT},
       </if>
@@ -238,6 +260,8 @@
       profile_pic = #{record.profilePic,jdbcType=CHAR},
       user_phone = #{record.userPhone,jdbcType=VARCHAR},
       user_address = #{record.userAddress,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       is_logout = #{record.isLogout,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -270,6 +294,12 @@
       <if test="userAddress != null">
         user_address = #{userAddress,jdbcType=VARCHAR},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="isLogout != null">
         is_logout = #{isLogout,jdbcType=BIT},
       </if>
@@ -286,6 +316,8 @@
       profile_pic = #{profilePic,jdbcType=CHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
       user_address = #{userAddress,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       is_logout = #{isLogout,jdbcType=BIT}
     where serial_id = #{serialId,jdbcType=CHAR}
   </update>
