@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.RoleMapperExt">
+  <select id="qryByCondition" resultType="com.yicheng.tourism.entity.Role">
+    select <include refid="com.yicheng.tourism.mapper.RoleMapper.Base_Column_List"></include>
+    from t_role
+    <include refid="sql_where"></include>
+  </select>
+  <sql id="sql_where">
+    <where>
+      <if test="c.keyWords != null and '' !=c.keyWords">
+
+      </if>
+    </where>
+  </sql>
+</mapper>

@@ -2,13 +2,13 @@ package com.yicheng.tourism.controller;
 
 
 import com.yicheng.tourism.service.VerCodeService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +17,7 @@ import java.io.IOException;
 /*
  * 登陆的controller
  */
+@Api(value = "验证码服务接口",description = "验证码服务接口")
 @Slf4j
 @Controller
 @RequestMapping("/verCode")

@@ -3,8 +3,12 @@ package com.yicheng.tourism.controller;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.permission.req.InsertPermissionReq;
 import com.yicheng.tourism.dto.permission.req.PermissionConditionReq;
+import com.yicheng.tourism.dto.role.req.RoleConditionReq;
+import com.yicheng.tourism.dto.role.req.RoleInsertReq;
 import com.yicheng.tourism.entity.Permission;
+import com.yicheng.tourism.entity.Role;
 import com.yicheng.tourism.service.PermissionService;
+import com.yicheng.tourism.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -15,24 +19,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(value = "权限管理接口",description = "权限管理接口")
+@Api(value = "角色管理接口",description = "角色管理接口")
 @Slf4j
 @RestController
-@RequestMapping("/permission")
-public class PermissionController {
+@RequestMapping("/role")
+public class RoleController {
 
     @Autowired
-    private PermissionService permissionService;
+    private RoleService roleService;
 
-    @ApiOperation("查询权限列表")
+    @ApiOperation("查询角色列表")
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
-    public BaseResponse<List<Permission>> get(PermissionConditionReq req){
-        return permissionService.qryByCondition(req);
+    public BaseResponse<List<Role>> get(RoleConditionReq req){
+        return roleService.qryByCondition(req);
     }
 
-    @ApiOperation("添加权限")
+    @ApiOperation("添加角色")
     @RequestMapping(value = "/insert",method = RequestMethod.GET)
-    public BaseResponse<String> insert(InsertPermissionReq req){
-        return permissionService.insert(req);
+    public BaseResponse<String> insert(RoleInsertReq req){
+        return roleService.insert(req);
     }
 }

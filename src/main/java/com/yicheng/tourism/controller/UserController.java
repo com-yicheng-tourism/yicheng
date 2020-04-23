@@ -6,7 +6,6 @@ import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
 import com.yicheng.tourism.entity.User;
-import com.yicheng.tourism.model.PageParam;
 import com.yicheng.tourism.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

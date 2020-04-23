@@ -1,10 +1,5 @@
 package com.yicheng.tourism.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class Role {
     private String id;
 
