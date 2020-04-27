@@ -20,7 +20,27 @@ public enum RespStatusEnum {
     LOGIN_FAIL("000_001_009","登录失败"),
     REGISTER_FAIL("000_001_010","注册失败"),
     REGISTER_SUCCESS("000_001_011","注册成功"),
-    REGISTER_TEMP_SUCCESS("000_001_012","注册暂时成功,进入下一步验证");
+    REGISTER_TEMP_SUCCESS("000_001_012","注册暂时成功,进入下一步验证"),
+
+
+    //TODO 用户角色相关枚举值中间为002
+    ROLE_EXISTS("000_002_001","此角色信息已经存在"),
+    ROLE_NAME_IS_NULL("000_002_002","角色名称为空"),
+    ROLE_CODE_IS_NULL("000_002_003","角色代码未空或角色代码长度不为8"),
+    ROLE_ID_IS_NULL("000_002_004","角色主键为空"),
+
+
+
+    //TODO 用户权限相关枚举值 中间为003
+    PERMISSION_ID_IS_NULL("000_003_001","权限id为空"),
+    PERMISSION_CODE_LENGTH_ERROR("000_003_002","权限代码长度不为8"),
+    PERMISSION_CODE_IS_NULL("000_003_003","权限代码为空"),
+    PERMISSION_NAME_IS_NULL("000_003_004","权限名称不能为空"),
+    PERMISSION_EXISTS("000_003_005","此权限信息已存在");
+
+
+
+
 
     String code;
     String message;

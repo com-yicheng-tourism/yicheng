@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class InsertPermissionReq {
 
-    @ApiModelProperty(value = "ID",dataType = "String")
-    private String id;
-    @ApiModelProperty(value = "权限名",dataType = "String")
+    @ApiModelProperty(value = "权限代码",dataType = "String")
+    private String code;
+    @ApiModelProperty(value = "权限名称",dataType = "String")
     private String name;
     @ApiModelProperty(value = "权限描述",dataType = "String")
     private String description;

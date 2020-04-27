@@ -1,6 +1,7 @@
 package com.yicheng.tourism.mapper.ext;
 
 import com.yicheng.tourism.dto.role.req.RoleConditionReq;
+import com.yicheng.tourism.dto.role.resp.RoleResp;
 import com.yicheng.tourism.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,5 +13,5 @@ public interface RoleMapperExt {
      * @param req
      * @return
      */
-    List<Role> qryByCondition(@Param("c")RoleConditionReq req);
+    List<RoleResp> qryByCondition(@Param("c")RoleConditionReq req);
 }

@@ -23,7 +23,11 @@ public class User {
 
     private String type;
 
+    private String ipAddress;
+
     private Date createTime;
+
+    private Date modifyTime;
 
     private Boolean isLogout;
 
@@ -107,12 +111,28 @@ public class User {
         this.type = type == null ? null : type.trim();
     }
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress == null ? null : ipAddress.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     public Boolean getIsLogout() {

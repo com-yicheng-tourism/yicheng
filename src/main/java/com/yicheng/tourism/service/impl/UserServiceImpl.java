@@ -17,6 +17,7 @@ import com.yicheng.tourism.mapper.UserRoleMapper;
 import com.yicheng.tourism.mapper.ext.UserMapperExt;
 import com.yicheng.tourism.service.UserService;
 import com.yicheng.tourism.service.VerCodeService;
+import com.yicheng.tourism.util.IpUtil;
 import com.yicheng.tourism.util.MD5Util;
 import com.yicheng.tourism.util.SessionUtil;
 import com.yicheng.tourism.util.UUIDUtil;
@@ -133,12 +134,11 @@ public class UserServiceImpl implements UserService {
             tempUser.setUserName(req.getUserName());
             tempUser.setMail(req.getMail());
             tempUser.setCreateTime(new Date());
-//            int i = userMapper.updateByPrimaryKeySelective(tempUser);
+            tempUser.setIpAddress(IpUtil.getIpAddr(request));
             int i = userMapperExt.updateByUsername(tempUser);
             if (i != 0){
                 return new BaseResponse<>(RespStatusEnum.REGISTER_SUCCESS.getCode(),RespStatusEnum.REGISTER_SUCCESS.getMessage());
             }
-//            return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
         }
         return new BaseResponse<>(RespStatusEnum.REGISTER_FAIL.getCode(),RespStatusEnum.REGISTER_FAIL.getMessage());
     }

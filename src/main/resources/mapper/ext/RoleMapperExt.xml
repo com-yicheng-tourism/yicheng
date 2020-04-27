@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yicheng.tourism.mapper.ext.RoleMapperExt">
-  <select id="qryByCondition" resultType="com.yicheng.tourism.entity.Role">
+  <select id="qryByCondition" resultType="com.yicheng.tourism.dto.role.resp.RoleResp">
     select <include refid="com.yicheng.tourism.mapper.RoleMapper.Base_Column_List"></include>
     from t_role
     <include refid="sql_where"></include>

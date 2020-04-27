@@ -822,6 +822,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andIpAddressIsNull() {
+            addCriterion("ip_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressIsNotNull() {
+            addCriterion("ip_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressEqualTo(String value) {
+            addCriterion("ip_address =", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressNotEqualTo(String value) {
+            addCriterion("ip_address <>", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressGreaterThan(String value) {
+            addCriterion("ip_address >", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("ip_address >=", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressLessThan(String value) {
+            addCriterion("ip_address <", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressLessThanOrEqualTo(String value) {
+            addCriterion("ip_address <=", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressLike(String value) {
+            addCriterion("ip_address like", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressNotLike(String value) {
+            addCriterion("ip_address not like", value, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressIn(List<String> values) {
+            addCriterion("ip_address in", values, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressNotIn(List<String> values) {
+            addCriterion("ip_address not in", values, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressBetween(String value1, String value2) {
+            addCriterion("ip_address between", value1, value2, "ipAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andIpAddressNotBetween(String value1, String value2) {
+            addCriterion("ip_address not between", value1, value2, "ipAddress");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -879,6 +949,66 @@ public class UserExample {
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeIsNull() {
+            addCriterion("modify_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeIsNotNull() {
+            addCriterion("modify_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeEqualTo(Date value) {
+            addCriterion("modify_time =", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeNotEqualTo(Date value) {
+            addCriterion("modify_time <>", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeGreaterThan(Date value) {
+            addCriterion("modify_time >", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("modify_time >=", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeLessThan(Date value) {
+            addCriterion("modify_time <", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeLessThanOrEqualTo(Date value) {
+            addCriterion("modify_time <=", value, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeIn(List<Date> values) {
+            addCriterion("modify_time in", values, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeNotIn(List<Date> values) {
+            addCriterion("modify_time not in", values, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeBetween(Date value1, Date value2) {
+            addCriterion("modify_time between", value1, value2, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyTimeNotBetween(Date value1, Date value2) {
+            addCriterion("modify_time not between", value1, value2, "modifyTime");
             return (Criteria) this;
         }
 

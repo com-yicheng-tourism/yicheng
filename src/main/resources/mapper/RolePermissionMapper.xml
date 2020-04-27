@@ -5,6 +5,8 @@
     <id column="serial_id" jdbcType="CHAR" property="serialId" />
     <result column="permission_id" jdbcType="CHAR" property="permissionId" />
     <result column="role_id" jdbcType="CHAR" property="roleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    serial_id, permission_id, role_id
+    serial_id, permission_id, role_id, create_time, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.RolePermissionExample" resultMap="BaseResultMap">
     select
@@ -99,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yicheng.tourism.entity.RolePermission">
-    insert into t_role_permission (serial_id, permission_id, role_id
-      )
-    values (#{serialId,jdbcType=CHAR}, #{permissionId,jdbcType=CHAR}, #{roleId,jdbcType=CHAR}
-      )
+    insert into t_role_permission (serial_id, permission_id, role_id, 
+      create_time, modify_time)
+    values (#{serialId,jdbcType=CHAR}, #{permissionId,jdbcType=CHAR}, #{roleId,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.RolePermission">
     insert into t_role_permission
@@ -116,6 +118,12 @@
       <if test="roleId != null">
         role_id,
       </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="serialId != null">
@@ -126,6 +134,12 @@
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -147,6 +161,12 @@
       <if test="record.roleId != null">
         role_id = #{record.roleId,jdbcType=CHAR},
       </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -156,7 +176,9 @@
     update t_role_permission
     set serial_id = #{record.serialId,jdbcType=CHAR},
       permission_id = #{record.permissionId,jdbcType=CHAR},
-      role_id = #{record.roleId,jdbcType=CHAR}
+      role_id = #{record.roleId,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -170,13 +192,21 @@
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=CHAR},
       </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where serial_id = #{serialId,jdbcType=CHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yicheng.tourism.entity.RolePermission">
     update t_role_permission
     set permission_id = #{permissionId,jdbcType=CHAR},
-      role_id = #{roleId,jdbcType=CHAR}
+      role_id = #{roleId,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where serial_id = #{serialId,jdbcType=CHAR}
   </update>
 </mapper>

@@ -8,12 +8,12 @@ import lombok.Data;
 @Data
 public class RoleInsertReq {
 
-    @ApiModelProperty(value = "主键",dataType = "String")
-    private String id;
+    @ApiModelProperty(value = "角色名称",dataType = "String")
+    private String name;
 
     @ApiModelProperty(value = "角色描述",dataType = "String")
     private String description;
 
-    @ApiModelProperty(value = "角色名字",dataType = "String")
-    private String name;
+    @ApiModelProperty(value = "角色代码",dataType = "String")
+    private String code;
 }

@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +32,8 @@ public class PermissionController {
     }
 
     @ApiOperation("添加权限")
-    @RequestMapping(value = "/insert",method = RequestMethod.GET)
-    public BaseResponse<String> insert(InsertPermissionReq req){
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    public BaseResponse<String> insert(@RequestBody InsertPermissionReq req){
         return permissionService.insert(req);
     }
 }

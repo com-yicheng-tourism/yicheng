@@ -6,7 +6,9 @@ import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
 import com.yicheng.tourism.entity.User;
+import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.service.UserService;
+import com.yicheng.tourism.util.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -56,5 +58,14 @@ public class UserController {
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
     public BaseResponse<PageInfo<User>> qryByPage(UserQryConditionReq req){
         return userService.qryByCondition(req);
+    }
+
+    @ApiOperation(value = "获取用户IP")
+    @RequestMapping(value = "/getIp",method = RequestMethod.GET)
+    public BaseResponse<String> getIp(HttpServletRequest request){
+        String ipAddr = IpUtil.getIpAddr(request);
+//        String ipAddr = IpUtil.getIpAddress(request);
+//        String ipInfo = IpUtil.getIpInfo("192.168.31.10");
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),ipAddr);
     }
 }
