@@ -18,6 +18,8 @@ public class CreateTestDataUtil {
     private static int[][] range = { { 607649792, 608174079 },{ 1038614528, 1039007743 },{ 1783627776, 1784676351 }, { 2035023872, 2035154943 }, { 2078801920, 2079064063 }, { -1950089216, -1948778497 }, { -1425539072, -1425014785 }, { -1236271104, -1235419137 }, { -770113536, -768606209 }, { -569376768, -564133889 }};
     private static ArrayList<Object> scanFiles = new ArrayList<Object>();
     private static int count=0;
+    private static String[] telFirst="134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153".split(",");
+
 
     /**
      * 生成32为随机字符
@@ -154,7 +156,6 @@ public class CreateTestDataUtil {
      * @return
      */
     public static String createUserPhone(){
-        String[] telFirst="134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153".split(",");
         int index=getNum(0,telFirst.length-1);
         String first=telFirst[index];
         String second=String.valueOf(getNum(1,888)+10000).substring(1);
@@ -260,20 +261,20 @@ public class CreateTestDataUtil {
     }
 
     public static void main(String[] args) {
-//        System.out.println(createSerialId());
+        System.out.println(createSerialId());
         String name = createUserName();
-//        System.out.println(name);
-//        System.out.println(createMail(name));
-//        System.out.println(createNickName());
-//        System.out.println(createPassword());
-//        System.out.println(createBirthday());
-//        System.out.println(createUserPhone());
-//        System.out.println(createAddress());
-//        System.out.println(createIp());
-//        System.out.println(createType());
-//        System.out.println(createIfLogout());
+        System.out.println(name);
+        System.out.println(createMail(name));
+        System.out.println(createNickName());
+        System.out.println(createPassword());
+        System.out.println(createBirthday());
+        System.out.println(createUserPhone());
+        System.out.println(createAddress());
+        System.out.println(createIp());
+        System.out.println(createType());
+        System.out.println(createIfLogout());
         System.out.println(createImage());
-//        System.out.println(createTime());
-//        System.out.println(createBy(name));
+        System.out.println(createTime());
+        System.out.println(createBy(name));
     }
 }
