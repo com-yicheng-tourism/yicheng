@@ -15,6 +15,12 @@ public interface PermissionService {
      */
     BaseResponse<List<Permission>> qryByCondition(PermissionConditionReq req);
 
+    /**根据用户名获取权限列表
+     * @param
+     * @return
+     */
+    BaseResponse<List<Permission>> qryByUsername(String userName);
+
     /**管线维护新增
      * @param req
      * @return

@@ -952,6 +952,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andCreateIdIsNull() {
+            addCriterion("create_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdIsNotNull() {
+            addCriterion("create_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdEqualTo(String value) {
+            addCriterion("create_id =", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotEqualTo(String value) {
+            addCriterion("create_id <>", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdGreaterThan(String value) {
+            addCriterion("create_id >", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdGreaterThanOrEqualTo(String value) {
+            addCriterion("create_id >=", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdLessThan(String value) {
+            addCriterion("create_id <", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdLessThanOrEqualTo(String value) {
+            addCriterion("create_id <=", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdLike(String value) {
+            addCriterion("create_id like", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotLike(String value) {
+            addCriterion("create_id not like", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdIn(List<String> values) {
+            addCriterion("create_id in", values, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotIn(List<String> values) {
+            addCriterion("create_id not in", values, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdBetween(String value1, String value2) {
+            addCriterion("create_id between", value1, value2, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotBetween(String value1, String value2) {
+            addCriterion("create_id not between", value1, value2, "createId");
+            return (Criteria) this;
+        }
+
         public Criteria andModifyTimeIsNull() {
             addCriterion("modify_time is null");
             return (Criteria) this;
@@ -1009,6 +1079,76 @@ public class UserExample {
 
         public Criteria andModifyTimeNotBetween(Date value1, Date value2) {
             addCriterion("modify_time not between", value1, value2, "modifyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdIsNull() {
+            addCriterion("modify_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdIsNotNull() {
+            addCriterion("modify_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdEqualTo(String value) {
+            addCriterion("modify_id =", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdNotEqualTo(String value) {
+            addCriterion("modify_id <>", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdGreaterThan(String value) {
+            addCriterion("modify_id >", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdGreaterThanOrEqualTo(String value) {
+            addCriterion("modify_id >=", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdLessThan(String value) {
+            addCriterion("modify_id <", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdLessThanOrEqualTo(String value) {
+            addCriterion("modify_id <=", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdLike(String value) {
+            addCriterion("modify_id like", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdNotLike(String value) {
+            addCriterion("modify_id not like", value, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdIn(List<String> values) {
+            addCriterion("modify_id in", values, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdNotIn(List<String> values) {
+            addCriterion("modify_id not in", values, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdBetween(String value1, String value2) {
+            addCriterion("modify_id between", value1, value2, "modifyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andModifyIdNotBetween(String value1, String value2) {
+            addCriterion("modify_id not between", value1, value2, "modifyId");
             return (Criteria) this;
         }
 

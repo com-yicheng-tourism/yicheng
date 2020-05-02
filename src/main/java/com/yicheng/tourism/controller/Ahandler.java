@@ -13,7 +13,7 @@ public class Ahandler {
     // 登录的url
     @RequestMapping({"/login", "/"})
     public String loginHtml() {
-        return "/page-login";
+        return "/pages/login";
     }
     @RequestMapping({"/index"})
     public String indexHtml() {
@@ -21,7 +21,7 @@ public class Ahandler {
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String registerHtml() {
-        return "/page-register";
+        return "/pages/page-register";
     }
     @RequestMapping(value = "/dataTable",method = RequestMethod.GET)
     public String dataTable() {
@@ -39,9 +39,13 @@ public class Ahandler {
     public String userManage() {
         return "/user-manage";
     }
-    @RequestMapping(value = "/element",method = RequestMethod.GET)
+    @RequestMapping(value = "/user",method = RequestMethod.GET)
     public String testElement() {
-        return "/testElement";
+        return "/user";
+    }
+    @RequestMapping(value = "/picture",method = RequestMethod.GET)
+    public String picture() {
+        return "/picture";
     }
 //    @RequestMapping(value="/{page}",method= RequestMethod.GET)
 //    public String page(@PathVariable("page") String page) {

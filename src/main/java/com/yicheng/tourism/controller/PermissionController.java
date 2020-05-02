@@ -36,4 +36,10 @@ public class PermissionController {
     public BaseResponse<String> insert(@RequestBody InsertPermissionReq req){
         return permissionService.insert(req);
     }
+
+    @ApiOperation("根据用户名获取对应权限")
+    @RequestMapping(value = "/qryByName/{userName}",method = RequestMethod.GET)
+    public BaseResponse<List<Permission>> getPermissionByUserName(String  username){
+        return permissionService.qryByUsername(username);
+    }
 }

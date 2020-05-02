@@ -9,9 +9,9 @@ import lombok.Data;
 public class UserQryConditionReq {
 
     @ApiModelProperty(value = "查询第几页",dataType = "Integer")
-    private Integer pageNum;
+    private Integer page;
     @ApiModelProperty(value = "每页大小",dataType = "Integer")
-    private Integer pageSize;
+    private Integer rows;
     @ApiModelProperty(value = "所属部门",dataType = "String")
     private String dept;
     @ApiModelProperty(value = "拥有权限",dataType = "String")

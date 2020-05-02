@@ -6,7 +6,10 @@
     <result column="user_id" jdbcType="CHAR" property="userId" />
     <result column="role_id" jdbcType="CHAR" property="roleId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_id" jdbcType="VARCHAR" property="modifyId" />
+    <result column="notes" jdbcType="VARCHAR" property="notes" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    serial_id, user_id, role_id, create_time, modify_time
+    serial_id, user_id, role_id, create_time, create_id, modify_time, modify_id, notes
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.UserRoleExample" resultMap="BaseResultMap">
     select
@@ -102,9 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.yicheng.tourism.entity.UserRole">
     insert into t_user_role (serial_id, user_id, role_id, 
-      create_time, modify_time)
+      create_time, create_id, modify_time, 
+      modify_id, notes)
     values (#{serialId,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{roleId,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyId,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.UserRole">
     insert into t_user_role
@@ -121,8 +126,17 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="createId != null">
+        create_id,
+      </if>
       <if test="modifyTime != null">
         modify_time,
+      </if>
+      <if test="modifyId != null">
+        modify_id,
+      </if>
+      <if test="notes != null">
+        notes,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -138,8 +152,17 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyId != null">
+        #{modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -164,8 +187,17 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.createId != null">
+        create_id = #{record.createId,jdbcType=VARCHAR},
+      </if>
       <if test="record.modifyTime != null">
         modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyId != null">
+        modify_id = #{record.modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null">
+        notes = #{record.notes,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -178,7 +210,10 @@
       user_id = #{record.userId,jdbcType=CHAR},
       role_id = #{record.roleId,jdbcType=CHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+      create_id = #{record.createId,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      modify_id = #{record.modifyId,jdbcType=VARCHAR},
+      notes = #{record.notes,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -195,8 +230,17 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyId != null">
+        modify_id = #{modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        notes = #{notes,jdbcType=VARCHAR},
       </if>
     </set>
     where serial_id = #{serialId,jdbcType=CHAR}
@@ -206,7 +250,10 @@
     set user_id = #{userId,jdbcType=CHAR},
       role_id = #{roleId,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      create_id = #{createId,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_id = #{modifyId,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR}
     where serial_id = #{serialId,jdbcType=CHAR}
   </update>
 </mapper>

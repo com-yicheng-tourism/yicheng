@@ -7,11 +7,13 @@ public class Role {
 
     private String name;
 
-    private String code;
-
     private Date createTime;
 
+    private String createId;
+
     private Date modifyTime;
+
+    private String modifyId;
 
     private String description;
 
@@ -31,14 +33,6 @@ public class Role {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -47,12 +41,28 @@ public class Role {
         this.createTime = createTime;
     }
 
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId == null ? null : createId.trim();
+    }
+
     public Date getModifyTime() {
         return modifyTime;
     }
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getModifyId() {
+        return modifyId;
+    }
+
+    public void setModifyId(String modifyId) {
+        this.modifyId = modifyId == null ? null : modifyId.trim();
     }
 
     public String getDescription() {

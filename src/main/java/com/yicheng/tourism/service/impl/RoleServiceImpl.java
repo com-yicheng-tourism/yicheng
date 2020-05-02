@@ -45,11 +45,11 @@ public class RoleServiceImpl implements RoleService {
         if (StringUtils.isEmpty(req.getCode()) || req.getCode().length() != ROLE_CODE_LENGTH){
             return new BaseResponse<>(RespStatusEnum.ROLE_CODE_IS_NULL.getCode(),RespStatusEnum.ROLE_CODE_IS_NULL.getMessage());
         }
-        for (Role r : roles){
-            if (req.getCode().equals(r.getCode())) {
-                return new BaseResponse<>(RespStatusEnum.ROLE_EXISTS.getCode(), RespStatusEnum.ROLE_EXISTS.getMessage(), "此角色信息已经存在,请核实!");
-            }
-        }
+//        for (Role r : roles){
+//            if (req.getCode().equals(r.getCode())) {
+//                return new BaseResponse<>(RespStatusEnum.ROLE_EXISTS.getCode(), RespStatusEnum.ROLE_EXISTS.getMessage(), "此角色信息已经存在,请核实!");
+//            }
+//        }
         role.setDescription(StringUtils.isEmpty(req.getDescription()) ? "" : req.getDescription());
         role.setId(UUIDUtil.get());
         role.setCreateTime(new Date());
@@ -57,7 +57,7 @@ public class RoleServiceImpl implements RoleService {
             return new BaseResponse<>(RespStatusEnum.ROLE_NAME_IS_NULL.getCode(),RespStatusEnum.ROLE_NAME_IS_NULL.getMessage());
         }
         role.setName(req.getName());
-        role.setCode(req.getCode());
+//        role.setCode(req.getCode());
         int i = roleMapper.insert(role);
         if (i != 0){
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"插入成功");

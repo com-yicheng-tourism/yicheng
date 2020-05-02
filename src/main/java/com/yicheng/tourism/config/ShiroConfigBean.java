@@ -43,8 +43,8 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/dataTable","anon");
         filterChainDefinitionMap.put("/home","anon");
         filterChainDefinitionMap.put("/main","anon");
-        filterChainDefinitionMap.put("/userManage","anon");
-        filterChainDefinitionMap.put("/element","anon");
+        filterChainDefinitionMap.put("/picture","anon");
+        filterChainDefinitionMap.put("/user","anon");
         //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger/**","anon");

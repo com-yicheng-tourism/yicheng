@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.yicheng.tourism.entity.Permission">
     <id column="id" jdbcType="CHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="code" jdbcType="CHAR" property="code" />
-    <result column="api_name" jdbcType="VARCHAR" property="apiName" />
-    <result column="api_url" jdbcType="VARCHAR" property="apiUrl" />
+    <result column="api_id" jdbcType="CHAR" property="apiId" />
+    <result column="level" jdbcType="CHAR" property="level" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_id" jdbcType="VARCHAR" property="modifyId" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, code, api_name, api_url, create_time, modify_time, description
+    id, name, api_id, level, create_time, create_id, modify_time, modify_id, description
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.PermissionExample" resultMap="BaseResultMap">
     select
@@ -104,12 +105,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yicheng.tourism.entity.Permission">
-    insert into t_permission (id, name, code, api_name, 
-      api_url, create_time, modify_time, 
-      description)
-    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, #{apiName,jdbcType=VARCHAR}, 
-      #{apiUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{description,jdbcType=VARCHAR})
+    insert into t_permission (id, name, api_id, level, 
+      create_time, create_id, modify_time, 
+      modify_id, description)
+    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{apiId,jdbcType=CHAR}, #{level,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.Permission">
     insert into t_permission
@@ -120,20 +121,23 @@
       <if test="name != null">
         name,
       </if>
-      <if test="code != null">
-        code,
+      <if test="apiId != null">
+        api_id,
       </if>
-      <if test="apiName != null">
-        api_name,
-      </if>
-      <if test="apiUrl != null">
-        api_url,
+      <if test="level != null">
+        level,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="createId != null">
+        create_id,
+      </if>
       <if test="modifyTime != null">
         modify_time,
+      </if>
+      <if test="modifyId != null">
+        modify_id,
       </if>
       <if test="description != null">
         description,
@@ -146,20 +150,23 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null">
-        #{code,jdbcType=CHAR},
+      <if test="apiId != null">
+        #{apiId,jdbcType=CHAR},
       </if>
-      <if test="apiName != null">
-        #{apiName,jdbcType=VARCHAR},
-      </if>
-      <if test="apiUrl != null">
-        #{apiUrl,jdbcType=VARCHAR},
+      <if test="level != null">
+        #{level,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyId != null">
+        #{modifyId,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -181,20 +188,23 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=CHAR},
+      <if test="record.apiId != null">
+        api_id = #{record.apiId,jdbcType=CHAR},
       </if>
-      <if test="record.apiName != null">
-        api_name = #{record.apiName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.apiUrl != null">
-        api_url = #{record.apiUrl,jdbcType=VARCHAR},
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=CHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.createId != null">
+        create_id = #{record.createId,jdbcType=VARCHAR},
+      </if>
       <if test="record.modifyTime != null">
         modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyId != null">
+        modify_id = #{record.modifyId,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
@@ -208,11 +218,12 @@
     update t_permission
     set id = #{record.id,jdbcType=CHAR},
       name = #{record.name,jdbcType=VARCHAR},
-      code = #{record.code,jdbcType=CHAR},
-      api_name = #{record.apiName,jdbcType=VARCHAR},
-      api_url = #{record.apiUrl,jdbcType=VARCHAR},
+      api_id = #{record.apiId,jdbcType=CHAR},
+      level = #{record.level,jdbcType=CHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_id = #{record.createId,jdbcType=VARCHAR},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      modify_id = #{record.modifyId,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,20 +235,23 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null">
-        code = #{code,jdbcType=CHAR},
+      <if test="apiId != null">
+        api_id = #{apiId,jdbcType=CHAR},
       </if>
-      <if test="apiName != null">
-        api_name = #{apiName,jdbcType=VARCHAR},
-      </if>
-      <if test="apiUrl != null">
-        api_url = #{apiUrl,jdbcType=VARCHAR},
+      <if test="level != null">
+        level = #{level,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyId != null">
+        modify_id = #{modifyId,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -248,11 +262,12 @@
   <update id="updateByPrimaryKey" parameterType="com.yicheng.tourism.entity.Permission">
     update t_permission
     set name = #{name,jdbcType=VARCHAR},
-      code = #{code,jdbcType=CHAR},
-      api_name = #{apiName,jdbcType=VARCHAR},
-      api_url = #{apiUrl,jdbcType=VARCHAR},
+      api_id = #{apiId,jdbcType=CHAR},
+      level = #{level,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_id = #{modifyId,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=CHAR}
   </update>

@@ -56,6 +56,7 @@ public class UserController {
 
     @ApiOperation(value = "用户按条件分页查询")
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
+    @ResponseBody
     public BaseResponse<PageInfo<User>> qryByPage(UserQryConditionReq req){
         return userService.qryByCondition(req);
     }

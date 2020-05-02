@@ -1,0 +1,298 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>注册页面</title>
+        <meta name="description" content="Ela Admin - HTML5 Admin Template">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/dist/css/base.css" />
+        <link rel="stylesheet" href="/dist/css/layout.css"/>
+        <meta name="author" content="">
+    </head>
+    <body class="bg-dark" style="background-color: #FFFFFF !important;">
+        <div class="container w960 mt20" style="border: 0 solid !important;margin-top: 100px;">
+            <div id="processor" style="background-color: #FFFFFF !important;">
+                <ol class="processorBox oh">
+                    <li class="current">
+                        <div class="step_inner fl">
+                            <span class="icon_step">1</span>
+                            <h4>填写基本信息</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step_inner">
+                            <span class="icon_step">2</span>
+                            <h4>验证邮箱</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step_inner fr">
+                            <span class="icon_step">3</span>
+                            <h4>注册成功</h4>
+                        </div>
+                    </li>
+                </ol>
+                <div class="step_line"></div>
+            </div>
+            <div class="content" >
+                <div id="step1" class="step hide" style="width: 400px;margin: auto">
+                    <form action="" method="post" id="step1_frm">
+                        <div class="frm_control_group">
+                            <div class="frm_controls">
+                                <input type="text" name="" class="frm_input email" maxlength="32" placeholder="请输入账号"/>
+                            </div>
+                        </div>
+                        <div class="frm_control_group">
+                            <div class="frm_controls">
+                                <input type="password" name="" class="frm_input passwd" placeholder="请输入密码"/>
+                            </div>
+                        </div>
+                        <div class="frm_control_group">
+                            <div class="frm_controls">
+                                <input type="password" name="" class="frm_input passwd2" placeholder="确认密码"/>
+                            </div>
+                        </div>
+                        <div class="frm_control_group">
+                            <div class="frm_controls verifycode">
+                                <input type="text" name="" class="frm_input verifyCode" maxlength="4" placeholder="请输入验证码" style="width: 198px;"/>
+                                <a href="javascript:getVerifiCode()" style="width: 100px;vertical-align: middle">
+                                    <img id="yzm_img" style="cursor:pointer;width: 100px;height: 36px;margin: 0px;border-radius: 3px;" title="点击刷新验证码" src="verCode/getVerCode"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="toolBar">
+                            <a id="nextBtn" class="btn btn_primary" href="javascript:;">下一步</a>
+                        </div>
+                    </form>
+                </div><!-- // step1 end -->
+                <div id="step2" class="step hide" style="width: 400px;margin: auto;">
+                    <form action="" method="post" id="step3_frm">
+                        <div class="frm_control_group">
+                            <div class="frm_controls">
+                                <input type="text" name="" class="frm_input phone" placeholder="请填写您的邮箱账号"/>
+                            </div>
+                        </div>
+                        <div class="frm_control_group">
+                            <div class="frm_controls">
+                                <input type="text" name="" class="frm_input phoneYzm" placeholder="请输入验证码"/>
+                                <input type="button" value="获取验证码" class="btn btn_default sameBtn btnCur" style="width: 145px;"/>
+                                <!--                                <div class="sameBtn btnCur2">发送验证码</div>-->
+                            </div>
+                        </div>
+                        <div class="toolBar">
+                            <a id="finishedBtn" class="btn btn_primary" href="javascript:;">下一步</a>
+                        </div>
+                        <p class="c7b mt20">没有收到邮件？</p>
+                        <p>1. 请检查邮箱地址是否正确，你可以返回 <a href="#" class="c46">重新填写</a></p>
+                        <p>2. 检查你的邮件垃圾箱</p>
+                        <p>3. 若仍未收到确认，请尝试 <a href="#" class="c46">重新发送</a></p>
+                    </form>
+
+                </div><!-- // step2 end -->
+                <div id="step3" class="step hide">
+                    <div class="w330">
+                        <strong class="f16">感谢注册，确认邮件已发送至你的注册邮箱 : <div id="br-mail"></div></strong>
+                        <p class="c7b">请进入邮箱查看邮件，确认是否本人操作。</p>
+                        <p><a class="btn btn_primary mt20" onclick="jumptoLogin()">完成</a></p>
+                    </div>
+                </div><!-- // step3 end -->
+            </div>
+        </div><!-- // container end -->
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+        <script src="/dist/js/Verification.js"></script>
+        <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
+        <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+        <script src="/dist/js/countDown.js"></script>
+        <script src="/dist/js/showTips.js"></script>
+        <script>
+            (function ($) {
+                //显示提示框，目前三个参数(txt：要显示的文本；time：自动关闭的时间（不设置的话默认1500毫秒）；status：默认0为错误提示，1为正确提示；)
+                function showTips(txt,time,status)
+                {
+                    var htmlCon = '';
+                    if(txt != ''){
+                        if(status != 0 && status != undefined){
+                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="images/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>'+txt+'</div>';
+                        }else{
+                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/images/err.png" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>'+txt+'</div>';
+                        }
+                        $('body').prepend(htmlCon);
+                        if(time == '' || time == undefined){
+                            time = 1500;
+                        }
+                        setTimeout(function(){ $('.tipsBox').remove(); },time);
+                    }
+                }
+
+                $(function(){
+                    //AJAX提交以及验证表单
+                    //安正账号页面的下一步单击事件
+                    $('#nextBtn').click(function(){
+                        var id = $('.email').val();
+                        var passwd = $('.passwd').val();
+                        var passwd2 = $('.passwd2').val();
+                        var verifyCode = $('.verifyCode').val();
+
+                        if(id == ''){
+                            showTips('请填写您的账号~');
+                        }
+                        else if(passwd == ''){
+                            showTips('请填写您的密码~');
+                        }else if(passwd2 == ''){
+                            showTips('请再次输入您的密码~');
+                        }else if(passwd != passwd2 || passwd2 != passwd){
+                            showTips('两次密码输入不一致呢~');
+                        }else if(verifyCode == ''){
+                            showTips('请输入验证码~');
+                        }else{
+                            var click=true;
+                            var i = $(this).index()+1;
+                            $.ajax({
+                                type: "GET",
+                                url : "user/register",
+                                dataType: "json",
+                                async:false,
+                                data: {
+                                    userName : $(".email").val(),
+                                    userPassword : md5($(".passwd").val()),
+                                    verificationCode : $(".verifyCode").val()
+                                },
+                                success: function (response) {
+                                    if (response.data == "验证码错误"){
+                                        showTips(response.data,1000,0);
+                                    }else if (response.data == "账号已存在"){
+                                        showTips(response.data,1000,0);
+                                    }else {
+                                        showTips('提交成功~ 即将进入下一步',1000,1);
+                                        if (click){
+                                            click=false;
+                                            //定时器
+                                            setTimeout(function() {
+                                                click = true;
+                                            }, 1000);//一秒内不能重复点击
+                                            console.log(i);
+                                            $('.processorBox li').removeClass('current').eq(i).addClass('current');
+                                            $('.step').fadeOut(0).eq(i).fadeIn(0);
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    $('#finishedBtn').click(function(){
+                        var email = $('.phone').val();
+                        var verifyCode = $('.phoneYzm').val();
+                        var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
+                        if(email == ''){
+                            showTips('请填写您的邮箱~');
+                        }else if(!EmailReg.test(email)){
+                            showTips('您的邮箱格式错咯~');
+                        } else if(verifyCode == ''){
+                            showTips('请输入验证码~');
+                        }else{
+                            var click=true;
+                            var i = $(this).index()+2;
+                            $.ajax({
+                                type: "GET",
+                                url : "user/register",
+                                dataType: "json",
+                                async:false,
+                                data: {
+                                    userName : $('.email').val(),
+                                    mail : $('.phone').val(),
+                                    verificationCode : $(".phoneYzm").val()
+                                },
+                                success: function (response) {
+                                    if (response.data == "验证码错误"){
+                                        showTips(response.data,1000,0);
+                                    }else if (response.data == "邮箱已被使用"){
+                                        showTips(response.data,1000,0);
+                                    }else {
+                                        showTips('提交成功~ 即将进入下一步',1000,1);
+                                        if (click){
+                                            click=false;
+                                            //定时器
+                                            setTimeout(function() {
+                                                click = true;
+                                            }, 1000);//一秒内不能重复点击
+                                            console.log(i);
+                                            $('.processorBox li').removeClass('current').eq(i).addClass('current');
+                                            $('.step').fadeOut(0).eq(i).fadeIn(0);
+                                            var val1 = $('.phone').val();
+                                            document.getElementById("br-mail").innerText = $('.phone').val();
+                                            $.ajax({
+                                                type: "GET",
+                                                url : "/sendMail/msg",
+                                                dataType: "json",
+                                                async:false,
+                                                data: {
+                                                    receiver : $('.phone').val()
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    $(".btnCur").CountDownF({
+                        time:60,
+                        countState:true,
+                        callback:function(){
+                            var email = $('.phone').val();
+                            var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
+                            if(email == ''){
+                                showTips('请填写您的邮箱~');
+                            }else if(!EmailReg.test(email)){
+                                showTips('您的邮箱格式错咯~');
+                            }else {
+                                function f1(callback) {
+                                    setTimeout(function(){
+                                        $(".btnCur").CountDownF('clearState');
+                                    },60000);
+                                    callback();
+                                }
+                                function f2() {
+                                    $.ajax({
+                                        type: "GET",
+                                        url : "/sendMail",
+                                        dataType: "json",
+                                        async:false,
+                                        data: {
+                                            receiver : $('.phone').val()
+                                        },
+                                        success: function (response) {
+                                            if (response.data == "发送成功"){
+                                                showTips(response.data,1000,1);
+                                            }else if (response.data=="发送失败"){
+                                                showTips(response.data,1000,0);
+                                            }
+                                        }
+                                    });
+                                }
+                                f1(f2);
+                            }
+
+                        }
+                    });
+
+                });
+                function jumptoLogin() {
+                    window.location.href="/login";
+                }
+            })(jQuery);
+
+        </script>
+
+
+    </body>
+</html>

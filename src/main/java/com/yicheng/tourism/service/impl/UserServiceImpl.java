@@ -238,13 +238,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public BaseResponse<PageInfo<User>> qryByCondition(UserQryConditionReq req) {
-        if (StringUtils.isEmpty(req.getPageNum())){
-            req.setPageNum(1);
+        if (StringUtils.isEmpty(req.getPage())){
+            req.setPage(1);
         }
-        if (StringUtils.isEmpty(req.getPageSize())){
-            req.setPageSize(10);
+        if (StringUtils.isEmpty(req.getRows())){
+            req.setRows(10);
         }
-        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        PageHelper.startPage(req.getPage(),req.getRows());
         List<User> users = userMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(users)){
             PageInfo<User> pageInfo = new PageInfo<>(users);

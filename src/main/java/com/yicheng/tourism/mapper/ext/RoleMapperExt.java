@@ -14,4 +14,10 @@ public interface RoleMapperExt {
      * @return
      */
     List<RoleResp> qryByCondition(@Param("c")RoleConditionReq req);
+
+    /**根据用户名获取角色
+     * @param username
+     * @return
+     */
+    List<Role> qryByUsername(String username);
 }

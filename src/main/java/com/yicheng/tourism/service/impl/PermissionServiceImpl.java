@@ -5,9 +5,11 @@ import com.yicheng.tourism.dto.permission.req.InsertPermissionReq;
 import com.yicheng.tourism.dto.permission.req.PermissionConditionReq;
 import com.yicheng.tourism.entity.Permission;
 import com.yicheng.tourism.entity.PermissionExample;
+import com.yicheng.tourism.entity.Role;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.PermissionMapper;
 import com.yicheng.tourism.mapper.ext.PermissionMapperExt;
+import com.yicheng.tourism.mapper.ext.RoleMapperExt;
 import com.yicheng.tourism.service.PermissionService;
 import com.yicheng.tourism.util.UUIDUtil;
 import org.springframework.beans.BeanUtils;
@@ -25,10 +27,26 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionMapper permissionMapper;
     @Autowired
     private PermissionMapperExt permissionMapperExt;
+    @Autowired
+    private RoleMapperExt roleMapperExt;
     @Override
     public BaseResponse<List<Permission>> qryByCondition(PermissionConditionReq req) {
         List<Permission> permissionList = permissionMapperExt.qryByCondition(req);
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),permissionList);
+    }
+
+    /**
+     * 根据用户名获取权限列表
+     *
+     * @param userName@return
+     */
+    @Override
+    public BaseResponse<List<Permission>> qryByUsername(String userName) {
+        if (StringUtils.isEmpty(userName)){
+            return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+        }
+        List<Role> roles = roleMapperExt.qryByUsername(userName);
+        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
     }
 
     /**
@@ -51,7 +69,7 @@ public class PermissionServiceImpl implements PermissionService {
         }
         PermissionExample permissionExample = new PermissionExample();
         PermissionExample.Criteria permissionExampleCriteria = permissionExample.createCriteria();
-        permissionExampleCriteria.andCodeEqualTo(req.getCode());
+//        permissionExampleCriteria.andCodeEqualTo(req.getCode());
         long l = permissionMapper.countByExample(permissionExample);
         if (l != 0){
             return new BaseResponse<>(RespStatusEnum.PERMISSION_EXISTS.getCode(),RespStatusEnum.PERMISSION_EXISTS.getMessage());
@@ -59,7 +77,7 @@ public class PermissionServiceImpl implements PermissionService {
         Permission permission = new Permission();
         permission.setId(UUIDUtil.get());
         permission.setName(req.getName());
-        permission.setCode(req.getCode());
+//        permission.setCode(req.getCode());
         permission.setCreateTime(new Date());
         permission.setDescription(req.getDescription());
         int insert = permissionMapper.insert(permission);

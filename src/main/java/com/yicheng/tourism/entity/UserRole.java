@@ -11,7 +11,13 @@ public class UserRole {
 
     private Date createTime;
 
+    private String createId;
+
     private Date modifyTime;
+
+    private String modifyId;
+
+    private String notes;
 
     public String getSerialId() {
         return serialId;
@@ -45,11 +51,35 @@ public class UserRole {
         this.createTime = createTime;
     }
 
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId == null ? null : createId.trim();
+    }
+
     public Date getModifyTime() {
         return modifyTime;
     }
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getModifyId() {
+        return modifyId;
+    }
+
+    public void setModifyId(String modifyId) {
+        this.modifyId = modifyId == null ? null : modifyId.trim();
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes == null ? null : notes.trim();
     }
 }
