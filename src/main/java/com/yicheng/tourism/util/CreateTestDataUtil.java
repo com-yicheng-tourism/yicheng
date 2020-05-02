@@ -2,6 +2,7 @@ package com.yicheng.tourism.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -123,9 +124,10 @@ public class CreateTestDataUtil {
      * 随机生成35-10年前的出生日期
      * @return
      */
-    public static String createBirthday(){
+    public static Date createBirthday(){
         GregorianCalendar gc = new GregorianCalendar();
         Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         int nowYear = cal.get(Calendar.YEAR);
         int start = nowYear - 35;
         int end = nowYear - 10;
@@ -138,7 +140,13 @@ public class CreateTestDataUtil {
         gc.set(gc.DAY_OF_YEAR, dayOfYear);
 
         String birthday = gc.get(gc.YEAR) + "-" + (gc.get(gc.MONTH) + 1) + "-" + gc.get(gc.DAY_OF_MONTH);
-        return birthday;
+        Date birthdayDate = null;
+        try {
+            birthdayDate= sdf.parse(birthday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return birthdayDate;
     }
 
     /**
@@ -244,11 +252,8 @@ public class CreateTestDataUtil {
      * 创建时间
      * @return
      */
-    public static String createTime(){
-        //设置日期格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateTime = df.format(new Date());
-        return dateTime;
+    public static Date createTime(){
+        return new Date();
     }
 
     /**
@@ -261,20 +266,20 @@ public class CreateTestDataUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(createSerialId());
-        String name = createUserName();
-        System.out.println(name);
-        System.out.println(createMail(name));
-        System.out.println(createNickName());
-        System.out.println(createPassword());
-        System.out.println(createBirthday());
-        System.out.println(createUserPhone());
-        System.out.println(createAddress());
-        System.out.println(createIp());
-        System.out.println(createType());
-        System.out.println(createIfLogout());
-        System.out.println(createImage());
+//        System.out.println(createSerialId());
+//        String name = createUserName();
+//        System.out.println(name);
+//        System.out.println(createMail(name));
+//        System.out.println(createNickName());
+//        System.out.println(createPassword());
+//        System.out.println(createBirthday());
+//        System.out.println(createUserPhone());
+//        System.out.println(createAddress());
+//        System.out.println(createIp());
+//        System.out.println(createType());
+//        System.out.println(createIfLogout());
+//        System.out.println(createImage());
         System.out.println(createTime());
-        System.out.println(createBy(name));
+//        System.out.println(createBy(name));
     }
 }
