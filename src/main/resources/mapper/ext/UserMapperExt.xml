@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yicheng.tourism.mapper.ext.UserMapperExt">
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_user
+        (serial_id, user_name, mail,
+        nick_name, user_pwd, birthday,
+        profile_pic, user_phone, user_address,
+        type, ip_address,create_time,create_id,modify_time,modify_id,is_logout)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.serialId,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mail,jdbcType=VARCHAR},
+            #{item.nickName,jdbcType=VARCHAR}, #{item.userPwd,jdbcType=DECIMAL}, #{item.birthday,jdbcType=DECIMAL},
+            #{item.profilePic,jdbcType=TIMESTAMP}, #{item.userPhone,jdbcType=TIMESTAMP}, #{item.userAddress,jdbcType=DECIMAL},
+            #{item.type,jdbcType=DECIMAL}, #{item.ipAddress,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}
+            , #{item.createId,jdbcType=TIMESTAMP}, #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.modifyId,jdbcType=TIMESTAMP}
+            , #{item.isLogout,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
     <sql id="Base_Column_List">
     serial_id, user_name, e_mail, nick_name, user_pwd, birthday, profile_pic, user_phone,
     user_address, is_logout

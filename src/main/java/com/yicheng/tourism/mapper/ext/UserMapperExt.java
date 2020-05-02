@@ -31,4 +31,10 @@ public interface UserMapperExt {
      * @return
      */
     int updateByUsername(@Param("c") User user);
+
+    /**
+     * 批量插入
+     * @param users
+     */
+    void insertBatch(@Param("list")List<User> users);
 }
