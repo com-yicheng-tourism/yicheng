@@ -18,19 +18,19 @@ $(function () {
             {label: '昵称', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
             {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 80},
             {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 80},
-            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 80},
+            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 80,formatter:typeFormat},
             {label: '地址', name: 'userAddress', index: 'userAddress', sortable: false,align: "center", width: 80},
-            { label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
+            {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
-        height: 485,
+        height: 500,
         rowNum: 10,
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
-        rownumbers: true,
-        rownumWidth: 35,
+        // rownumbers: true,
+        // rownumWidth: 80,
         autowidth: true,
-        multiselect: true,
+        multiselect: false,
         pager: "#jqGridPager",
         jsonReader: {
             root: "data.list",
@@ -52,10 +52,14 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-            return "<button class='btn btn-warning ' οnclick=\"change(" + rows.cmgId+")\">编辑</button> " +
-                "<button class='btn btn-danger ' οnclick=\"change(" + rows.cmgId+")\">删除</button>" ;
+            return "<button class='btn btn-warning ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
+                "<button class='btn btn-danger ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>" ;
+    };
+    function typeFormat(type){
+        return type == "1" ? "管理员" : ( type == "2" ? "租户" : "游客");
     }
     $(window).resize(function () {
+        console.log("gaibianledaxiao ")
         $("#jqGrid").setGridWidth($(".card-body").width());
     });
 });
