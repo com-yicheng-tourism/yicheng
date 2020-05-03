@@ -37,11 +37,19 @@ public class Ahandler {
     }
     @RequestMapping(value = "/userManage",method = RequestMethod.GET)
     public String userManage() {
-        return "/user-manage";
+        return "/user-index";
     }
     @RequestMapping(value = "/user",method = RequestMethod.GET)
     public String testElement() {
         return "/user";
+    }
+    @RequestMapping(value = "/usertest",method = RequestMethod.GET)
+    public String testUserElement() {
+        return "/usertest";
+    }
+    @RequestMapping(value = "/store",method = RequestMethod.GET)
+    public String storeElement() {
+        return "/store";
     }
     @RequestMapping(value = "/picture",method = RequestMethod.GET)
     public String picture() {
