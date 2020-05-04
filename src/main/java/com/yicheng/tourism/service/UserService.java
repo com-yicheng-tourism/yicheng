@@ -2,6 +2,7 @@ package com.yicheng.tourism.service;
 
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
+import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
@@ -15,16 +16,6 @@ import java.util.List;
 
 public interface UserService {
     List<Role> getRoleList(String userId);
-    List<Permission> getPermission(String userId);
-
-
-//    /**
-//     * 用户注册
-//     * @param req 注册请求参数
-//     * @param request
-//     * @return
-//     */
-//    String register(UserRegisterOrLoginReq req, HttpServletRequest request);
 
     /**用户注册
      * @param req
@@ -59,4 +50,10 @@ public interface UserService {
      * @return 数据列表
      */
     BaseResponse<PageInfo<User>> qryByCondition(UserQryConditionReq req);
+
+    /**为用户分配角色
+     * @param roleReq
+     * @return
+     */
+    BaseResponse<String> assignRole(List<AssignRoleReq> roleReq,HttpServletRequest request);
 }

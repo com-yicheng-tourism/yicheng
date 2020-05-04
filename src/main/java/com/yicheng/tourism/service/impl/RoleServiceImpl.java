@@ -8,16 +8,23 @@ import com.yicheng.tourism.dto.role.resp.RoleResp;
 import com.yicheng.tourism.entity.Role;
 import com.yicheng.tourism.entity.RoleExample;
 import com.yicheng.tourism.entity.RolePermission;
+import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.RoleMapper;
 import com.yicheng.tourism.mapper.RolePermissionMapper;
 import com.yicheng.tourism.mapper.ext.RoleMapperExt;
+import com.yicheng.tourism.mapper.ext.RolePermissionMapperExt;
 import com.yicheng.tourism.service.RoleService;
 import com.yicheng.tourism.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +38,10 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapperExt roleMapperExt;
     @Autowired
     private RolePermissionMapper rolePermissionMapper;
+    @Autowired
+    private RolePermissionMapperExt rolePermissionMapperExt;
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
     /**
      * 角色添加
      *
@@ -72,31 +83,41 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public BaseResponse<List<RoleResp>> qryByCondition(RoleConditionReq req) {
-        List<RoleResp> roles = roleMapperExt.qryByCondition(req);
+    public BaseResponse<List<Role>> qryByCondition(RoleConditionReq req) {
+        List<Role> roles = roleMapperExt.qryByCondition(req);
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),roles);
     }
 
     /**
      * 为角色分配权限
      *
-     * @param req
+     * @param reqs
      * @return
      */
     @Override
-    public BaseResponse<String> assignPermission(AssignPermissionReq req) {
-        if (StringUtils.isEmpty(req.getRoleId())){
-            return new BaseResponse<>(RespStatusEnum.ROLE_ID_IS_NULL.getCode(),RespStatusEnum.ROLE_ID_IS_NULL.getMessage());
+    public BaseResponse<String> assignPermission(List<AssignPermissionReq> reqs,String username) {
+        List<RolePermission> rolePermissions = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(reqs)){
+            for (AssignPermissionReq req : reqs){
+                if (StringUtils.isEmpty(req.getRoleId())){
+                    return new BaseResponse<>(RespStatusEnum.ROLE_ID_IS_NULL.getCode(),RespStatusEnum.ROLE_ID_IS_NULL.getMessage());
+                }
+                if (StringUtils.isEmpty(req.getPermissionId())){
+                    return new BaseResponse<>(RespStatusEnum.PERMISSION_ID_IS_NULL.getCode(),RespStatusEnum.PERMISSION_ID_IS_NULL.getMessage());
+                }
+                RolePermission rolePermission = new RolePermission();
+                rolePermission.setSerialId(UUIDUtil.get());
+                rolePermission.setRoleId(req.getRoleId());
+                rolePermission.setPermissionId(req.getPermissionId());
+                rolePermission.setCreateTime(new Date());
+
+                rolePermission.setCreateId(username);
+                rolePermission.setNotes(req.getNotes());
+                rolePermissions.add(rolePermission);
+            }
         }
-        if (StringUtils.isEmpty(req.getPermissionId())){
-            return new BaseResponse<>(RespStatusEnum.PERMISSION_ID_IS_NULL.getCode(),RespStatusEnum.PERMISSION_ID_IS_NULL.getMessage());
-        }
-        RolePermission rolePermission = new RolePermission();
-        rolePermission.setSerialId(UUIDUtil.get());
-        rolePermission.setRoleId(req.getRoleId());
-        rolePermission.setPermissionId(req.getPermissionId());
-        rolePermission.setCreateTime(new Date());
-        int i = rolePermissionMapper.insert(rolePermission);
+        int i = rolePermissionMapperExt.insertBatch(rolePermissions);
+//        int i = rolePermissionMapper.insert(rolePermission);
         if (i != 0){
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配成功");
         }

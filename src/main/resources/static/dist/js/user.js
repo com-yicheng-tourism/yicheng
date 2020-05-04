@@ -31,6 +31,23 @@ $(function () {
         // rownumWidth: 80,
         autowidth: true,
         multiselect: false,
+        multiboxonly :true,
+        altRows : true,
+        shrinkToFit : true,
+        onSelectRow: function (rowId, status, e) {
+            var lastSel;
+            if (rowId == lastSel) {
+                $(this).jqGrid("resetSelection");
+                lastSel = undefined;
+                status = false;
+            } else {
+                lastSel = rowId;
+            }
+        },
+        beforeSelectRow: function (rowId, e) {
+            $(this).jqGrid("resetSelection");
+            return true;
+        },
         pager: "#jqGridPager",
         jsonReader: {
             root: "data.list",
@@ -52,8 +69,8 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-            return "<button class='btn btn-warning ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
-                "<button class='btn btn-danger ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>" ;
+            return "<button class='btn btn-warning ' onclick=\"userEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
+                "<button class='btn btn-danger ' onclick=\"userDel()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>";
     };
     function typeFormat(type){
         return type == "1" ? "管理员" : ( type == "2" ? "租户" : "游客");
@@ -71,16 +88,25 @@ function userAdd() {
 }
 
 function userEdit() {
+    console.log("点击了编辑")
     reset();
 
-    var id = getSelectedRow();
+
+    var id=$('#jqGrid').jqGrid('getGridParam','selrow');
+    console.log("rowId",id)
     if (id == null) {
         return;
     }
-
+    var rowData = $("#jqGrid").jqGrid('getRowData',id);
+    console.log("rowData",rowData)
     $('#userId').val(id);
-
-    $('#modalEditTitle').html('密码编辑');
+    $('#edit_username').val(rowData.userName);
+    $('#edit_nickName').val(rowData.nickName);
+    $('#edit_birthday').val(rowData.birthday);
+    $('#edit_type').val(rowData.type);
+    $('#edit_mail').val(rowData.mail);
+    $('#edit_address').val(rowData.userAddress);
+    $('#modalEditTitle').html('用户编辑');
     $('#modalEdit').modal('show');
 }
 

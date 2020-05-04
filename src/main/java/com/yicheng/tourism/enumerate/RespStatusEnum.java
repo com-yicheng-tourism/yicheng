@@ -5,6 +5,7 @@ public enum RespStatusEnum {
     //TODO 请求成功000开头
     SUCCESS("000_000_000","请求成功"),
     SERIAL_CODE_IS_NULL("000_000_001","主键信息不能为空"),
+    TOKEN_FAILURE("000_000_002","token失效或者不存在,请重新登陆!"),
     //TODO 请求失败100开头
     FAIL("100_000_000","请求失败"),
     //TODO 用户相关枚举值中间为001
