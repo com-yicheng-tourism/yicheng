@@ -10,6 +10,9 @@
     </select>
     <sql id="query_sql_where">
         <where>
+            <if test="c.id != null and '' != c.storeName">
+                and id=#{c.id}
+            </if>
             <if test="c.storeName != null and '' != c.storeName">
                 and store_name like concat("%",#{c.storeName},"%")
             </if>
@@ -18,4 +21,49 @@
             </if>
         </where>
     </sql>
+
+    <update id="updateStore" parameterType="com.yicheng.tourism.entity.Store">
+        update t_store
+        <set>
+            <if test="c.storeName != null">
+                store_name = #{c.storeName,jdbcType=VARCHAR},
+            </if>
+            <if test="c.authorPhone != null">
+                author_phone = #{c.authorPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="c.storeScript != null">
+                store_script = #{c.storeScript,jdbcType=VARCHAR},
+            </if>
+            <if test="c.storeState != null">
+                store_state = #{c.storeState,jdbcType=CHAR},
+            </if>
+            <if test="c.updateBy != null">
+                update_by = #{c.updateBy,jdbcType=VARCHAR},
+            </if>
+            update_time = now()
+
+        </set>
+        where id=#{c.id}
+    </update>
+
+    <delete id="deleteStore" parameterType="com.yicheng.tourism.entity.Store">
+    	delete from student where id = #{id}
+  	</delete>
+
+
+    <insert id="insertStore" parameterType="com.yicheng.tourism.entity.Store">
+        INSERT INTO t_store
+        (id, store_number, store_name,
+        store_script, author_phone, store_state,
+        create_by, create_time)
+        VALUES
+        (#{c.id,jdbcType=VARCHAR},
+        #{c.storeNumber,jdbcType=VARCHAR},
+        #{c.storeName,jdbcType=VARCHAR},
+        #{c.storeScript,jdbcType=VARCHAR},
+        #{c.authorPhone,jdbcType=VARCHAR},
+        #{c.storeState,jdbcType=VARCHAR},
+        #{c.createBy,jdbcType=VARCHAR},
+        now())
+    </insert>
 </mapper>

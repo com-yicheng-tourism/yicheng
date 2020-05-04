@@ -99,23 +99,57 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        <h6 class="modal-title" id="modalAddTitle">用户添加</h6>
+                        <h6 class="modal-title" id="modalAddTitle">商铺添加</h6>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="addForm">
                             <div class="form-group">
                                 <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
                             </div>
-                            <div class="form-group">
-                                <label for="userName" class="control-label">用户名:</label>
-                                <input type="text" class="form-control" id="userName" autocomplete="off" >
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="control-label">密码:</label>
-                                <input type="text" class="form-control" id="password">
-                            </div>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">店铺名称：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                                               tips="3" style="height: 35px;" placeholder="店铺名称">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">店铺描述：</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
+                                               tips="3" style="height: 35px;" placeholder="店铺描述">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">联系电话：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
+                                               tips="3" style="height: 35px;" placeholder="联系电话">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <select name="state" id="state" class="form-control" maxlength="50"
+                                                tips="3" style="height: 35px;" placeholder="状态">
+                                            <option value="0">开启</option>
+                                            <option value="1">关闭</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -134,25 +168,85 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        <h6 class="modal-title" id="modalEditTitle">密码编辑</h6>
+                        <h6 class="modal-title" id="modalEditTitle">商铺编辑</h6>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <input type="hidden" id="userId" value="0">
+                        <form id="editForm">
                             <div class="form-group">
-                                <div class="alert alert-danger edit-error-info">错误信息展示栏。</div>
+                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
                             </div>
-                            <div class="form-group">
-                                <label for="passwordEdit" class="control-label">新密码:</label>
-                                <input type="text" class="form-control" id="passwordEdit">
-                            </div>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">店铺名称：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                                               tips="3" style="height: 35px;" placeholder="店铺名称">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">店铺描述：</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
+                                               tips="3" style="height: 35px;" placeholder="店铺描述">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">联系电话：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
+                                               tips="3" style="height: 35px;" placeholder="联系电话">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <select name="state" id="state" class="form-control" maxlength="50"
+                                                tips="3" style="height: 35px;" placeholder="状态">
+                                            <option value="0">开启</option>
+                                            <option value="1">关闭</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" id="editButton">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <div class="content">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h6 class="modal-title" id="modalEditTitle">删除提示</h6>
+                    </div>
+                    <div class="modal-body">
+                        <p>确认删除选中数据？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="deleteStoreBtn">确认</button>
                     </div>
                 </div>
             </div>
@@ -168,77 +262,6 @@
         <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
-</div>
-
-<#--新增或编辑-->
-<div id="editDiv" style="display: none">
-    <form id="editForm" name="editIFilterForm" class="definewidth" action="" method="post">
-        <table class="table table-bordered table-hover definewidth m10">
-            <tr>
-                <td style="width: 120px;">
-                    <label for="param-search-type">店铺编号：<span style="color: red;">*</span></label>
-                </td>
-                <td>
-                    <input type="text" name="storeNo" id="storeNo" class="form-control" maxlength="50"
-                           tips="3" style="height: 35px;" placeholder="店铺编号">
-                </td>
-                <td style="width: 120px;">
-                    <label for="param-search-type">店铺名称：<span style="color: red;">*</span></label>
-                </td>
-                <td>
-                    <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
-                           tips="3" style="height: 35px;" placeholder="店铺名称">
-                </td>
-            </tr>
-
-            <tr>
-                <td style="width: 120px;">
-                    <label for="param-search-type">店铺描述：</label>
-                </td>
-                <td>
-                    <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                           tips="3" style="height: 35px;" placeholder="店铺描述">
-                </td>
-                <td style="width: 120px;">
-                    <label for="param-search-type">联系电话：<span style="color: red;">*</span></label>
-                </td>
-                <td>
-                    <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
-                           tips="3" style="height: 35px;" placeholder="联系电话">
-                </td>
-            </tr>
-
-            <tr>
-                <td style="width: 120px;">
-                    <label for="param-search-type">状态：<span style="color: red;">*</span></label>
-                </td>
-                <td>
-                    <select name="state" id="state" class="form-control" maxlength="50"
-                            tips="3" style="height: 35px;" placeholder="状态">
-                        <option value="0">开启</option>
-                        <option value="1">关闭</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <center>
-                <input type="button" name="id" id="checkId" value="" style="display: none">
-                <button type="button" class="btn btn-primary" id="submit" onclick="submitData()">保存</button>;
-                <button type="button" class="btn btn-primary" onclick="closeWindow()">关闭</button>&;
-            </center>
-        </div>
-    </form>
-</div>
-
-<%--编辑或新增表格关闭--%>
-<div id="detailDiv" style="display: none">
-    <div id="detail-see">
-
-    </div>
-    <center>
-        <button type="button" class="btn btn-primary" onclick="closeWindow()">关闭</button>&nbsp;&nbsp;
-    </center>
 </div>
 
 <!-- ./wrapper -->

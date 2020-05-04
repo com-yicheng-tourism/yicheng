@@ -4,10 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.store.req.StoreQueryReq;
+import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
 import com.yicheng.tourism.entity.Store;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.ext.StoreMapperExt;
 import com.yicheng.tourism.service.StoreManageService;
+import com.yicheng.tourism.util.CreateTestDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -36,5 +38,39 @@ public class StoreManageServiceImpl implements StoreManageService {
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }
         return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+    }
+
+    @Override
+    public int insertStore(StoreUpdateReq store) {
+        store.setId(CreateTestDataUtil.createSerialId());
+        store.setStoreNumber(CreateTestDataUtil.createUserName());
+        store.setCreateBy(CreateTestDataUtil.createUserName());
+        try {
+            storeMapperExt.insertStore(store);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateStore(StoreUpdateReq store) {
+        try {
+            storeMapperExt.updateStore(store);
+        } catch (Exception e) {
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteStore(String id) {
+        try {
+            storeMapperExt.deleteStore(id);
+        } catch (Exception e) {
+            return -1;
+        }
+        return 0;
     }
 }

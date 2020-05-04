@@ -215,6 +215,30 @@
     </footer>
 </#macro>
 
+<div class="content">
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="modalDeleteTip" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h6 class="modal-title" id="modalEditTitle">删除提示</h6>
+                </div>
+                <div class="modal-body">
+                    <p>请勾选需要删除的选项</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
+
+
+
 <#macro style>
     <!-- jqgrid ui -->
     <link href="/plugins/jqGrid-5.4.0/ui.jqgrid-bootstrap.css" rel="stylesheet"/>

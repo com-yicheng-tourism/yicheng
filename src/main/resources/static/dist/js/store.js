@@ -14,8 +14,8 @@ $(function () {
         url: 'store/query',
         datatype: "json",
         colModel: [
-            {label: '店铺id', name: 'id', index: 'id', width: 50, key: true},
-            {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', width: 50},
+            {label: '店铺id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
+            {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', hidden:true,width: 50},
             {label: '店铺名称', name: 'storeName', index: 'storeName', width: 50},
             {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false,align: "center", width: 80},
             {label: '店主手机号', name: 'authorPhone', index: 'authorPhone', sortable: false,align: "center", width: 80},
@@ -28,10 +28,9 @@ $(function () {
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
-        // rownumbers: true,
-        // rownumWidth: 80,
+        rownumbers: true,
+        multiselect: true,
         autowidth: true,
-        multiselect: false,
         pager: "#storePager",
         jsonReader: {
             root: "data.list",
@@ -53,8 +52,8 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-        return "<button class='btn btn-warning ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
-            "<button class='btn btn-danger ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>" ;
+        return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+            "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
     };
     function typeFormat(type){
         return type == "0" ? "开启" : ( type == "1" ? "关闭" : "封禁中");
@@ -66,11 +65,68 @@ $(function () {
 });
 
 function toAdd() {
-
+    reset();
+    $('#modalAdd').modal('show');
 }
 
-function toEdit() {
+function toStoreEdit() {
+    reset();
+    var id = $("#storeTable").jqGrid("getGridParam", "selrow");
+    console.log(id);
+    if (id == null) {
+        return;
+    }
+    $.get( 'store/query', {id: id}, function (result) {
+        if (result != null) {
+            console.log(result)
+            $("#editForm #storeNo").val(result.data.list[0].storeNumber);
+            $("#editForm #storeName").val(result.data.list[0].storeName);
+            $("#editForm #storeScript").val(result.data.list[0].storeScript);
+            $("#editForm #phone").val(result.data.list[0].authorPhone);
+            $("#editForm #state").val(result.data.list[0].storeState);
+        }
+    }, 'json');
 
+    $('#modalEdit').modal('show');
+}
+
+function toDelete(){
+    var rowid=$("#storeTable").jqGrid("getGridParam","selrow");
+    if (rowid == null) {
+        swal("请勾选需要删除的选项", {
+            icon: "error",
+        });
+        return;
+    }
+    swal({
+        title: "确认弹框",
+        text: "确认要删除数据吗?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((flag) => {
+        if(flag) {
+            $.ajax({
+                type: "POST",
+                url: "store/deleteStore",
+                contentType: "application/json",
+                data: JSON.stringify(rowid),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        swal("删除成功", {
+                            icon: "success",
+                        });
+                        $("#storeTable").trigger("reloadGrid");
+                    } else {
+                        swal("删除失败", {
+                            icon: "error",
+                        });
+                    }
+                }
+            });
+        }
+    }
+);
 }
 
 //绑定modal上的保存按钮
@@ -78,33 +134,33 @@ $('#saveButton').click(function () {
     //验证数据
     if (validObjectForAdd()) {
         //一切正常后发送网络请求
-        //ajax
-        var userName = $("#userName").val();
-        var password = $("#password").val();
-        var data = {"userName": userName, "password": password};
+        var  storeName=  $("#addForm #storeName").val();
+        var  storeScript=  $("#addForm #storeScript").val();
+        var  phone= $("#addForm #phone").val();
+        var  state= $("#addForm #state").val();
+        var data = {
+            "storeName": storeName,
+            "authorPhone": phone,
+            "storeScript": storeScript,
+            "storeState": state
+        };
         $.ajax({
             type: 'POST',//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: 'users/save',//url
+            url: 'store/insertStore',//url
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
-            beforeSend: function (request) {
-                //设置header值
-                request.setRequestHeader("token", getCookie("token"));
-            },
             success: function (result) {
                 console.log(result);//打印服务端返回的数据
-                checkResultCode(result.resultCode);
-                if (result.resultCode == 200) {
+                if (result == 0) {
                     swal("保存成功", {
                         icon: "success",
                     });
                     $('#modalAdd').modal('hide');
-                    //reload
                     reload();
                 }
                 else {
-                    swal(result.message, {
+                    swal("新增失败", {
                         icon: "error",
                     });
                 }
@@ -126,134 +182,85 @@ $('#editButton').click(function () {
     //验证数据
     if (validObjectForEdit()) {
         //一切正常后发送网络请求
-        var password = $("#passwordEdit").val();
-        var id = $("#userId").val();
-        var data = {"id": id, "password": password};
+        var id = $("#storeTable").jqGrid("getGridParam", "selrow");
+        var  storeName=  $("#editForm #storeName").val();
+        var  storeScript=  $("#editForm #storeScript").val();
+        var  phone= $("#editForm #phone").val();
+        var  state= $("#editForm #state").val();
+        var data = {
+            "id": id,
+            "storeName": storeName,
+            "authorPhone": phone,
+            "storeScript": storeScript,
+            "storeState": state
+        };
         $.ajax({
-            type: 'PUT',//方法类型
+            type: 'POST',//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: 'users/updatePassword',//url
+            url: 'store/updateStore',//url
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
-            beforeSend: function (request) {
-                //设置header值
-                request.setRequestHeader("token", getCookie("token"));
-            },
             success: function (result) {
-                checkResultCode(result.resultCode);
                 console.log(result);//打印服务端返回的数据
-                if (result.resultCode == 200) {
+                if (result == 0) {
                     swal("修改成功", {
                         icon: "success",
                     });
                     $('#modalEdit').modal('hide');
-                    //reload
                     reload();
                 }
                 else {
-                    swal(result.message, {
+                    swal("修改失败", {
                         icon: "error",
                     });
                 }
                 ;
             },
-            error: function () {
-                reset();
-                swal(result.message, {
-                    icon: "error",
-                });
-            }
         });
 
     }
 });
 
-/**
- * 用户删除
- */
-function userDel() {
-    var ids = getSelectedRows();
-    if (ids == null) {
-        return;
-    }
-    swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    }).then((flag) => {
-        if(flag) {
-            $.ajax({
-                type: "DELETE",
-                url: "users/delete",
-                contentType: "application/json",
-                data: JSON.stringify(ids),
-                beforeSend: function (request) {
-                    //设置header值
-                    request.setRequestHeader("token", getCookie("token"));
-                },
-                success: function (r) {
-                    checkResultCode(r.resultCode);
-                    if (r.resultCode == 200) {
-                        swal("删除成功", {
-                            icon: "success",
-                        });
-                        $("#storeTable").trigger("reloadGrid");
-                    } else {
-                        swal(r.message, {
-                            icon: "error",
-                        });
-                    }
-                }
-            });
-        }
-    }
-);
-}
 
 
-/**
- * 数据验证
- */
-function validObjectForAdd() {
-    var userName = $('#userName').val();
-    if (isNull(userName)) {
-        showErrorInfo("用户名不能为空!");
-        return false;
-    }
-    if (!validUserName(userName)) {
-        showErrorInfo("请输入符合规范的用户名!");
-        return false;
-    }
-    var password = $('#password').val();
-    if (isNull(password)) {
-        showErrorInfo("密码不能为空!");
-        return false;
-    }
-    if (!validPassword(password)) {
-        showErrorInfo("请输入符合规范的密码!");
-        return false;
-    }
-    return true;
-}
 
 /**
  * 数据验证
  */
 function validObjectForEdit() {
-    var userId = $('#userId').val();
-    if (isNull(userId) || userId < 1) {
+    var  storeName=  $("#editForm #storeName").val();
+    var  phone= $("#editForm #phone").val();
+    var  state= $("#editForm #state").val();
+    if (isNull(storeName) || isNull(phone) || isNull(state)) {
         showErrorInfo("数据错误！");
         return false;
     }
-    var password = $('#passwordEdit').val();
-    if (isNull(password)) {
-        showErrorInfo("密码不能为空!");
-        return false;
+    return true;
+}
+
+
+function isNull(obj) {
+    if (obj == null || obj == undefined || obj.trim() == "") {
+        return true;
     }
-    if (!validPassword(password)) {
-        showErrorInfo("请输入符合规范的密码!");
+    return false;
+}
+
+function showErrorInfo(info) {
+    $('.alert-danger').css("display", "block");
+    $('.alert-danger').html(info);
+}
+
+/**
+ * 数据验证
+ */
+function validObjectForAdd() {
+    var  storeName=  $("#addForm #storeName").val();
+    var  phone= $("#addForm #phone").val();
+    var  state= $("#addForm #state").val();
+    console.log(storeName+"--"+phone+"--"+state);
+    if (isNull(storeName) || isNull(phone) || isNull(state)) {
+        showErrorInfo("数据错误！");
         return false;
     }
     return true;
@@ -266,10 +273,8 @@ function reset() {
     //隐藏错误提示框
     $('.alert-danger').css("display", "none");
     //清空数据
-    $('#password').val('');
-    $('#passwordEdit').val('');
-    $('#userName').val('');
-    $('#userId').val(0);
+    $('#storeName').val('');
+    $('#storeAuthor').val('');
 }
 
 /**

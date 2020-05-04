@@ -13,6 +13,9 @@ public class StoreQueryReq {
     @ApiModelProperty(value = "每页大小",dataType = "Integer")
     private Integer rows;
 
+    @ApiModelProperty(value = "店铺id",dataType = "String")
+    private String id;
+
     @ApiModelProperty(value = "店铺名称",dataType = "String")
     private String storeName;
 
