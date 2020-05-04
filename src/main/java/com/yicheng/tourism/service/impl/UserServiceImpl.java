@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.controller.VerCodeController;
+import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
+import com.yicheng.tourism.dto.user.resp.UserQryResp;
 import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.LoginTypeEnum;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
@@ -15,16 +17,16 @@ import com.yicheng.tourism.mapper.RoleMapper;
 import com.yicheng.tourism.mapper.UserMapper;
 import com.yicheng.tourism.mapper.UserRoleMapper;
 import com.yicheng.tourism.mapper.ext.UserMapperExt;
+import com.yicheng.tourism.mapper.ext.UserRoleMapperExt;
 import com.yicheng.tourism.service.UserService;
 import com.yicheng.tourism.service.VerCodeService;
-import com.yicheng.tourism.util.IpUtil;
-import com.yicheng.tourism.util.MD5Util;
-import com.yicheng.tourism.util.SessionUtil;
-import com.yicheng.tourism.util.UUIDUtil;
+import com.yicheng.tourism.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -33,11 +35,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -52,6 +56,9 @@ public class UserServiceImpl implements UserService {
     private VerCodeService verCodeService;
     @Autowired
     private UserMapperExt userMapperExt;
+    @Autowired
+    private UserRoleMapperExt userRoleMapperExt;
+
     private HashedCredentialsMatcher matcher;
 
     @Override
@@ -74,18 +81,18 @@ public class UserServiceImpl implements UserService {
         return roleMapper.selectByExample(example);
     }
 
-    @Override
-    public List<Permission> getPermission(String userId) {
-        List<Role> roleList = getRoleList(userId);
-        PermissionExample example = new PermissionExample();
-        PermissionExample.Criteria criteria = example.createCriteria();
-        List<String> permissionId=new ArrayList<>();
-        for (Role role : roleList){
-            permissionId.add(role.getId());
-        }
-        criteria.andIdIn(permissionId);
-        return permissionMapper.selectByExample(example);
-    }
+//    @Override
+//    public List<Permission> getPermission(String userId) {
+//        List<Role> roleList = getRoleList(userId);
+//        PermissionExample example = new PermissionExample();
+//        PermissionExample.Criteria criteria = example.createCriteria();
+//        List<String> permissionId=new ArrayList<>();
+//        for (Role role : roleList){
+//            permissionId.add(role.getId());
+//        }
+//        criteria.andIdIn(permissionId);
+//        return permissionMapper.selectByExample(example);
+//    }
 
     /**
      * 用户注册
@@ -150,7 +157,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public BaseResponse<String> login(UserRegisterOrLoginReq req, HttpServletRequest request) {
+    public BaseResponse<UserQryResp> login(UserRegisterOrLoginReq req, HttpServletRequest request) {
         if (StringUtils.isEmpty(req.getLoginType())){
             return new BaseResponse<>(RespStatusEnum.LOGIN_TYPE_IS_NULL.getCode(),RespStatusEnum.LOGIN_TYPE_IS_NULL.getMessage());
         }
@@ -160,9 +167,9 @@ public class UserServiceImpl implements UserService {
             case PASSWORD_LOGIN ://账号密码登录
                 //1.验证码是否正确
                 String verCodeText = verCodeService.getVerCodeText(request);
-                if (!verCodeText.equalsIgnoreCase(req.getVerificationCode())){
-                    return new BaseResponse<>(RespStatusEnum.VERIFY_CODE_ERROR.getCode(),RespStatusEnum.VERIFY_CODE_ERROR.getMessage());
-                }
+//                if (!verCodeText.equalsIgnoreCase(req.getVerificationCode())){
+//                    return new BaseResponse<>(RespStatusEnum.VERIFY_CODE_ERROR.getCode(),RespStatusEnum.VERIFY_CODE_ERROR.getMessage());
+//                }
                 User user = userMapperExt.qryByUserName(req.getUserName());
                 //2.根据用户名判断是否存在该用户
                 if (StringUtils.isEmpty(user)){
@@ -172,7 +179,13 @@ public class UserServiceImpl implements UserService {
                 if (!user.getUserPwd().equals(MD5Util.encrypt(req.getUserPassword()))){
                     return new BaseResponse<>(RespStatusEnum.PASSWORD_ERROR.getCode(),RespStatusEnum.PASSWORD_ERROR.getMessage());
                 }
-                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
+                ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+                valueOperations.set(user.getUserName(),user,900, TimeUnit.SECONDS);
+                request.getSession().setAttribute("userId",user);
+                UserQryResp qryResp = new UserQryResp();
+                BeanUtils.copyProperties(user,qryResp);
+                qryResp.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic());
+                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage(),qryResp);
             case EMAIL_LOGIN ://邮箱登录
                 String emailCode = SessionUtil.getEmailCode("emailCode", request);
                 if (!StringUtils.isEmpty(emailCode) && !emailCode.equalsIgnoreCase(req.getVerificationCode())){
@@ -247,10 +260,60 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(req.getPage(),req.getRows());
         List<User> users = userMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(users)){
+            users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic()));
             PageInfo<User> pageInfo = new PageInfo<>(users);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }
         return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+    }
+
+    /**
+     * 为用户分配角色
+     *
+     * @param roleReq
+     * @return
+     */
+    @Override
+    public BaseResponse<String> assignRole(List<AssignRoleReq> roleReq,HttpServletRequest request) {
+        List<UserRole> userRoles = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(roleReq)){
+            for (AssignRoleReq req : roleReq){
+                UserRole userRole = new UserRole();
+                userRole.setSerialId(UUIDUtil.get());
+                userRole.setUserId(req.getUserId());
+                userRole.setRoleId(req.getRoleId());
+                userRole.setCreateTime(new Date());
+                ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+                User user = (User) valueOperations.get(request.getSession().getAttribute("userId"));
+                if (StringUtils.isEmpty(user)){
+                    return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
+                }
+                userRole.setCreateId(user.getUserName());
+                userRole.setNotes(req.getNotes());
+                userRoles.add(userRole);
+            }
+        }
+        int i = userRoleMapperExt.insertBatch(userRoles);
+        if (i != 0){
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"角色分配成功");
+        }
+        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),"角色分配失败");
+    }
+
+    /**
+     * 验证用户是否有对应api的访问权限
+     *
+     * @param username
+     * @param apiUrl
+     * @return
+     */
+    @Override
+    public BaseResponse<String> verification(String username, String apiUrl) {
+        int i = userMapperExt.verification(username, apiUrl);
+        if (i != 0 ){
+            return new BaseResponse<>(RespStatusEnum.HAVING_PERMISSION.getCode(),RespStatusEnum.HAVING_PERMISSION.getMessage());
+        }
+        return new BaseResponse<>(RespStatusEnum.NO_PERMISSION.getCode(),RespStatusEnum.NO_PERMISSION.getMessage());
     }
 
 

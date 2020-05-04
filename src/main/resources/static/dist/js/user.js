@@ -15,10 +15,11 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '用户名', name: 'userName', index: 'userName', width: 50, hidden: true, key: true},
+            {label: '头像', name: 'profilePic', index: 'profilePic', width: 50, sortable: false,align: "center",formatter: imgFormat},
             {label: '昵称', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
-            {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 80},
-            {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 80},
-            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 80,formatter:typeFormat},
+            {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 100},
+            {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 60},
+            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 40,formatter:typeFormat},
             {label: '地址', name: 'userAddress', index: 'userAddress', sortable: false,align: "center", width: 80},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
@@ -29,8 +30,25 @@ $(function () {
         loadtext: '信息读取中...',
         // rownumbers: true,
         // rownumWidth: 80,
-        autowidth: true,
+        autowidth : true,
         multiselect: false,
+        multiboxonly :true,
+        altRows : true,
+        shrinkToFit : true,
+        onSelectRow: function (rowId, status, e) {
+            var lastSel;
+            if (rowId == lastSel) {
+                $(this).jqGrid("resetSelection");
+                lastSel = undefined;
+                status = false;
+            } else {
+                lastSel = rowId;
+            }
+        },
+        beforeSelectRow: function (rowId, e) {
+            $(this).jqGrid("resetSelection");
+            return true;
+        },
         pager: "#jqGridPager",
         jsonReader: {
             root: "data.list",
@@ -51,9 +69,14 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+    function imgFormat(profilePic) {
+
+         return "<img id='userPic' class=\"round_icon\" src='"+profilePic+"'>"
+
+    }
     function cmgStateFormat(grid, rows) {
-            return "<button class='btn btn-warning ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
-                "<button class='btn btn-danger ' οnclick=\"change(" + rows.cmgId+")\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>" ;
+            return "<button class='btn btn-warning ' onclick=\"userEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
+                "<button class='btn btn-danger ' onclick=\"userDel()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>";
     };
     function typeFormat(type){
         return type == "1" ? "管理员" : ( type == "2" ? "租户" : "游客");
@@ -65,22 +88,51 @@ $(function () {
 });
 
 function userAdd() {
-    reset();
-    $('#modalAddTitle').html('用户添加');
-    $('#modalAdd').modal('show');
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    $.ajax({
+       type : "GET",
+       url : "user/verification",
+       dataType : "json",
+        data : {
+           username : name.userName,
+            apiUrl : "/user/insert"
+        },
+        success:function (result) {
+            if (result.code == "000_003_006"){
+                reset();
+                $('#modalAddTitle').html('用户添加');
+                $('#modalAdd').modal('show');
+            }else if(result.code == "000_003_007"){
+                alert(result.message);
+            }
+        }
+    });
+
+}
+function getImg(profilePic) {
+
 }
 
 function userEdit() {
+    console.log("点击了编辑")
     reset();
 
-    var id = getSelectedRow();
+
+    var id=$('#jqGrid').jqGrid('getGridParam','selrow');
+    console.log("rowId",id)
     if (id == null) {
         return;
     }
-
+    var rowData = $("#jqGrid").jqGrid('getRowData',id);
+    console.log("rowData",rowData)
     $('#userId').val(id);
-
-    $('#modalEditTitle').html('密码编辑');
+    $('#edit_username').val(rowData.userName);
+    $('#edit_nickName').val(rowData.nickName);
+    $('#edit_birthday').val(rowData.birthday);
+    $('#edit_type').val(rowData.type);
+    $('#edit_mail').val(rowData.mail);
+    $('#edit_address').val(rowData.userAddress);
+    $('#modalEditTitle').html('用户编辑');
     $('#modalEdit').modal('show');
 }
 

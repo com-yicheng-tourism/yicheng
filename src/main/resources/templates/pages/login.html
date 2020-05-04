@@ -93,9 +93,9 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
   function login() {
-    var username=$("#username").val();
-    var password=$("#password").val();
-    var data = {"username":username,"password":password};
+    var userName=$("#username").val();
+    var userPassword=$("#password").val();
+    var data = {"userName":userName,"userPassword":userPassword,"loginType":0};
     $.ajax({
       type : "POST", //方法类型
       dataType : "json", //预期服务器返回数据类型
@@ -103,9 +103,10 @@
       contentType : "application/json;charset=utf-8",
       data : JSON.stringify(data),
       success : function (result) {
-        if (result.code == "000_000_000"){
-          setCookie("token",result.data.userToken);
-          window.location.href="/index";
+        if (result.code == "000_001_008"){
+          // setCookie("token",result.data.userToken);
+          sessionStorage.setItem("userId",JSON.stringify(result.data))
+          window.location.href="/user";
         }
         if (result.code == "000_001_003"){
           alert("登录失败,"+result.message);

@@ -51,5 +51,4 @@ public final class SessionUtil extends HttpServlet {
 		}
 		return null;
 	}
-
 }

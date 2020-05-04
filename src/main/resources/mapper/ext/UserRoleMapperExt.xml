@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.UserRoleMapperExt">
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_user_role
+        (serial_id, user_id, role_id,create_time, create_id, modify_time,modify_id, notes)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.serialId,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.roleId,jdbcType=VARCHAR},
+            #{item.createTime,jdbcType=VARCHAR}, #{item.createId,jdbcType=DECIMAL}, #{item.modifyTime,jdbcType=DECIMAL},
+            #{item.modifyId,jdbcType=TIMESTAMP}, #{item.notes,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

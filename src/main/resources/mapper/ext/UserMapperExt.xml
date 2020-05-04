@@ -87,4 +87,9 @@
         </set>
         where user_name=#{c.userName}
     </update>
+
+    <select id="verification" parameterType="String" resultType="Integer">
+        select count(*) from t_user t1,t_user_role t2,t_api t3,t_role_permission t4 where t1.user_name=t2.user_id
+         and t2.role_id = t4.role_id and t4.permission_id=t3.id and t1.user_name=#{username} and t3.url=#{apiUrl}
+    </select>
 </mapper>

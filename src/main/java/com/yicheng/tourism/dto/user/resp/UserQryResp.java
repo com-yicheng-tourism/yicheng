@@ -10,17 +10,15 @@ import java.util.Date;
 @ApiModel(value = "查询用户列表返回")
 @Data
 public class UserQryResp {
-    private String serialId;
-
     private String userName;
 
-    private String eMail;
+    private String mail;
 
     private String nickName;
 
     private String userPwd;
+
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     private String profilePic;
@@ -29,5 +27,18 @@ public class UserQryResp {
 
     private String userAddress;
 
+    private String type;
+
+    private String ipAddress;
+
+    private Date createTime;
+
+    private String createId;
+
+    private Date modifyTime;
+
+    private String modifyId;
+
     private Boolean isLogout;
+
 }
