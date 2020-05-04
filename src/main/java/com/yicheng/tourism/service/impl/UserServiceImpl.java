@@ -300,5 +300,21 @@ public class UserServiceImpl implements UserService {
         return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),"角色分配失败");
     }
 
+    /**
+     * 验证用户是否有对应api的访问权限
+     *
+     * @param username
+     * @param apiUrl
+     * @return
+     */
+    @Override
+    public BaseResponse<String> verification(String username, String apiUrl) {
+        int i = userMapperExt.verification(username, apiUrl);
+        if (i != 0 ){
+            return new BaseResponse<>(RespStatusEnum.HAVING_PERMISSION.getCode(),RespStatusEnum.HAVING_PERMISSION.getMessage());
+        }
+        return new BaseResponse<>(RespStatusEnum.NO_PERMISSION.getCode(),RespStatusEnum.NO_PERMISSION.getMessage());
+    }
+
 
 }

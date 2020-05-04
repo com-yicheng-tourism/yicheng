@@ -37,4 +37,6 @@ public interface UserMapperExt {
      * @param users
      */
     void insertBatch(@Param("list")List<User> users);
+
+    int verification(String username,String apiUrl);
 }

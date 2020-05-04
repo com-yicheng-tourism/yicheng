@@ -55,7 +55,8 @@ public class UserController {
     @RequestMapping(value = "/token",method = RequestMethod.GET)
     public BaseResponse<Object> getToken(HttpServletRequest request){
         ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
-        User user = (User) valueOperations.get(request.getSession().getAttribute("userId"));
+        User userId = (User) request.getSession().getAttribute("userId");
+        User user = (User) valueOperations.get(userId.getUserName());
         if (StringUtils.isEmpty(user)){
             return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
         }
@@ -92,5 +93,17 @@ public class UserController {
     @RequestMapping(value = "/assignRole",method = RequestMethod.POST)
     public BaseResponse<String> assignRole(@RequestBody List<AssignRoleReq> req,HttpServletRequest request) {
         return userService.assignRole(req,request);
+    }
+
+    @ApiOperation(value = "权限验证")
+    @RequestMapping(value = "/verification",method = RequestMethod.GET)
+    public BaseResponse<String> verification(String username ,String apiUrl ,  HttpServletRequest request) {
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+        User userId = (User) request.getSession().getAttribute("userId");
+        User user = (User) valueOperations.get(userId.getUserName());
+        if (StringUtils.isEmpty(user)){
+            return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
+        }
+        return userService.verification(username,apiUrl);
     }
 }

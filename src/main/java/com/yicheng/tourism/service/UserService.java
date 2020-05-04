@@ -57,4 +57,11 @@ public interface UserService {
      * @return
      */
     BaseResponse<String> assignRole(List<AssignRoleReq> roleReq,HttpServletRequest request);
+
+    /**验证用户是否有对应api的访问权限
+     * @param username
+     * @param apiUrl
+     * @return
+     */
+    BaseResponse<String> verification(String username,String apiUrl);
 }

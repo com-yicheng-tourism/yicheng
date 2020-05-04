@@ -282,6 +282,36 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
+                  <div style="float: left;width: 50%;text-align: left">
+                    <input type="text" class="form-control select2-hidden-accessible"
+                           id="find_keyWords" placeholder="关键字"
+                           aria-hidden="true" style="width: 50%;display: inline">
+
+                    <select class="form-control custom-select" id="find_department" style="width: 49%;display: inline;margin-top: -6px">
+                      <option selected="" disabled=""><font style="vertical-align: inherit;"><font
+                              style="vertical-align: inherit;">选择身份</font></font></option>
+                      <option><font style="vertical-align: inherit;"><font
+                              style="vertical-align: inherit;">管理员</font></font></option>
+                      <option><font style="vertical-align: inherit;"><font
+                              style="vertical-align: inherit;">租户</font></font></option>
+                      <option ><font style="vertical-align: inherit;"><font
+                              style="vertical-align: inherit;">游客</font></font></option>
+                    </select>
+                  </div>
+                  <div style="width: 50%;float: right;text-align: right">
+                    <button class="btn btn-block btn-default" onclick="userAdd()" style="display: inline-block;width: 15%;"><i class="fa fa-plus"></i>&nbsp;新增</button>
+                    <button class="btn btn-block btn-info" onclick="userEdit()" style="display: inline-block;width: 15%;margin-right: 5%;margin-top: 0px;"><i
+                            class="glyphicon glyphicon-save	"></i>&nbsp;导出
+                    </button>
+                  </div>
+<!--                  <input type="text" class="form-control select2-hidden-accessible test1"-->
+<!--                         id="find_date_start" placeholder="开始日期"-->
+<!--                         aria-hidden="true" style="width: 20%;display: inline">-->
+<!--                  <input type="text" class="form-control select2-hidden-accessible test1"-->
+<!--                         id="find_date_end" placeholder="结束日期"-->
+<!--                         aria-hidden="true" style="width: 20%;display: inline">-->
+                </div>
+                <div class="card-body">
                   <!--                  <div class="grid-btn">-->
                   <!--                    <button class="btn btn-info" onclick="userAdd()"><i class="fa fa-plus"></i>&nbsp;新增</button>-->
                   <!--                    <button class="btn btn-warning" onclick="userEdit()"><i-->

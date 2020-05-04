@@ -37,7 +37,10 @@ public enum RespStatusEnum {
     PERMISSION_CODE_LENGTH_ERROR("000_003_002","权限代码长度不为8"),
     PERMISSION_CODE_IS_NULL("000_003_003","权限代码为空"),
     PERMISSION_NAME_IS_NULL("000_003_004","权限名称不能为空"),
-    PERMISSION_EXISTS("000_003_005","此权限信息已存在");
+    PERMISSION_EXISTS("000_003_005","此权限信息已存在"),
+    HAVING_PERMISSION("000_003_006","有此权限,可以访问"),
+    NO_PERMISSION("000_003_007","无此权限,拒绝访问");
+
 
 
 

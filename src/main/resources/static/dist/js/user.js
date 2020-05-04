@@ -17,9 +17,9 @@ $(function () {
             {label: '用户名', name: 'userName', index: 'userName', width: 50, hidden: true, key: true},
             {label: '头像', name: 'profilePic', index: 'profilePic', width: 50, sortable: false,align: "center",formatter: imgFormat},
             {label: '昵称', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
-            {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 80},
-            {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 80},
-            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 80,formatter:typeFormat},
+            {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 100},
+            {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 60},
+            {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 40,formatter:typeFormat},
             {label: '地址', name: 'userAddress', index: 'userAddress', sortable: false,align: "center", width: 80},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
@@ -30,7 +30,7 @@ $(function () {
         loadtext: '信息读取中...',
         // rownumbers: true,
         // rownumWidth: 80,
-        autowidth: true,
+        autowidth : true,
         multiselect: false,
         multiboxonly :true,
         altRows : true,
@@ -88,9 +88,26 @@ $(function () {
 });
 
 function userAdd() {
-    reset();
-    $('#modalAddTitle').html('用户添加');
-    $('#modalAdd').modal('show');
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    $.ajax({
+       type : "GET",
+       url : "user/verification",
+       dataType : "json",
+        data : {
+           username : name.userName,
+            apiUrl : "/user/insert"
+        },
+        success:function (result) {
+            if (result.code == "000_003_006"){
+                reset();
+                $('#modalAddTitle').html('用户添加');
+                $('#modalAdd').modal('show');
+            }else if(result.code == "000_003_007"){
+                alert(result.message);
+            }
+        }
+    });
+
 }
 function getImg(profilePic) {
 
