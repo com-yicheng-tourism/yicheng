@@ -105,7 +105,7 @@
       success : function (result) {
         if (result.code == "000_001_008"){
           // setCookie("token",result.data.userToken);
-          sessionStorage.setItem("userId",userName)
+          sessionStorage.setItem("userId",JSON.stringify(result.data))
           window.location.href="/user";
         }
         if (result.code == "000_001_003"){

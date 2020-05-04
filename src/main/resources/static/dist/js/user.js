@@ -15,6 +15,7 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '用户名', name: 'userName', index: 'userName', width: 50, hidden: true, key: true},
+            {label: '头像', name: 'profilePic', index: 'profilePic', width: 50, sortable: false,align: "center",formatter: imgFormat},
             {label: '昵称', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
             {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 80},
             {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 80},
@@ -68,6 +69,11 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+    function imgFormat(profilePic) {
+
+         return "<img id='userPic' class=\"round_icon\" src='"+profilePic+"'>"
+
+    }
     function cmgStateFormat(grid, rows) {
             return "<button class='btn btn-warning ' onclick=\"userEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button> " +
                 "<button class='btn btn-danger ' onclick=\"userDel()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>";
@@ -85,6 +91,9 @@ function userAdd() {
     reset();
     $('#modalAddTitle').html('用户添加');
     $('#modalAdd').modal('show');
+}
+function getImg(profilePic) {
+
 }
 
 function userEdit() {

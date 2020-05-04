@@ -8,6 +8,7 @@ import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
+import com.yicheng.tourism.dto.user.resp.UserQryResp;
 import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.LoginTypeEnum;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public BaseResponse<String> login(UserRegisterOrLoginReq req, HttpServletRequest request) {
+    public BaseResponse<UserQryResp> login(UserRegisterOrLoginReq req, HttpServletRequest request) {
         if (StringUtils.isEmpty(req.getLoginType())){
             return new BaseResponse<>(RespStatusEnum.LOGIN_TYPE_IS_NULL.getCode(),RespStatusEnum.LOGIN_TYPE_IS_NULL.getMessage());
         }
@@ -180,8 +181,11 @@ public class UserServiceImpl implements UserService {
                 }
                 ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
                 valueOperations.set(user.getUserName(),user,900, TimeUnit.SECONDS);
-                request.getSession().setAttribute("userId",user.getUserName());
-                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
+                request.getSession().setAttribute("userId",user);
+                UserQryResp qryResp = new UserQryResp();
+                BeanUtils.copyProperties(user,qryResp);
+                qryResp.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic());
+                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage(),qryResp);
             case EMAIL_LOGIN ://邮箱登录
                 String emailCode = SessionUtil.getEmailCode("emailCode", request);
                 if (!StringUtils.isEmpty(emailCode) && !emailCode.equalsIgnoreCase(req.getVerificationCode())){
@@ -256,6 +260,7 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(req.getPage(),req.getRows());
         List<User> users = userMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(users)){
+            users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic()));
             PageInfo<User> pageInfo = new PageInfo<>(users);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }

@@ -26,6 +26,21 @@
       .demo-input{padding-left: 10px; height: 38px; min-width: 262px; line-height: 38px; border: 1px solid #e6e6e6;  background-color: #fff;  border-radius: 2px;}
       .demo-footer{padding: 50px 0; color: #999; font-size: 14px;}
       .demo-footer a{padding: 0 5px; color: #01AAED;}
+      .round_icon{
+        width: 34px;
+        height: 34px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin: auto;
+        left: 50%;
+        right: 50%;
+        top: 50%;
+        bottom: 50%;
+        text-align: center;
+      }
     </style>
     <link rel="stylesheet" href="/dist/css/laydate/theme/default/laydate.css">
   </head>
@@ -66,8 +81,10 @@
           <li class="nav-item dropdown">
             <div class="user-panel ">
               <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-user"></i>
+<!--                src="http://localhost:8080/img/seekExperts"-->
+                <i class="far"><img class="round_icon head_pic"></i>
               </a>
+
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -447,9 +464,12 @@
       });
     </script>
     <script type="text/javascript">
-      let name = sessionStorage.getItem("userId");
-      console.log("userId",name)
-      $('#name').text(name)
+      let name = JSON.parse(sessionStorage.getItem("userId"));
+      // let name = sessionStorage.getItem("userId");
+      console.log("userId",name.userName)
+      $('#name').text(name.userName)
+        console.log("头像",name.profilePic)
+        $('.head_pic').attr("src",name.profilePic)
       function jumpToPicture() {
         window.location.href = "/picture";
       }

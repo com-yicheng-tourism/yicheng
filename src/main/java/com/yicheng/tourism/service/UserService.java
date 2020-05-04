@@ -6,6 +6,7 @@ import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
+import com.yicheng.tourism.dto.user.resp.UserQryResp;
 import com.yicheng.tourism.entity.Permission;
 import com.yicheng.tourism.entity.Role;
 import com.yicheng.tourism.entity.User;
@@ -29,7 +30,7 @@ public interface UserService {
      * @param request
      * @return
      */
-    BaseResponse<String> login(UserRegisterOrLoginReq req, HttpServletRequest request);
+    BaseResponse<UserQryResp> login(UserRegisterOrLoginReq req, HttpServletRequest request);
 
     /**获取用户详情
      * @param serialCode

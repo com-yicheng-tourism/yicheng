@@ -6,6 +6,7 @@ import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
+import com.yicheng.tourism.dto.user.resp.UserQryResp;
 import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.service.UserService;
@@ -46,7 +47,7 @@ public class UserController {
 
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public BaseResponse<String> login(@RequestBody  UserRegisterOrLoginReq userRegisterOrLoginReq, HttpServletRequest request){
+    public BaseResponse<UserQryResp> login(@RequestBody  UserRegisterOrLoginReq userRegisterOrLoginReq, HttpServletRequest request){
        return userService.login(userRegisterOrLoginReq,request);
     }
 
