@@ -1,15 +1,23 @@
 package com.yicheng.tourism.controller;
+
+import com.yicheng.tourism.entity.User;
+import com.yicheng.tourism.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class Ahandler {
 
+    @Autowired
+    private UserService userService;
     // 登录的url
     @RequestMapping({"/login", "/"})
     public String loginHtml() {
@@ -17,7 +25,7 @@ public class Ahandler {
     }
     @RequestMapping({"/index"})
     public String indexHtml() {
-        return "/index";
+        return "/yicheng";
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String registerHtml() {
@@ -40,7 +48,11 @@ public class Ahandler {
         return "/user-index";
     }
     @RequestMapping(value = "/user",method = RequestMethod.GET)
-    public String testElement() {
+    public String User(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/user";
     }
     @RequestMapping(value = "/usertest",method = RequestMethod.GET)

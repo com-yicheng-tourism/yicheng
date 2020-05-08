@@ -51,12 +51,10 @@ public class UserController {
        return userService.login(userRegisterOrLoginReq,request);
     }
 
-    @ApiOperation(value = "获取token")
+    @ApiOperation(value = "获取token信息获取用户")
     @RequestMapping(value = "/token",method = RequestMethod.GET)
     public BaseResponse<Object> getToken(HttpServletRequest request){
-        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
-        User userId = (User) request.getSession().getAttribute("userId");
-        User user = (User) valueOperations.get(userId.getUserName());
+        User user = userService.getToken(request);
         if (StringUtils.isEmpty(user)){
             return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
         }

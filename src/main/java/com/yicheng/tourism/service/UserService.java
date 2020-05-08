@@ -64,4 +64,11 @@ public interface UserService {
      * @return
      */
     BaseResponse<String> verification(String username,String apiUrl);
+
+
+    /**根据token获取登录信息
+     * @param request
+     * @return
+     */
+    User getToken(HttpServletRequest request);
 }

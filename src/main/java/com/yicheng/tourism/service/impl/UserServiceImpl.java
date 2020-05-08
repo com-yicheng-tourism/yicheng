@@ -316,5 +316,24 @@ public class UserServiceImpl implements UserService {
         return new BaseResponse<>(RespStatusEnum.NO_PERMISSION.getCode(),RespStatusEnum.NO_PERMISSION.getMessage());
     }
 
+    /**
+     * 根据token获取用户信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public User getToken(HttpServletRequest request) {
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+        User userId = (User) request.getSession().getAttribute("userId");
+        if (!StringUtils.isEmpty(userId)){
+            User user = (User) valueOperations.get(userId.getUserName());
+            if (!StringUtils.isEmpty(user)){
+                return user;
+            }
+        }
+        return null;
+    }
+
 
 }
