@@ -13,4 +13,14 @@
       </if>
     </where>
   </sql>
+
+  <select id="qryByRole"  resultType="com.yicheng.tourism.entity.Permission">
+    select t1.*,t3.nav_id pid
+    from t_permission t1,t_nav_permission t2,t_role_nav t3
+    where t1.id = t2.permission_id and  t2.nav_id = t3.nav_id and t3.role_id in
+    <foreach collection="c" item="item" index="index" separator="," open="(" close=")">
+     #{item}
+    </foreach>
+
+  </select>
 </mapper>

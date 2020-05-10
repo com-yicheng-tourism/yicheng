@@ -1,20 +1,13 @@
 package com.yicheng.tourism.entity;
 
-import org.springframework.data.annotation.Transient;
-
 import java.util.Date;
 
-public class Permission {
+public class NavPermission {
     private String id;
 
-    @Transient
-    private String pid;
+    private String navId;
 
-    private String name;
-
-    private String apiId;
-
-    private String level;
+    private String permissionId;
 
     private Date createTime;
 
@@ -34,36 +27,20 @@ public class Permission {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getPid() {
-        return pid;
+    public String getNavId() {
+        return navId;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
+    public void setNavId(String navId) {
+        this.navId = navId == null ? null : navId.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getPermissionId() {
+        return permissionId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getApiId() {
-        return apiId;
-    }
-
-    public void setApiId(String apiId) {
-        this.apiId = apiId == null ? null : apiId.trim();
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
+    public void setPermissionId(String permissionId) {
+        this.permissionId = permissionId == null ? null : permissionId.trim();
     }
 
     public Date getCreateTime() {

@@ -17,4 +17,8 @@
   <select id="qryByUsername" parameterType="String" resultType="com.yicheng.tourism.entity.Role">
     select * from t_role t1,t_user_role t2 where t2.user_id = #{username} and t2.role_id=t1.id
   </select>
+
+  <select id="qryAll" resultType="com.yicheng.tourism.entity.Role">
+        select * from t_role;
+  </select>
 </mapper>

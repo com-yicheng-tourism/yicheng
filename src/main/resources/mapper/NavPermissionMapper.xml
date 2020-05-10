@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yicheng.tourism.mapper.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.yicheng.tourism.entity.Role">
+<mapper namespace="com.yicheng.tourism.mapper.NavPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.yicheng.tourism.entity.NavPermission">
     <id column="id" jdbcType="CHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="nav_id" jdbcType="CHAR" property="navId" />
+    <result column="permission_id" jdbcType="CHAR" property="permissionId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
@@ -70,16 +70,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, code, create_time, create_id, modify_time, modify_id, description
+    id, nav_id, permission_id, create_time, create_id, modify_time, modify_id, description
   </sql>
-  <select id="selectByExample" parameterType="com.yicheng.tourism.entity.RoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.yicheng.tourism.entity.NavPermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_role
+    from t_nav_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,38 +90,38 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_role
+    from t_nav_permission
     where id = #{id,jdbcType=CHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_role
+    delete from t_nav_permission
     where id = #{id,jdbcType=CHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yicheng.tourism.entity.RoleExample">
-    delete from t_role
+  <delete id="deleteByExample" parameterType="com.yicheng.tourism.entity.NavPermissionExample">
+    delete from t_nav_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yicheng.tourism.entity.Role">
-    insert into t_role (id, name, code, create_time, 
-      create_id, modify_time, modify_id, 
-      description)
-    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.yicheng.tourism.entity.NavPermission">
+    insert into t_nav_permission (id, nav_id, permission_id, 
+      create_time, create_id, modify_time, 
+      modify_id, description)
+    values (#{id,jdbcType=CHAR}, #{navId,jdbcType=CHAR}, #{permissionId,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.Role">
-    insert into t_role
+  <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.NavPermission">
+    insert into t_nav_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="navId != null">
+        nav_id,
       </if>
-      <if test="code != null">
-        code,
+      <if test="permissionId != null">
+        permission_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -143,11 +143,11 @@
       <if test="id != null">
         #{id,jdbcType=CHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="navId != null">
+        #{navId,jdbcType=CHAR},
       </if>
-      <if test="code != null">
-        #{code,jdbcType=CHAR},
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -166,23 +166,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yicheng.tourism.entity.RoleExample" resultType="java.lang.Long">
-    select count(*) from t_role
+  <select id="countByExample" parameterType="com.yicheng.tourism.entity.NavPermissionExample" resultType="java.lang.Long">
+    select count(*) from t_nav_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update t_role
+    update t_nav_permission
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=CHAR},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.navId != null">
+        nav_id = #{record.navId,jdbcType=CHAR},
       </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=CHAR},
+      <if test="record.permissionId != null">
+        permission_id = #{record.permissionId,jdbcType=CHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -205,10 +205,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_role
+    update t_nav_permission
     set id = #{record.id,jdbcType=CHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      code = #{record.code,jdbcType=CHAR},
+      nav_id = #{record.navId,jdbcType=CHAR},
+      permission_id = #{record.permissionId,jdbcType=CHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_id = #{record.createId,jdbcType=VARCHAR},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -218,14 +218,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yicheng.tourism.entity.Role">
-    update t_role
+  <update id="updateByPrimaryKeySelective" parameterType="com.yicheng.tourism.entity.NavPermission">
+    update t_nav_permission
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="navId != null">
+        nav_id = #{navId,jdbcType=CHAR},
       </if>
-      <if test="code != null">
-        code = #{code,jdbcType=CHAR},
+      <if test="permissionId != null">
+        permission_id = #{permissionId,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -245,10 +245,10 @@
     </set>
     where id = #{id,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yicheng.tourism.entity.Role">
-    update t_role
-    set name = #{name,jdbcType=VARCHAR},
-      code = #{code,jdbcType=CHAR},
+  <update id="updateByPrimaryKey" parameterType="com.yicheng.tourism.entity.NavPermission">
+    update t_nav_permission
+    set nav_id = #{navId,jdbcType=CHAR},
+      permission_id = #{permissionId,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_id = #{createId,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},

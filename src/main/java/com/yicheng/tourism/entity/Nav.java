@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
-public class Permission {
+public class Nav {
     private String id;
 
     @Transient
@@ -12,9 +12,7 @@ public class Permission {
 
     private String name;
 
-    private String apiId;
-
-    private String level;
+    private String apiUrl;
 
     private Date createTime;
 
@@ -50,20 +48,12 @@ public class Permission {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getApiId() {
-        return apiId;
+    public String getApiUrl() {
+        return apiUrl;
     }
 
-    public void setApiId(String apiId) {
-        this.apiId = apiId == null ? null : apiId.trim();
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl == null ? null : apiUrl.trim();
     }
 
     public Date getCreateTime() {

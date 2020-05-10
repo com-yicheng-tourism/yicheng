@@ -1,33 +1,34 @@
 package com.yicheng.tourism.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.yicheng.tourism.base.resp.BaseResponse;
+import com.yicheng.tourism.dto.role.resp.RolePermissionResp;
 import com.yicheng.tourism.dto.role.req.AssignPermissionReq;
 import com.yicheng.tourism.dto.role.req.RoleConditionReq;
 import com.yicheng.tourism.dto.role.req.RoleInsertReq;
-import com.yicheng.tourism.dto.role.resp.RoleResp;
-import com.yicheng.tourism.entity.Role;
-import com.yicheng.tourism.entity.RoleExample;
-import com.yicheng.tourism.entity.RolePermission;
-import com.yicheng.tourism.entity.User;
+import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.RoleMapper;
 import com.yicheng.tourism.mapper.RolePermissionMapper;
+import com.yicheng.tourism.mapper.ext.NavMapperExt;
+import com.yicheng.tourism.mapper.ext.PermissionMapperExt;
 import com.yicheng.tourism.mapper.ext.RoleMapperExt;
 import com.yicheng.tourism.mapper.ext.RolePermissionMapperExt;
 import com.yicheng.tourism.service.RoleService;
 import com.yicheng.tourism.util.UUIDUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -40,6 +41,10 @@ public class RoleServiceImpl implements RoleService {
     private RolePermissionMapper rolePermissionMapper;
     @Autowired
     private RolePermissionMapperExt rolePermissionMapperExt;
+    @Autowired
+    private PermissionMapperExt permissionMapperExt;
+    @Autowired
+    private NavMapperExt navMapperExt;
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
     /**
@@ -122,5 +127,29 @@ public class RoleServiceImpl implements RoleService {
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配成功");
         }
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配失败");
+    }
+
+    /**
+     * 根据条件筛选查询
+     *
+     * @return
+     */
+    @Override
+    public BaseResponse<List<RolePermissionResp>> getRolePermission() {
+        List<RolePermissionResp> rolePermissionResp = new ArrayList<>();
+        List<Role> rolePermissionResps = roleMapperExt.qryAll();
+        List<RolePermissionResp> rolePermission = rolePermissionResps.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+        List<String> roleId = new ArrayList<>();
+        rolePermissionResps.forEach(role -> {
+            roleId.add(role.getId());
+        });
+        List<Nav> navs = navMapperExt.qryByRole(roleId);
+        List<RolePermissionResp> navList = navs.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+        List<Permission> permissionList = permissionMapperExt.qryByRole(roleId);
+        List<RolePermissionResp> permissionResps = permissionList.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+        rolePermissionResp.addAll(rolePermission);
+        rolePermissionResp.addAll(navList);
+        rolePermissionResp.addAll(permissionResps);
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),rolePermissionResp);
     }
 }

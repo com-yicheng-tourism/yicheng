@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.NavMapperExt">
+
+  <select id="qryByRole"  resultType="com.yicheng.tourism.entity.Nav">
+    select t1.*,t2.role_id pid
+    from t_nav t1,t_role_nav t2
+    where t1.id = t2.nav_id and  t2.role_id  in
+    <foreach collection="c" item="item" index="index" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

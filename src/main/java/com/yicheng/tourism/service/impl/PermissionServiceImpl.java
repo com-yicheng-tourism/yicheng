@@ -12,7 +12,6 @@ import com.yicheng.tourism.mapper.ext.PermissionMapperExt;
 import com.yicheng.tourism.mapper.ext.RoleMapperExt;
 import com.yicheng.tourism.service.PermissionService;
 import com.yicheng.tourism.util.UUIDUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -34,6 +33,8 @@ public class PermissionServiceImpl implements PermissionService {
         List<Permission> permissionList = permissionMapperExt.qryByCondition(req);
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),permissionList);
     }
+
+
 
     /**
      * 根据用户名获取权限列表

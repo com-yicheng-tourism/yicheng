@@ -31,9 +31,9 @@ public class Ahandler {
     public String registerHtml() {
         return "/pages/page-register";
     }
-    @RequestMapping(value = "/dataTable",method = RequestMethod.GET)
+    @RequestMapping(value = "/profile",method = RequestMethod.GET)
     public String dataTable() {
-        return "/tables-data";
+        return "/pages/profile";
     }
     @RequestMapping(value = "/home",method = RequestMethod.GET)
     public String home() {
@@ -43,9 +43,9 @@ public class Ahandler {
     public String main() {
         return "/main";
     }
-    @RequestMapping(value = "/userManage",method = RequestMethod.GET)
+    @RequestMapping(value = "/auth",method = RequestMethod.GET)
     public String userManage() {
-        return "/user-index";
+        return "/pages/auth";
     }
     @RequestMapping(value = "/user",method = RequestMethod.GET)
     public String User(HttpServletRequest request) {
@@ -53,7 +53,7 @@ public class Ahandler {
         if (StringUtils.isEmpty(user)){
             return "/pages/404";
         }
-        return "/user";
+        return "/pages/user";
     }
     @RequestMapping(value = "/usertest",method = RequestMethod.GET)
     public String testUserElement() {
@@ -61,11 +61,11 @@ public class Ahandler {
     }
     @RequestMapping(value = "/store",method = RequestMethod.GET)
     public String storeElement() {
-        return "/store";
+        return "/pages/store";
     }
     @RequestMapping(value = "/picture",method = RequestMethod.GET)
     public String picture() {
-        return "/picture";
+        return "/pages/picture";
     }
 //    @RequestMapping(value="/{page}",method= RequestMethod.GET)
 //    public String page(@PathVariable("page") String page) {

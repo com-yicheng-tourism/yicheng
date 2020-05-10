@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RoleExample {
+public class NavExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public RoleExample() {
+    public NavExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -245,73 +245,73 @@ public class RoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andCodeIsNull() {
-            addCriterion("code is null");
+        public Criteria andApiUrlIsNull() {
+            addCriterion("api_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andCodeIsNotNull() {
-            addCriterion("code is not null");
+        public Criteria andApiUrlIsNotNull() {
+            addCriterion("api_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCodeEqualTo(String value) {
-            addCriterion("code =", value, "code");
+        public Criteria andApiUrlEqualTo(String value) {
+            addCriterion("api_url =", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotEqualTo(String value) {
-            addCriterion("code <>", value, "code");
+        public Criteria andApiUrlNotEqualTo(String value) {
+            addCriterion("api_url <>", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeGreaterThan(String value) {
-            addCriterion("code >", value, "code");
+        public Criteria andApiUrlGreaterThan(String value) {
+            addCriterion("api_url >", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("code >=", value, "code");
+        public Criteria andApiUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("api_url >=", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeLessThan(String value) {
-            addCriterion("code <", value, "code");
+        public Criteria andApiUrlLessThan(String value) {
+            addCriterion("api_url <", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeLessThanOrEqualTo(String value) {
-            addCriterion("code <=", value, "code");
+        public Criteria andApiUrlLessThanOrEqualTo(String value) {
+            addCriterion("api_url <=", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeLike(String value) {
-            addCriterion("code like", value, "code");
+        public Criteria andApiUrlLike(String value) {
+            addCriterion("api_url like", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotLike(String value) {
-            addCriterion("code not like", value, "code");
+        public Criteria andApiUrlNotLike(String value) {
+            addCriterion("api_url not like", value, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeIn(List<String> values) {
-            addCriterion("code in", values, "code");
+        public Criteria andApiUrlIn(List<String> values) {
+            addCriterion("api_url in", values, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotIn(List<String> values) {
-            addCriterion("code not in", values, "code");
+        public Criteria andApiUrlNotIn(List<String> values) {
+            addCriterion("api_url not in", values, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeBetween(String value1, String value2) {
-            addCriterion("code between", value1, value2, "code");
+        public Criteria andApiUrlBetween(String value1, String value2) {
+            addCriterion("api_url between", value1, value2, "apiUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotBetween(String value1, String value2) {
-            addCriterion("code not between", value1, value2, "code");
+        public Criteria andApiUrlNotBetween(String value1, String value2) {
+            addCriterion("api_url not between", value1, value2, "apiUrl");
             return (Criteria) this;
         }
 

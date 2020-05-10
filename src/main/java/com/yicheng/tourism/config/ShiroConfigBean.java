@@ -40,7 +40,7 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/register","anon");
         filterChainDefinitionMap.put("/#**","anon");
         //放行数据表格
-        filterChainDefinitionMap.put("/dataTable","anon");
+        filterChainDefinitionMap.put("/profile","anon");
         filterChainDefinitionMap.put("/home","anon");
         filterChainDefinitionMap.put("/main","anon");
         filterChainDefinitionMap.put("/picture","anon");

@@ -1,13 +1,12 @@
 package com.yicheng.tourism.service;
 
 import com.yicheng.tourism.base.resp.BaseResponse;
+import com.yicheng.tourism.dto.role.resp.RolePermissionResp;
 import com.yicheng.tourism.dto.role.req.AssignPermissionReq;
 import com.yicheng.tourism.dto.role.req.RoleConditionReq;
 import com.yicheng.tourism.dto.role.req.RoleInsertReq;
-import com.yicheng.tourism.dto.role.resp.RoleResp;
 import com.yicheng.tourism.entity.Role;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface RoleService {
@@ -29,4 +28,10 @@ public interface RoleService {
      * @return
      */
     BaseResponse<String> assignPermission(List<AssignPermissionReq> req,String username);
+
+    /**查询角色权限列表
+     *
+     * @return
+     */
+    BaseResponse<List<RolePermissionResp>> getRolePermission();
 }

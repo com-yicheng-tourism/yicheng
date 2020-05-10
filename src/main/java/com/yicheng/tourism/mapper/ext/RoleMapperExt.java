@@ -1,7 +1,7 @@
 package com.yicheng.tourism.mapper.ext;
 
+import com.yicheng.tourism.dto.role.resp.RolePermissionResp;
 import com.yicheng.tourism.dto.role.req.RoleConditionReq;
-import com.yicheng.tourism.dto.role.resp.RoleResp;
 import com.yicheng.tourism.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +20,6 @@ public interface RoleMapperExt {
      * @return
      */
     List<Role> qryByUsername(String username);
+
+    List<Role> qryAll();
 }

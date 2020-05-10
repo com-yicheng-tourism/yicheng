@@ -13,4 +13,6 @@ public interface PermissionMapperExt {
      * @return
      */
     List<Permission> qryByCondition(@Param("c") PermissionConditionReq req);
+
+    List<Permission> qryByRole(@Param("c") List<String> roleId);
 }

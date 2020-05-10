@@ -1,17 +1,13 @@
 package com.yicheng.tourism.controller;
 
 import com.yicheng.tourism.base.resp.BaseResponse;
-import com.yicheng.tourism.dto.permission.req.InsertPermissionReq;
-import com.yicheng.tourism.dto.permission.req.PermissionConditionReq;
+import com.yicheng.tourism.dto.role.resp.RolePermissionResp;
 import com.yicheng.tourism.dto.role.req.AssignPermissionReq;
 import com.yicheng.tourism.dto.role.req.RoleConditionReq;
 import com.yicheng.tourism.dto.role.req.RoleInsertReq;
-import com.yicheng.tourism.dto.role.resp.RoleResp;
-import com.yicheng.tourism.entity.Permission;
 import com.yicheng.tourism.entity.Role;
 import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
-import com.yicheng.tourism.service.PermissionService;
 import com.yicheng.tourism.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +44,12 @@ public class RoleController {
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     public BaseResponse<String> insert(@RequestBody RoleInsertReq req){
         return roleService.insert(req);
+    }
+
+    @ApiOperation("查询权限列表")
+    @RequestMapping(value = "/qryRolePermission",method = RequestMethod.GET)
+    public BaseResponse<List<RolePermissionResp>> getRolePermission(){
+        return roleService.getRolePermission();
     }
 
     @ApiOperation("为角色分配权限")

@@ -63,7 +63,17 @@
 <!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--        </table>-->
-        <table schema="${jdbc_user}" tableName="t_role_permission" domainObjectName="RolePermission"
+<!--        <table schema="${jdbc_user}" tableName="t_role_permission" domainObjectName="RolePermission"-->
+<!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
+<!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
+<!--            <property name="useActualColumnNames" value="false"/>-->
+<!--        </table>-->
+        <table schema="${jdbc_user}" tableName="t_nav" domainObjectName="Nav"
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true" >
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table schema="${jdbc_user}" tableName="t_nav_permission" domainObjectName="NavPermission"
                enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true" >
             <property name="useActualColumnNames" value="false"/>
