@@ -41,4 +41,13 @@ public class UserQryResp {
 
     private Boolean isLogout;
 
+    private String job;
+
+    private String sex;
+
+    private String education;
+
+    private String skill;
+
+    private String signature;
 }

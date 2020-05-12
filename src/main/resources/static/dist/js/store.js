@@ -23,7 +23,7 @@ $(function () {
             {label: '店主', name: 'createBy', index: 'createBy', sortable: false,align: "center", width: 80},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
-        height: 500,
+        height: 635,
         rowNum: 10,
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',

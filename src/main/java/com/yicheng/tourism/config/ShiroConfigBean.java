@@ -46,7 +46,7 @@ public class ShiroConfigBean {
         filterChainDefinitionMap.put("/picture","anon");
         filterChainDefinitionMap.put("/user","anon");
         filterChainDefinitionMap.put("/store","anon");
-        filterChainDefinitionMap.put("/usertest","anon");
+        filterChainDefinitionMap.put("/datetest","anon");
         //放行swagger
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger/**","anon");

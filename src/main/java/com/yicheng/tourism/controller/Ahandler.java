@@ -55,9 +55,9 @@ public class Ahandler {
         }
         return "/pages/user";
     }
-    @RequestMapping(value = "/usertest",method = RequestMethod.GET)
+    @RequestMapping(value = "/datetest",method = RequestMethod.GET)
     public String testUserElement() {
-        return "/usertest";
+        return "/testDate";
     }
     @RequestMapping(value = "/store",method = RequestMethod.GET)
     public String storeElement() {

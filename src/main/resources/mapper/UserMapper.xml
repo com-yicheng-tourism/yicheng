@@ -11,12 +11,17 @@
     <result column="profile_pic" jdbcType="CHAR" property="profilePic" />
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="type" jdbcType="CHAR" property="type" />
     <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="modify_id" jdbcType="VARCHAR" property="modifyId" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
     <result column="is_logout" jdbcType="BIT" property="isLogout" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -79,7 +84,8 @@
   </sql>
   <sql id="Base_Column_List">
     serial_id, user_name, mail, nick_name, user_pwd, birthday, profile_pic, user_phone, 
-    user_address, type, ip_address, create_time, create_id, modify_time, modify_id, is_logout
+    user_address, sex, job, type, ip_address, create_time, create_id, modify_time, modify_id, 
+    education, skill, signature, is_logout
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -116,15 +122,17 @@
     insert into t_user (serial_id, user_name, mail, 
       nick_name, user_pwd, birthday, 
       profile_pic, user_phone, user_address, 
-      type, ip_address, create_time, 
-      create_id, modify_time, modify_id, 
-      is_logout)
+      sex, job, type, ip_address, 
+      create_time, create_id, modify_time, 
+      modify_id, education, skill, 
+      signature, is_logout)
     values (#{serialId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{userPwd,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
       #{profilePic,jdbcType=CHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
-      #{type,jdbcType=CHAR}, #{ipAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=VARCHAR}, 
-      #{isLogout,jdbcType=BIT})
+      #{sex,jdbcType=CHAR}, #{job,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyId,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{skill,jdbcType=VARCHAR}, 
+      #{signature,jdbcType=VARCHAR}, #{isLogout,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.User">
     insert into t_user
@@ -156,6 +164,12 @@
       <if test="userAddress != null">
         user_address,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
       <if test="type != null">
         type,
       </if>
@@ -173,6 +187,15 @@
       </if>
       <if test="modifyId != null">
         modify_id,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="skill != null">
+        skill,
+      </if>
+      <if test="signature != null">
+        signature,
       </if>
       <if test="isLogout != null">
         is_logout,
@@ -206,6 +229,12 @@
       <if test="userAddress != null">
         #{userAddress,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         #{type,jdbcType=CHAR},
       </if>
@@ -223,6 +252,15 @@
       </if>
       <if test="modifyId != null">
         #{modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
       </if>
       <if test="isLogout != null">
         #{isLogout,jdbcType=BIT},
@@ -265,6 +303,12 @@
       <if test="record.userAddress != null">
         user_address = #{record.userAddress,jdbcType=VARCHAR},
       </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.job != null">
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
       <if test="record.type != null">
         type = #{record.type,jdbcType=CHAR},
       </if>
@@ -282,6 +326,15 @@
       </if>
       <if test="record.modifyId != null">
         modify_id = #{record.modifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null">
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skill != null">
+        skill = #{record.skill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null">
+        signature = #{record.signature,jdbcType=VARCHAR},
       </if>
       <if test="record.isLogout != null">
         is_logout = #{record.isLogout,jdbcType=BIT},
@@ -302,12 +355,17 @@
       profile_pic = #{record.profilePic,jdbcType=CHAR},
       user_phone = #{record.userPhone,jdbcType=VARCHAR},
       user_address = #{record.userAddress,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      job = #{record.job,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=CHAR},
       ip_address = #{record.ipAddress,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_id = #{record.createId,jdbcType=VARCHAR},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       modify_id = #{record.modifyId,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      skill = #{record.skill,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
       is_logout = #{record.isLogout,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -340,6 +398,12 @@
       <if test="userAddress != null">
         user_address = #{userAddress,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         type = #{type,jdbcType=CHAR},
       </if>
@@ -358,6 +422,15 @@
       <if test="modifyId != null">
         modify_id = #{modifyId,jdbcType=VARCHAR},
       </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        skill = #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
       <if test="isLogout != null">
         is_logout = #{isLogout,jdbcType=BIT},
       </if>
@@ -374,12 +447,17 @@
       profile_pic = #{profilePic,jdbcType=CHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
       user_address = #{userAddress,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      job = #{job,jdbcType=VARCHAR},
       type = #{type,jdbcType=CHAR},
       ip_address = #{ipAddress,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_id = #{createId,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       modify_id = #{modifyId,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
       is_logout = #{isLogout,jdbcType=BIT}
     where serial_id = #{serialId,jdbcType=CHAR}
   </update>

@@ -24,6 +24,10 @@ public class User {
 
     private String userAddress;
 
+    private String sex;
+
+    private String job;
+
     private String type;
 
     private String ipAddress;
@@ -35,6 +39,12 @@ public class User {
     private Date modifyTime;
 
     private String modifyId;
+
+    private String education;
+
+    private String skill;
+
+    private String signature;
 
     private Boolean isLogout;
 
@@ -110,6 +120,22 @@ public class User {
         this.userAddress = userAddress == null ? null : userAddress.trim();
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job == null ? null : job.trim();
+    }
+
     public String getType() {
         return type;
     }
@@ -156,6 +182,30 @@ public class User {
 
     public void setModifyId(String modifyId) {
         this.modifyId = modifyId == null ? null : modifyId.trim();
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education == null ? null : education.trim();
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill == null ? null : skill.trim();
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature == null ? null : signature.trim();
     }
 
     public Boolean getIsLogout() {

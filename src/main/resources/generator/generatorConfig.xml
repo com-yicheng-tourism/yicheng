@@ -43,11 +43,11 @@
         <javaClientGenerator targetPackage="com.yicheng.tourism.mapper" type="XMLMAPPER" targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-<!--        <table schema="${jdbc_user}" tableName="t_user" domainObjectName="User"-->
-<!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
-<!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--        </table>-->
+        <table schema="${jdbc_user}" tableName="t_user" domainObjectName="User"
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true" >
+            <property name="useActualColumnNames" value="false"/>
+        </table>
 <!--        <table schema="${jdbc_user}" tableName="t_role" domainObjectName="Role"-->
 <!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
 <!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
@@ -68,15 +68,15 @@
 <!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--        </table>-->
-        <table schema="${jdbc_user}" tableName="t_nav" domainObjectName="Nav"
-               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
-               enableSelectByExample="true" selectByExampleQueryId="true" >
-            <property name="useActualColumnNames" value="false"/>
-        </table>
-        <table schema="${jdbc_user}" tableName="t_nav_permission" domainObjectName="NavPermission"
-               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
-               enableSelectByExample="true" selectByExampleQueryId="true" >
-            <property name="useActualColumnNames" value="false"/>
-        </table>
+<!--        <table schema="${jdbc_user}" tableName="t_nav" domainObjectName="Nav"-->
+<!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
+<!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
+<!--            <property name="useActualColumnNames" value="false"/>-->
+<!--        </table>-->
+<!--        <table schema="${jdbc_user}" tableName="t_nav_permission" domainObjectName="NavPermission"-->
+<!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
+<!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
+<!--            <property name="useActualColumnNames" value="false"/>-->
+<!--        </table>-->
     </context>
 </generatorConfiguration>
