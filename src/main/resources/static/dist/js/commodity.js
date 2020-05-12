@@ -10,20 +10,20 @@ $(function () {
         reset();
     })
 
-    $("#storeTable").jqGrid({
-        url: 'store/query',
+    $("#commodityTable").jqGrid({
+        url: 'commodity/query',
         datatype: "json",
         colModel: [
-            {label: '店铺id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
-            {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', hidden:true,width: 50},
-            {label: '店铺名称', name: 'storeName', index: 'storeName', width: 50},
-            {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false,align: "center", width: 80},
-            {label: '店主手机号', name: 'authorPhone', index: 'authorPhone', sortable: false,align: "center", width: 80},
-            {label: '店铺状态', name: 'storeState', index: 'storeState', sortable: false,align: "center", width: 80,formatter:typeFormat},
-            {label: '店主', name: 'createBy', index: 'createBy', sortable: false,align: "center", width: 80},
+            {label: '商品id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
+            {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 50},
+            {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 50},
+            {label: '商品描述', name: 'commodityScript', index: 'commodityScript', sortable: false,align: "center", width: 80},
+            {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 80},
+            {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 80,formatter:typeFormat},
+            {label: '归属店铺', name: 'commodityOner', index: 'commodityOner', sortable: false,align: "center", width: 80},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
-        height: 635,
+        height: 500,
         rowNum: 10,
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',
@@ -31,7 +31,7 @@ $(function () {
         rownumbers: true,
         multiselect: true,
         autowidth: true,
-        pager: "#storePager",
+        pager: "#commodityPager",
         jsonReader: {
             root: "data.list",
             page: "data.pageNum",
@@ -48,19 +48,19 @@ $(function () {
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
-            $("#storeTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
+            $("#commodityTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
     function cmgStateFormat(grid, rows) {
-        return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+        return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
             "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
     };
     function typeFormat(type){
-        return type == "0" ? "开启" : ( type == "1" ? "关闭" : "封禁中");
+        return type == "0" ? "已上架" : "已下架";
     }
     $(window).resize(function () {
         console.log("gaibianledaxiao ")
-        $("#storeTable").setGridWidth($(".card-body").width());
+        $("#commodityTable").setGridWidth($(".card-body").width());
     });
 });
 
@@ -69,21 +69,21 @@ function toAdd() {
     $('#modalAdd').modal('show');
 }
 
-function toStoreEdit() {
+function toCommodityEdit() {
     reset();
-    var id = $("#storeTable").jqGrid("getGridParam", "selrow");
+    var id = $("#commodityTable").jqGrid("getGridParam", "selrow");
     console.log(id);
     if (id == null) {
         return;
     }
-    $.get( 'store/query', {id: id}, function (result) {
+    $.get( 'commodity/query', {id: id}, function (result) {
         if (result != null) {
             console.log(result)
-            $("#editForm #storeNo").val(result.data.list[0].storeNumber);
-            $("#editForm #storeName").val(result.data.list[0].storeName);
-            $("#editForm #storeScript").val(result.data.list[0].storeScript);
-            $("#editForm #phone").val(result.data.list[0].authorPhone);
-            $("#editForm #state").val(result.data.list[0].storeState);
+            $("#editForm #commodityName").val(result.data.list[0].storeNumber);
+            $("#editForm #commodityScript").val(result.data.list[0].storeName);
+            $("#editForm #price").val(result.data.list[0].storeScript);
+            $("#editForm #state").val(result.data.list[0].authorPhone);
+            $("#editForm #authorStore").val(result.data.list[0].storeState);
             $("#editForm #editId").val(id);
         }
     }, 'json');
@@ -92,7 +92,7 @@ function toStoreEdit() {
 }
 
 function toDelete(){
-    var rowid=$("#storeTable").jqGrid("getGridParam","selrow");
+    var rowid=$("#commodityTable").jqGrid("getGridParam","selrow");
     if (rowid == null) {
         swal("请勾选需要删除的选项", {
             icon: "error",
@@ -109,7 +109,7 @@ function toDelete(){
         if(flag) {
             $.ajax({
                 type: "POST",
-                url: "store/deleteStore",
+                url: "commodity/delete",
                 contentType: "application/json",
                 data: JSON.stringify(rowid),
                 success: function (r) {
@@ -117,7 +117,7 @@ function toDelete(){
                         swal("删除成功", {
                             icon: "success",
                         });
-                        $("#storeTable").trigger("reloadGrid");
+                        $("#commodityTable").trigger("reloadGrid");
                     } else {
                         swal("删除失败", {
                             icon: "error",
@@ -135,20 +135,22 @@ $('#saveButton').click(function () {
     //验证数据
     if (validObjectForAdd()) {
         //一切正常后发送网络请求
-        var  storeName=  $("#addForm #storeName").val();
-        var  storeScript=  $("#addForm #storeScript").val();
-        var  phone= $("#addForm #phone").val();
-        var  state= $("#addForm #state").val();
+        var commodityName =$("#addForm #commodityName").val();
+        var commodityScript = $("#addForm #commodityScript").val();
+        var price =$("#addForm #price").val();
+        var state =$("#addForm #state").val();
+        var authorStore = $("#addForm #authorStore").val();
         var data = {
-            "storeName": storeName,
-            "authorPhone": phone,
-            "storeScript": storeScript,
+            "commodityName": commodityName,
+            "commodityScript": commodityScript,
+            "commodityPrice": price,
+            "commodityAuthorNumber": authorStore,
             "storeState": state
         };
         $.ajax({
             type: 'POST',//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: 'store/insertStore',//url
+            url: 'commodity/insert',//url
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (result) {
@@ -184,21 +186,23 @@ $('#editButton').click(function () {
     if (validObjectForEdit()) {
         //一切正常后发送网络请求
         var  id=  $("#editForm #editId").val();
-        var  storeName=  $("#editForm #storeName").val();
-        var  storeScript=  $("#editForm #storeScript").val();
-        var  phone= $("#editForm #phone").val();
-        var  state= $("#editForm #state").val();
+        var commodityName =$("#editForm #commodityName").val();
+        var commodityScript = $("#editForm #commodityScript").val();
+        var price =$("#editForm #price").val();
+        var state =$("#editForm #state").val();
+        var authorStore = $("#editForm #authorStore").val();
         var data = {
             "id": id,
-            "storeName": storeName,
-            "authorPhone": phone,
-            "storeScript": storeScript,
+            "commodityName": commodityName,
+            "commodityScript": commodityScript,
+            "commodityPrice": price,
+            "commodityAuthorNumber": authorStore,
             "storeState": state
         };
         $.ajax({
             type: 'POST',//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: 'store/updateStore',//url
+            url: 'commodity/update',//url
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (result) {
@@ -229,10 +233,11 @@ $('#editButton').click(function () {
  * 数据验证
  */
 function validObjectForEdit() {
-    var  storeName=  $("#editForm #storeName").val();
-    var  phone= $("#editForm #phone").val();
-    var  state= $("#editForm #state").val();
-    if (isNull(storeName) || isNull(phone) || isNull(state)) {
+    var commodityName =$("#editForm #commodityName").val();
+    var price =$("#editForm #price").val();
+    var state =$("#editForm #state").val();
+    var authorStore = $("#editForm #authorStore").val();
+    if (isNull(commodityName) || isNull(price) || isNull(state) || isNull(authorStore)) {
         showErrorInfo("数据错误！");
         return false;
     }
@@ -256,11 +261,11 @@ function showErrorInfo(info) {
  * 数据验证
  */
 function validObjectForAdd() {
-    var  storeName=  $("#addForm #storeName").val();
-    var  phone= $("#addForm #phone").val();
-    var  state= $("#addForm #state").val();
-    console.log(storeName+"--"+phone+"--"+state);
-    if (isNull(storeName) || isNull(phone) || isNull(state)) {
+    var commodityName =$("#addForm #commodityName").val();
+    var price =$("#addForm #price").val();
+    var state =$("#addForm #state").val();
+    var authorStore = $("#addForm #authorStore").val();
+    if (isNull(commodityName) || isNull(price) || isNull(state) || isNull(authorStore)) {
         showErrorInfo("数据错误！");
         return false;
     }
@@ -274,17 +279,17 @@ function reset() {
     //隐藏错误提示框
     $('.alert-danger').css("display", "none");
     //清空数据
-    $('#storeName').val('');
-    $('#storeAuthor').val('');
+    $('#commodityName').val('');
+    $('#commodityState').val('');
 }
 
 /**
- * storeTable重新加载
+ * commodityTable重新加载
  */
 function reload() {
     reset();
-    var page = $("#storeTable").storeTable('getGridParam', 'page');
-    $("#storeTable").storeTable('setGridParam', {
+    var page = $("#commodityTable").commodityTable('getGridParam', 'page');
+    $("#commodityTable").commodityTable('setGridParam', {
         page: page
     }).trigger("reloadGrid");
 }

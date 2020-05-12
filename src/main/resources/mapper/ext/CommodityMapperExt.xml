@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.CommodityMapperExt">
+
+    <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.commodity.req.CommodityQueryReq"
+            resultMap="com.yicheng.tourism.mapper.commodityMapper.BaseResultMap">
+        select <include refid="com.yicheng.tourism.mapper.commodityMapper.Base_Column_List"></include>
+        from t_commodity
+        <include refid="query_sql_where"></include>
+    </select>
+    <sql id="query_sql_where">
+        <where>
+            <if test="c.id != null and '' != c.id">
+                and id=#{c.id}
+            </if>
+            <if test="c.commodityName != null and '' != c.commodityName">
+                and commodity_name like concat("%",#{c.commodityName},"%")
+            </if>
+            <if test="c.commodityState != null and '' != c.commodityState">
+                and commodity_state like concat("%",#{c.commodityState},"%")
+            </if>
+        </where>
+    </sql>
+
+    <update id="update" parameterType="com.yicheng.tourism.entity.commodity">
+        update t_commodity
+        <set>
+            <if test="c.commodityName != null">
+                commodity_name = #{c.commodityName,jdbcType=VARCHAR},
+            </if>
+            <if test="c.commodityScript != null">
+                commodity_script = #{c.commodityScript,jdbcType=VARCHAR},
+            </if>
+            <if test="c.commodityPrice != null">
+                commodity_price = #{c.commodityPrice,jdbcType=Double},
+            </if>
+            <if test="c.commodityState != null">
+                commodity_state = #{c.commodityState,jdbcType=CHAR},
+            </if>
+            <if test="c.updateBy != null">
+                update_by = #{c.updateBy,jdbcType=VARCHAR},
+            </if>
+            update_time = now()
+
+        </set>
+        where id=#{c.id}
+    </update>
+
+    <delete id="delete" parameterType="com.yicheng.tourism.entity.commodity">
+    	delete from t_commodity where id = #{id}
+  	</delete>
+
+
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.commodity">
+        INSERT INTO t_commodity
+        (id, commodity_number, commodity_name,
+        commodity_script, commodity_price, commodity_state,
+        create_by, create_time)
+        VALUES
+        (#{c.id,jdbcType=VARCHAR},
+        #{c.commodityNumber,jdbcType=VARCHAR},
+        #{c.commodityName,jdbcType=VARCHAR},
+        #{c.commodityScript,jdbcType=VARCHAR},
+        #{c.commodityPrice,jdbcType=VARCHAR},
+        #{c.commodityState,jdbcType=VARCHAR},
+        #{c.createBy,jdbcType=VARCHAR},
+        now())
+    </insert>
+
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_commodity
+        (id, commodity_number, commodity_name,
+        commodity_script, commodity_price, commodity_state,
+        create_by, create_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.commodityNumber,jdbcType=VARCHAR}, #{item.commodityName,jdbcType=VARCHAR},
+            #{item.commodityScript,jdbcType=VARCHAR}, #{item.commodityPrice,jdbcType=DOUBLE}, #{item.commodityState,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

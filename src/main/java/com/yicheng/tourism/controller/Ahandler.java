@@ -63,6 +63,10 @@ public class Ahandler {
     public String storeElement() {
         return "/pages/store";
     }
+    @RequestMapping(value = "/commodity",method = RequestMethod.GET)
+    public String commodityElement() {
+        return "/pages/commodity";
+    }
     @RequestMapping(value = "/picture",method = RequestMethod.GET)
     public String picture() {
         return "/pages/picture";

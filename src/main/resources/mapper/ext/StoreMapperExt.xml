@@ -47,7 +47,7 @@
     </update>
 
     <delete id="deleteStore" parameterType="com.yicheng.tourism.entity.Store">
-    	delete from student where id = #{id}
+    	delete from t_store where id = #{id}
   	</delete>
 
 
@@ -65,5 +65,18 @@
         #{c.storeState,jdbcType=VARCHAR},
         #{c.createBy,jdbcType=VARCHAR},
         now())
+    </insert>
+
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_store
+        (id, store_number, store_name,
+        store_script, author_phone, store_state,
+        create_by, create_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.storeNumber,jdbcType=VARCHAR}, #{item.storeName,jdbcType=VARCHAR},
+            #{item.storeScript,jdbcType=VARCHAR}, #{item.authorPhone,jdbcType=DOUBLE}, #{item.storeState,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+        </foreach>
     </insert>
 </mapper>
