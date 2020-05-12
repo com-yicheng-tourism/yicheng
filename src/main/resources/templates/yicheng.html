@@ -187,6 +187,11 @@
                                 个人中心
                             </a>
                             <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"  onclick="jumpToProfile()" >
+                                <i class="fa fa-user-alt"></i>
+                                我的订单
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item"  onclick="loginout()">
                                 <i class="glyphicon glyphicon-log-out"></i>
                                 退出系统
@@ -351,7 +356,7 @@
                 window.location.href = "/login"
             }
             function jumpToProfile() {
-                document.getElementById("main").innerHTML = '<object type="text/html" data="/profile" width="100%" height="700px"></object>';
+                document.getElementById("main").innerHTML = '<object type="text/html" data="/profileUser" width="100%" height="700px"></object>';
             }
             // function jumpToUser() {
             //     window.location.href="/user";

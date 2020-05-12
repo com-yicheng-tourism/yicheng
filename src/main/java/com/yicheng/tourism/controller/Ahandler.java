@@ -31,9 +31,13 @@ public class Ahandler {
     public String registerHtml() {
         return "/pages/page-register";
     }
-    @RequestMapping(value = "/profile",method = RequestMethod.GET)
-    public String dataTable() {
-        return "/pages/profile";
+    @RequestMapping(value = "/profileUser",method = RequestMethod.GET)
+    public String profileUser() {
+        return "/pages/profile-user";
+    }
+    @RequestMapping(value = "/profileShop",method = RequestMethod.GET)
+    public String profileShop() {
+        return "/pages/profile-shop";
     }
     @RequestMapping(value = "/home",method = RequestMethod.GET)
     public String home() {

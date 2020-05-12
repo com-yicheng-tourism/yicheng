@@ -1,7 +1,6 @@
 package com.yicheng.tourism.mapper.ext;
 
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
-import com.yicheng.tourism.entity.Store;
 import com.yicheng.tourism.entity.commodity;
 import org.apache.ibatis.annotations.Param;
 

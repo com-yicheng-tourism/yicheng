@@ -1,307 +1,311 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>lou.springboot | 商品管理页</title>
-    <!-- jqgrid ui -->
-    <link href="/plugins/jqGrid-5.4.0/ui.jqgrid-bootstrap.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/plugins/bootstrap/js/css/bootstrap.css">
-    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- sweet alert -->
-    <!--    <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">-->
-    <link href="/plugins/bootstrap/js/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/dist/css/main.css" rel="stylesheet"/>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/plugins/fontawesome-free/css/fontawesome.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-    <!-- sweet alert -->
-    <link rel="stylesheet" href="/plugins/sweetalert2/sweetalert2.css">
-</head>
-<body>
-<div class="wrapper">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>lou.springboot | 商品管理页</title>
+        <!-- jqgrid ui -->
+        <link href="/plugins/jqGrid-5.4.0/ui.jqgrid-bootstrap.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="/plugins/bootstrap/js/css/bootstrap.css">
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+        <!-- sweet alert -->
+        <!--    <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">-->
+        <link href="/plugins/bootstrap/js/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/dist/css/main.css" rel="stylesheet"/>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/fontawesome.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+        <!-- sweet alert -->
+        <link rel="stylesheet" href="/plugins/sweetalert2/sweetalert2.css">
+    </head>
+    <body>
+        <div class="wrapper">
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper"  style="margin-left: 0px;">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">商品管理页</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="index.html">主页</a></li>
-                            <li class="breadcrumb-item active">商品管理页</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-            <div class="widget-head" style="height: 34px;width:100%;background-color: #f8f8f8;text-shadow: 0px 1px #fff;
-                        border-bottom: 1px solid #ccc;color: #666;font-weight: bold;font-size: 13px;padding: 8px 15px;">
-                <div class="pull-left">
-                    查询条件
-                </div>
-            </div>
-            <div class="widget-content" style="height: 70px;width: 1075px;">
-                <div class=" padd" style="box-sizing: border-box">
-                    <table class="table border-none" style="width: auto;">
-                        <tr>
-                            <td>
-                                <label for="commodityName">名称</label>
-                            </td>
-                            <td>
-                                <input type="text" maxlength="50" class="form-control" name="commodityName" id="commodityName">
-                            </td>
-                            <td>
-                                <label for="commodityState">状态</label>
-                            </td>
-                            <td>
-                                <input type="text" maxlength="50" class="form-control" name="commodityState" id="commodityState">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" id="paramSearch"
-                                        onclick="toSearch()">查询
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default"
-                                        onclick="toAdd()">新增
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default"
-                                        onclick="toExport()">导出
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <table id="commodityTable" class="table table-bordered">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper"  style="margin-left: 0px;">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">商品列表</h1>
+                            </div><!-- /.col -->
+                            <!--                    <div class="col-sm-6">-->
+                            <!--                        <ol class="breadcrumb float-sm-right">-->
+                            <!--                            <li class="breadcrumb-item"><a href="index.html">主页</a></li>-->
+                            <!--                            <li class="breadcrumb-item active">商品管理页</li>-->
+                            <!--                        </ol>-->
+                            <!--                    </div>&lt;!&ndash; /.col &ndash;&gt;-->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                    <!--            <div class="widget-head" style="height: 34px;width:100%;background-color: #f8f8f8;text-shadow: 0px 1px #fff;-->
+                    <!--                        border-bottom: 1px solid #ccc;color: #666;font-weight: bold;font-size: 13px;padding: 8px 15px;">-->
+                    <!--                <div class="pull-left">-->
+                    <!--                    查询条件-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <div class="widget-content" style="height: 70px;width: 1075px;">
+                        <div class=" padd" style="box-sizing: border-box">
+                            <table class="table border-none" style="width: auto;">
+                                <tr>
+                                    <td>
+                                        <label for="commodityName">名称</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" maxlength="50" class="form-control" name="commodityName" id="commodityName">
+                                    </td>
+                                    <td>
+                                        <label for="commodityState">状态</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" maxlength="50" class="form-control" name="commodityState" id="commodityState">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" id="paramSearch"
+                                                onclick="toSearch()">查询
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default"
+                                                onclick="toAdd()">新增
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default"
+                                                onclick="toExport()">导出
+                                        </button>
+                                    </td>
+                                </tr>
                             </table>
-                            <div id="commodityPager"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="content">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="commodityTable" class="table table-bordered">
+                                    </table>
+                                    <div id="commodityPager"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-<!--  新增模态框  -->
-    <div class="content">
-        <!-- 模态框（Modal） -->
-        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="modalAddTitle">商品添加</h6>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addForm">
-                            <div class="form-group">
-                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+            <!--  新增模态框  -->
+            <div class="content">
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="modalAddTitle">商品添加</h6>
                             </div>
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品名称：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
-                                               tips="3" style="height: 35px;" placeholder="商品名称">
-                                    </td>
-                                </tr>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="form-group">
+                                        <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >商品名称：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
+                                                       tips="3" style="height: 35px;" placeholder="商品名称">
+                                            </td>
+                                        </tr>
 
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品描述：</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="商品描述">
-                                    </td>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label>商品描述：</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="商品描述">
+                                            </td>
 
-                                </tr>
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品价格：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="price" id="price" class="form-control" maxlength="11"
-                                               tips="3" style="height: 35px;" placeholder="商品价格">
-                                    </td>
-                                </tr>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >商品价格：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="price" id="price" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="商品价格">
+                                            </td>
+                                        </tr>
 
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <select name="state" id="state" class="form-control" maxlength="50"
-                                                tips="3" style="height: 35px;" placeholder="状态">
-                                            <option value="0">已上架</option>
-                                            <option value="1">已下架</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">归属店铺：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="author_store" id="author_store" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="归属店铺">
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" id="saveButton">确认</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.modal -->
-    </div>
-
-<!--  编辑模态框  -->
-    <div class="content">
-        <!-- 模态框（Modal） -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="modalEditTitle">商品编辑</h6>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editForm">
-                            <div class="form-group">
-                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >状态：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <select name="state" id="state" class="form-control" maxlength="50"
+                                                        tips="3" style="height: 35px;" placeholder="状态">
+                                                    <option value="0">已上架</option>
+                                                    <option value="1">已下架</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >归属店铺：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="author_store" id="author_store" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="归属店铺">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </div>
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td style="display: none">
-                                        <input type="text" name="editId" id="editId" style="height: 1px; width: 1px" >
-                                    </td>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品名称：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
-                                               tips="3" style="height: 35px;" placeholder="商品名称">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品描述：</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="商品描述">
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">商品价格：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="price" id="price" class="form-control" maxlength="11"
-                                               tips="3" style="height: 35px;" placeholder="商品价格">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <select name="state" id="state" class="form-control" maxlength="50"
-                                                tips="3" style="height: 35px;" placeholder="状态">
-                                            <option value="0">已上架</option>
-                                            <option value="1">已下架</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">归属店铺：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="authorStore" id="authorStore" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="归属店铺">
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" id="saveEdit">确认</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- /.modal -->
             </div>
-        </div>
-        <!-- /.modal -->
-    </div>
-<!-- 删除模态框 -->
-    <div class="content">
-        <!-- 模态框（Modal） -->
-        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h6 class="modal-title" id="modalDeleteTitle">删除提示</h6>
-                    </div>
-                    <div class="modal-body">
-                        <p>确认删除选中数据？</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" id="deleteCommodityBtn">确认</button>
+
+            <!--  编辑模态框  -->
+            <div class="content">
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="modalEditTitle">商品编辑</h6>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="form-group">
+                                        <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="display: none">
+                                                <input type="text" name="editId" id="editId" style="height: 1px; width: 1px" >
+                                            </td>
+                                            <td style="width: 120px;">
+                                                <label >商品名称：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
+                                                       tips="3" style="height: 35px;" placeholder="商品名称">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >商品描述：</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="商品描述">
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >商品价格：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="price" id="price" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="商品价格">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >状态：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <select name="state" id="state" class="form-control" maxlength="50"
+                                                        tips="3" style="height: 35px;" placeholder="状态">
+                                                    <option value="0">已上架</option>
+                                                    <option value="1">已下架</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >归属店铺：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="authorStore" id="authorStore" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="归属店铺">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="saveEdit">确认</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- /.modal -->
             </div>
+            <!-- 删除模态框 -->
+            <div class="content">
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h6 class="modal-title" id="modalDeleteTitle">删除提示</h6>
+                            </div>
+                            <div class="modal-body">
+                                <p>确认删除选中数据？</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="deleteCommodityBtn">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal -->
+            </div>
+
         </div>
-        <!-- /.modal -->
-    </div>
 
-</div>
+        <!-- ./wrapper -->
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-<!-- ./wrapper -->
-<!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- sweet alert -->
+        <script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <script src="/plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
+        <script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
+        <!-- ./wrapper -->
+        <script type="text/javascript">
+            let name = JSON.parse(sessionStorage.getItem("userId"));
+        </script>
+        <script src="/dist/js/commodity.js"></script>
 
-<!-- sweet alert -->
-<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="/plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
-<script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
-<!-- ./wrapper -->
-<script src="/dist/js/commodity.js"></script>
-</body>
+    </body>
 </html>
