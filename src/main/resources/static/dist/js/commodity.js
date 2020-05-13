@@ -52,17 +52,32 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-        return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
-            "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        let name = JSON.parse(sessionStorage.getItem("userId"));
+        var userType = name.type;
+        if (userType == '0') {
+            return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+                "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        } else if(userType == '1') {
+            return  "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+                "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
+        } else {
+            return "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
+        }
+
     };
     function typeFormat(type){
         return type == "0" ? "已上架" : "已下架";
     }
     $(window).resize(function () {
-        console.log("gaibianledaxiao ")
         $("#commodityTable").setGridWidth($(".card-body").width());
     });
 });
+
+function toCommodityMain(){
+    var id = $("#commodityTable").jqGrid("getGridParam", "selrow");
+    window.parent.document.getElementById("main").innerHTML = '<object id="commodityId" type="text/html" data="/commoditymain" width="100%" height="700px">' +
+        '<param name="Id" value='+id+' /></object>';
+}
 
 function toAdd() {
     reset();
@@ -79,11 +94,10 @@ function toCommodityEdit() {
     $.get( 'commodity/query', {id: id}, function (result) {
         if (result != null) {
             console.log(result)
-            $("#editForm #commodityName").val(result.data.list[0].storeNumber);
-            $("#editForm #commodityScript").val(result.data.list[0].storeName);
-            $("#editForm #price").val(result.data.list[0].storeScript);
-            $("#editForm #state").val(result.data.list[0].authorPhone);
-            $("#editForm #authorStore").val(result.data.list[0].storeState);
+            $("#editForm #commodityName").val(result.data.list[0].commodityName);
+            $("#editForm #commodityScript").val(result.data.list[0].commodityScript);
+            $("#editForm #price").val(result.data.list[0].price);
+            $("#editForm #state").val(result.data.list[0].state);
             $("#editForm #editId").val(id);
         }
     }, 'json');

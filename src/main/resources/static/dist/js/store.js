@@ -52,8 +52,18 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-        return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
-            "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        let name = JSON.parse(sessionStorage.getItem("userId"));
+        var userType = name.type;
+        if (userType == '0') {
+            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+                "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        } else if(userType == '1'){
+            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+                "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
+        }else {
+            return  "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
+        }
+
     };
     function typeFormat(type){
         return type == "0" ? "开启" : ( type == "1" ? "关闭" : "封禁中");
@@ -63,6 +73,10 @@ $(function () {
         $("#storeTable").setGridWidth($(".card-body").width());
     });
 });
+
+function toStoreMain(){
+    window.parent.document.getElementById("main").innerHTML = '<object type="text/html" data="/profileShop" width="100%" height="700px">'
+}
 
 function toAdd() {
     reset();
