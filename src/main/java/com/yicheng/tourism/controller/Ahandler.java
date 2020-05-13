@@ -43,9 +43,9 @@ public class Ahandler {
     public String home() {
         return "/pages/comment";
     }
-    @RequestMapping(value = "/main",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String main() {
-        return "/main";
+        return "/pages/editors";
     }
     @RequestMapping(value = "/auth",method = RequestMethod.GET)
     public String userManage() {

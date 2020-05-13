@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
@@ -99,7 +100,7 @@
                   <img class="img-fluid img-circle img-sm" src="/dist/img/user4-128x128.jpg" alt="Alt Text">
                   <!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="img-push">
-                    <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
+                    <input type="text" onclick="commentEdit()" class="form-control form-control-sm" placeholder="Press enter to post comment">
                   </div>
                 </form>
               </div>
@@ -114,6 +115,50 @@
     </section>
     <!-- /.content -->
 
+    <div class="content">
+      <!-- 模态框（Modal） -->
+      <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
+        <div class="modal-dialog" role="document" style="top: 50%">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <h6 class="modal-title" id="modalAddTitle">添加评论</h6>
+            </div>
+            <div class="modal-body">
+              <form id="addForm">
+                <table class="table table-bordered">
+                  <tr>
+                    <td style="width: 120px;">
+                      <label >评论文字：<span style="color: red;">*</span></label>
+                    </td>
+                    <td>
+                      <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                             tips="3" style="height: 35px;" placeholder="评论内容">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width: 120px;">
+                      <label >评论图片：</label>
+                    </td>
+                    <td>
+                      <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
+                             tips="3" style="height: 35px;" placeholder="上传评论图片">
+                    </td>
+
+                  </tr>
+
+                </table>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal -->
+    </div>
     <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>
     </a>
@@ -130,5 +175,17 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
+  <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+
+  <script>
+    function commentEdit() {
+      // document.getElementById("contentEdit").innerHTML = '<object type="text/html" data="/edit" width="100%" height="700px"></object>';
+      $('#modalAdd').modal('show');
+    }
+    $(function () {
+      // Summernote
+      $('.textarea').summernote()
+    })
+  </script>
 </body>
 </html>
