@@ -39,9 +39,9 @@ public class Ahandler {
     public String profileShop() {
         return "/pages/profile-shop";
     }
-    @RequestMapping(value = "/home",method = RequestMethod.GET)
+    @RequestMapping(value = "/comment",method = RequestMethod.GET)
     public String home() {
-        return "/home";
+        return "/pages/comment";
     }
     @RequestMapping(value = "/main",method = RequestMethod.GET)
     public String main() {

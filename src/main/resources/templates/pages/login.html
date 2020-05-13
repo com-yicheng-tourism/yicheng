@@ -26,41 +26,123 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">登录</p>
+<!--      <p class="login-box-msg">登录</p>-->
 
-      <form action="##" onsubmit="return false;"  method="post">
-        <div class="input-group mb-3">
-          <input type="text" id="username" class="form-control" placeholder="请在此输入账号">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
+<!--      <form action="##" onsubmit="return false;"  method="post">-->
+<!--        <div class="input-group mb-3">-->
+<!--          <input type="text" id="username" class="form-control" placeholder="请在此输入账号">-->
+<!--          <div class="input-group-append">-->
+<!--            <div class="input-group-text">-->
+<!--              <span class="fas fa-user"></span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="input-group mb-3">-->
+<!--          <input type="password" id="password" class="form-control" placeholder="请在此输入密码">-->
+<!--          <div class="input-group-append">-->
+<!--            <div class="input-group-text">-->
+<!--              <span class="fas fa-lock"></span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <div class="col-8">-->
+<!--            <div class="icheck-primary">-->
+<!--              <input type="checkbox" id="remember">-->
+<!--              <label for="remember">-->
+<!--                记住我-->
+<!--              </label>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /.col &ndash;&gt;-->
+<!--          <div class="col-4">-->
+<!--            <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /.col &ndash;&gt;-->
+<!--        </div>-->
+<!--      </form>-->
+      <div class="row mt-4">
+        <nav class="w-100">
+          <div class="nav nav-tabs" id="product-tab" role="tablist">
+            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">账号密码登录</a>
+            <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">邮箱登录</a>
+<!--            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">电话登陆</a>-->
           </div>
+        </nav>
+        <div class="tab-content p-3" id="nav-tabContent" style="margin: auto;">
+          <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+            <form action="##" onsubmit="return false;"  method="post">
+              <div class="input-group mb-3">
+                <input type="text" id="username" class="form-control" placeholder="请在此输入账号">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-user"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" id="password" class="form-control" placeholder="请在此输入密码">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <div class="icheck-primary">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">
+                      记住我
+                    </label>
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                  <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+            <form action="##" onsubmit="return false;"  method="post">
+              <div class="input-group mb-3">
+                <input type="text" id="mail" class="form-control" placeholder="请在此输入邮箱账号">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-mail-bulk"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" id="verCard" class="form-control" placeholder="请在此输入验证码">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-code"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <div class="icheck-primary">
+<!--                    <input type="checkbox" id="remember">-->
+<!--                    <label for="remember">-->
+<!--                      记住我-->
+<!--                    </label>-->
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                  <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"></div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" id="password" class="form-control" placeholder="请在此输入密码">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                记住我
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+      </div>
 
 <!--      <div class="social-auth-links text-center mb-3">-->
 <!--        <p>- OR -</p>-->

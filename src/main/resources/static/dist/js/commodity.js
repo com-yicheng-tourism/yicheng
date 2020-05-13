@@ -15,21 +15,21 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '商品id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
-            {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 50},
-            {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 50},
-            {label: '商品描述', name: 'commodityScript', index: 'commodityScript', sortable: false,align: "center", width: 80},
-            {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 80},
-            {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 80,formatter:typeFormat},
-            {label: '归属店铺', name: 'commodityOner', index: 'commodityOner', sortable: false,align: "center", width: 80},
+            {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
+            {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 30},
+            {label: '商品描述', name: 'commodityScript', index: 'commodityScript', sortable: false,align: "center", width: 50},
+            {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
+            {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
+            {label: '归属店铺', name: 'commodityOner', index: 'commodityOner', sortable: false,align: "center", width: 50},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
-        height: 500,
+        height: 600,
         rowNum: 10,
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
-        rownumbers: true,
-        multiselect: true,
+        rownumbers: false,
+        multiselect: false,
         autowidth: true,
         pager: "#commodityPager",
         jsonReader: {
@@ -55,11 +55,11 @@ $(function () {
         let name = JSON.parse(sessionStorage.getItem("userId"));
         var userType = name.type;
         if (userType == '1') {
-            return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+            return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
         } else if(userType == '2') {
-            return  "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
-                "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
+            return   "<button type=\"button\" class=\"btn btn-info\"  onclick=\"toCommodityEdit()\"><font style=\"vertical-align: inherit;\"><font style=\"vertical-align: inherit;\">编辑</font></font></button>"+
+                "<button type=\"button\" class=\"btn btn-info\" onclick=\"toCommodityMain()\"><font style=\"vertical-align: inherit;\"><font style=\"vertical-align: inherit;\">商品详情</font></font></button>"
         } else {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
         }
