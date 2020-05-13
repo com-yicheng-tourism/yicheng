@@ -47,7 +47,7 @@
     </update>
 
     <delete id="delete" parameterType="com.yicheng.tourism.entity.commodity">
-    	delete from t_commodity where id = #{id}
+    	delete from t_commodity where id = #{com.id}
   	</delete>
 
 
@@ -79,4 +79,11 @@
             #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
         </foreach>
     </insert>
+
+    <select id="findById" parameterType="com.yicheng.tourism.entity.commodity"
+            resultMap="com.yicheng.tourism.mapper.commodityMapper.BaseResultMap">
+        select <include refid="com.yicheng.tourism.mapper.commodityMapper.Base_Column_List"></include>
+        from t_commodity
+        where id = #{com.id}
+    </select>
 </mapper>

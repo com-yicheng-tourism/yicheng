@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -67,9 +68,9 @@ public class CommodityServiceImpl implements CommodityService {
      * @return
      */
     @Override
-    public Object deleteCommodity(String id) {
+    public Object deleteCommodity(commodity com) {
         try {
-            commodityMapperExt.delete(id);
+            commodityMapperExt.delete(com);
         } catch (Exception e) {
             return -1;
         }
@@ -89,5 +90,16 @@ public class CommodityServiceImpl implements CommodityService {
             return -1;
         }
         return 0;
+    }
+
+    @Override
+    public Object findById(commodity com) {
+        List<commodity> commodities = new ArrayList<>();
+        try {
+            commodities = commodityMapperExt.findById(com);
+        } catch (Exception e) {
+            return -1;
+        }
+        return commodities;
     }
 }

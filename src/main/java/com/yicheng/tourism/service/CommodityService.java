@@ -11,7 +11,9 @@ public interface CommodityService {
 
     Object insertCommodity(commodity com);
 
-    Object deleteCommodity(String id);
+    Object deleteCommodity(commodity com);
 
     Object updateCommodity(commodity com);
+
+    Object findById(commodity com);
 }

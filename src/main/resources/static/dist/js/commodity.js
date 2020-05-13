@@ -54,10 +54,10 @@ $(function () {
     function cmgStateFormat(grid, rows) {
         let name = JSON.parse(sessionStorage.getItem("userId"));
         var userType = name.type;
-        if (userType == '0') {
+        if (userType == '1') {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
-        } else if(userType == '1') {
+        } else if(userType == '2') {
             return  "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
                 "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
         } else {
@@ -74,9 +74,20 @@ $(function () {
 });
 
 function toCommodityMain(){
+    //获取选中行id
     var id = $("#commodityTable").jqGrid("getGridParam", "selrow");
-    window.parent.document.getElementById("main").innerHTML = '<object id="commodityId" type="text/html" data="/commoditymain" width="100%" height="700px">' +
-        '<param name="Id" value='+id+' /></object>';
+    console.log("rowId",id)
+    if (id == null) {
+        return;
+    }
+    //根据选中行id获取行数据
+    var rowData = $("#commodityTable").jqGrid('getRowData',id);
+    console.log("rowData",rowData);
+    //将行数据放到sessionStorage
+    sessionStorage.setItem("commodity",JSON.stringify(rowData));
+    //执行跳转
+    window.parent.parent.document.getElementById("main").innerHTML = '<object type="text/html" data="/commoditymain" width="100%" height="700px"></object>';
+
 }
 
 function toAdd() {

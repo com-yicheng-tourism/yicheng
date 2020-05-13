@@ -47,7 +47,13 @@ public class CommodityController {
 
     @ApiOperation(value = "删除商品数据")
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public Object delete(String id){
-        return commodityService.deleteCommodity(id);
+    public Object delete(@RequestBody commodity com){
+        return commodityService.deleteCommodity(com);
+    }
+
+    @ApiOperation(value = "根据id查询数据商品数据")
+    @RequestMapping(value = "/queryById",method = RequestMethod.POST)
+    public Object queryById(@RequestBody commodity com){
+        return commodityService.findById(com);
     }
 }

@@ -14,7 +14,9 @@ public interface CommodityMapperExt {
 
     void update(@Param("c")commodity com);
 
-    void delete(@Param("id")String id);
+    void delete(@Param("com")commodity com);
 
     void insertBatch(@Param("list")List<commodity> list);
+
+    List<commodity> findById(@Param("com")commodity com);
 }
