@@ -54,10 +54,10 @@ $(function () {
     function cmgStateFormat(grid, rows) {
         let name = JSON.parse(sessionStorage.getItem("userId"));
         var userType = name.type;
-        if (userType == '0') {
+        if (userType == '1') {
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
-        } else if(userType == '1'){
+        } else if(userType == '2'){
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
                 "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
         }else {
@@ -75,6 +75,18 @@ $(function () {
 });
 
 function toStoreMain(){
+    //获取选中行id
+    var id=$('#storeTable').jqGrid('getGridParam','selrow');
+    console.log("rowId",id)
+    if (id == null) {
+        return;
+    }
+    //根据选中行id获取行数据
+    var rowData = $("#storeTable").jqGrid('getRowData',id);
+    console.log("rowData",rowData);
+    //将行数据放到sessionStorage
+    sessionStorage.setItem("store_detail",JSON.stringify(rowData));
+    //执行跳转
     window.parent.document.getElementById("main").innerHTML = '<object type="text/html" data="/profileShop" width="100%" height="700px">'
 }
 
