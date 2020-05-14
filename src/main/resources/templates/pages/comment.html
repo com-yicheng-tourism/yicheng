@@ -96,13 +96,13 @@
               </div>
               <!-- /.card-footer -->
               <div class="card-footer">
-                <form action="#" method="post">
+<!--                <form action="#" method="post">-->
                   <img class="img-fluid img-circle img-sm" src="/dist/img/user4-128x128.jpg" alt="Alt Text">
                   <!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="img-push">
-                    <input type="text" onclick="commentEdit()" class="form-control form-control-sm" placeholder="Press enter to post comment">
+                    <input type="text" id="replyComment"  class="form-control form-control-sm" placeholder="请在此添加回复,按回车键结束">
                   </div>
-                </form>
+<!--                </form>-->
               </div>
               <!-- /.card-footer -->
             </div>
@@ -141,8 +141,13 @@
                       <label >评论图片：</label>
                     </td>
                     <td>
-                      <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                             tips="3" style="height: 35px;" placeholder="上传评论图片">
+<!--                      <input type="file" name="storeScript" id="storeScript" accept="image/*" class="form-control" maxlength="200"-->
+<!--                             tips="3" style="height: 35px;" placeholder="上传评论图片">-->
+                      <img id="preview"  alt="" />
+                      <form class="am-form" method="post" enctype="multipart/form-data" id="uploadPicForm" action="/img/upload">
+                        <input type="file"  name="file" onchange="previewImage(this)" >
+                        <button type="submit" class="am-btn am-btn-primary am-btn-xs" >保存</button>
+                      </form>
                     </td>
 
                   </tr>
@@ -152,16 +157,23 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+              <button type="button" class="btn btn-primary" id="saveButton" >确认</button>
             </div>
           </div>
         </div>
       </div>
       <!-- /.modal -->
     </div>
-    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-      <i class="fas fa-chevron-up"></i>
-    </a>
+
+    <div>
+      <a id="editContent" onclick="commentEdit()" class="btn btn-primary back-to-top" role="button" aria-label="添加评论" style="margin-bottom: 40px;color: aliceblue; padding: 6px 11px;">
+        <i class="fas fa-edit"></i>
+      </a>
+      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+      </a>
+    </div>
+
   </div>
 
 </div>
@@ -178,6 +190,25 @@
   <script src="/plugins/summernote/summernote-bs4.min.js"></script>
 
   <script>
+    let name = sessionStorage.getItem("userId");
+    $('#replyComment').keypress(function (event) {
+      if (event.which === 13){
+        console.log("回复评论")
+        $.ajax({
+          type : "GET",
+          url : "comment/reply",
+          dataType : "json",
+          async : true,
+          // contentType : "application/json",
+          data : {
+
+            },
+          success:function (result) {
+
+          }
+        });
+      }
+    });
     function commentEdit() {
       // document.getElementById("contentEdit").innerHTML = '<object type="text/html" data="/edit" width="100%" height="700px"></object>';
       $('#modalAdd').modal('show');
@@ -186,6 +217,60 @@
       // Summernote
       $('.textarea').summernote()
     })
+  </script>
+  <script>
+    // 上传图片前预览
+    function previewImage(file) {
+      var MAXWIDTH = 120;  // 最大图片宽度
+      var MAXHEIGHT = 120;  // 最大图片高度
+      if (file.files && file.files[0]) {
+        var img = document.getElementById('preview');
+        img.onload = function () {
+          var rect = getZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+          img.width = rect.width;
+          img.height = rect.height;
+        }
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+          img.src = evt.target.result;
+        }
+        reader.readAsDataURL(file.files[0]);
+      } else {
+        //兼容IE
+        file.select();
+        var src = document.selection.createRange().text;
+        var img = document.getElementById('preview');
+        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+      }
+    }
+
+    // 获取缩放的尺寸
+    function getZoomParam(maxWidth, maxHeight, width, height) {
+      var param = { top: 0, left: 0, width: width, height: height };
+      if (width > maxWidth || height > maxHeight) {
+        rateWidth = width / maxWidth;
+        rateHeight = height / maxHeight;
+        if (rateWidth > rateHeight) {
+          param.width = maxWidth;
+          param.height = Math.round(height / rateWidth);
+        } else {
+          param.width = Math.round(width / rateHeight);
+          param.height = maxHeight;
+        }
+      }
+      param.left = Math.round((maxWidth - param.width) / 2);
+      param.top = Math.round((maxHeight - param.height) / 2);
+      return param;
+    }
+    function doUpload() {
+      let form = document.getElementById("uploadPicForm");
+      console.log(form);
+      // console.log("form:",form)
+      const  formData = new FormData();
+
+      formData.append("img",form);
+      console.log("formData:",formData.get("img"))
+    }
   </script>
 </body>
 </html>
