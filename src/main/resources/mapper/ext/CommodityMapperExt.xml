@@ -17,6 +17,7 @@
             <if test="c.id != null and '' != c.id">
                 and t1.id=#{c.id}
             </if>
+
             <if test="c.commodityName != null and '' != c.commodityName">
                 and t1.commodity_name like concat("%",#{c.commodityName},"%")
             </if>
@@ -74,12 +75,14 @@
     <insert id="insertBatch" parameterType="list">
         INSERT INTO t_commodity
         (id, commodity_number, commodity_name,
-        commodity_script, commodity_price, commodity_state,
-        create_by, create_time)
+        commodity_script, commodity_price, commodity_state,img1,img2,
+        img3, img4,img5, create_by, create_time)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id,jdbcType=VARCHAR}, #{item.commodityNumber,jdbcType=VARCHAR}, #{item.commodityName,jdbcType=VARCHAR},
             #{item.commodityScript,jdbcType=VARCHAR}, #{item.commodityPrice,jdbcType=DOUBLE}, #{item.commodityState,jdbcType=VARCHAR},
+            #{item.img1,jdbcType=VARCHAR},#{item.img2,jdbcType=VARCHAR},#{item.img3,jdbcType=VARCHAR},
+            #{item.img4,jdbcType=VARCHAR},#{item.img5,jdbcType=VARCHAR},
             #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
         </foreach>
     </insert>

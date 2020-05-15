@@ -118,6 +118,7 @@ function toStoreEdit() {
             $("#editForm #phone").val(result.data.list[0].authorPhone);
             $("#editForm #state").val(result.data.list[0].storeState);
             $("#editForm #editId").val(id);
+            sessionStorage.setItem("storeInfo",JSON.stringify(result.data.list[0]))
         }
     }, 'json');
 
@@ -167,12 +168,15 @@ function toDelete(){
 $('#saveButton').click(function () {
     //验证数据
     if (validObjectForAdd()) {
+        let name = JSON.parse(sessionStorage.getItem("userId"));
+        var userId = name.serialId;
         //一切正常后发送网络请求
         var  storeName=  $("#addForm #storeName").val();
         var  storeScript=  $("#addForm #storeScript").val();
         var  phone= $("#addForm #phone").val();
         var  state= $("#addForm #state").val();
         var data = {
+            "userId": userId,
             "storeName": storeName,
             "authorPhone": phone,
             "storeScript": storeScript,

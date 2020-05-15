@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.UserStoreMapperExt">
+
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.UserStore">
+        INSERT INTO t_user_store
+        (id, user_id, store_id,
+        create_by, create_time)
+        VALUES
+        (#{c.userStoreId,jdbcType=VARCHAR},
+        #{c.userId,jdbcType=VARCHAR},
+        #{c.storeId,jdbcType=VARCHAR},
+        #{c.createBy,jdbcType=VARCHAR},
+        now())
+    </insert>
+
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_user_store
+        (id, user_id, store_id,
+        create_by, create_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.storeId,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

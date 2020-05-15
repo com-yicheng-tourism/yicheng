@@ -67,7 +67,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     /**
      * 删除商品信息
-     * @param
+     * @param com
      * @return
      */
     @Override
