@@ -184,7 +184,7 @@ public class UserServiceImpl implements UserService {
                 request.getSession().setAttribute("userId",user);
                 UserQryResp qryResp = new UserQryResp();
                 BeanUtils.copyProperties(user,qryResp);
-                qryResp.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic());
+                qryResp.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+user.getProfilePic());
                 return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage(),qryResp);
             case EMAIL_LOGIN ://邮箱登录
                 String emailCode = SessionUtil.getEmailCode("emailCode", request);

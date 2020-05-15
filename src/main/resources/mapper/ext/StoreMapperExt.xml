@@ -4,20 +4,21 @@
 
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.store.req.StoreQueryReq"
             resultMap="com.yicheng.tourism.mapper.StoreMapper.BaseResultMap">
-        select <include refid="com.yicheng.tourism.mapper.StoreMapper.Base_Column_List"></include>
-        from t_store
+        select t1.*,t2.nick_name nickName
+        from t_store t1,t_user t2
         <include refid="query_sql_where"></include>
     </select>
     <sql id="query_sql_where">
         <where>
+            AND t1.create_by = t2.user_name
             <if test="c.id != null and '' != c.storeName">
-                and id=#{c.id}
+                and t1.id=#{c.id}
             </if>
             <if test="c.storeName != null and '' != c.storeName">
-                and store_name like concat("%",#{c.storeName},"%")
+                and t1.store_name like concat("%",#{c.storeName},"%")
             </if>
             <if test="c.createBy != null and '' != c.createBy">
-                and create_by like concat("%",#{c.createBy},"%")
+                and t1.create_by like concat("%",#{c.createBy},"%")
             </if>
         </where>
     </sql>

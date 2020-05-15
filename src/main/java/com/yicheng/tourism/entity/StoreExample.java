@@ -175,6 +175,76 @@ public class StoreExample {
             return (Criteria) this;
         }
 
+        public Criteria andStoreHeadIsNull() {
+            addCriterion("store_head is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadIsNotNull() {
+            addCriterion("store_head is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadEqualTo(String value) {
+            addCriterion("store_head =", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadNotEqualTo(String value) {
+            addCriterion("store_head <>", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadGreaterThan(String value) {
+            addCriterion("store_head >", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadGreaterThanOrEqualTo(String value) {
+            addCriterion("store_head >=", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadLessThan(String value) {
+            addCriterion("store_head <", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadLessThanOrEqualTo(String value) {
+            addCriterion("store_head <=", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadLike(String value) {
+            addCriterion("store_head like", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadNotLike(String value) {
+            addCriterion("store_head not like", value, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadIn(List<String> values) {
+            addCriterion("store_head in", values, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadNotIn(List<String> values) {
+            addCriterion("store_head not in", values, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadBetween(String value1, String value2) {
+            addCriterion("store_head between", value1, value2, "storeHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreHeadNotBetween(String value1, String value2) {
+            addCriterion("store_head not between", value1, value2, "storeHead");
+            return (Criteria) this;
+        }
+
         public Criteria andStoreNumberIsNull() {
             addCriterion("store_number is null");
             return (Criteria) this;

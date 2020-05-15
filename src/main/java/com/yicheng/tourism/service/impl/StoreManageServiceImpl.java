@@ -34,6 +34,9 @@ public class StoreManageServiceImpl implements StoreManageService {
         PageHelper.startPage(req.getPage(),req.getRows());
         List<Store> storeList = storeMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(storeList)){
+            storeList.forEach(store -> {
+                store.setStoreHead("http://localhost:8080/img/seekExperts?type=2&picName="+store.getStoreHead());
+            });
             PageInfo<Store> pageInfo = new PageInfo<>(storeList);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }

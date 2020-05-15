@@ -54,12 +54,12 @@
                                     <div class="card-body box-profile">
                                         <div class="text-center">
                                             <img class="profile-user-img img-fluid img-circle head_pic"
-                                                 alt="User profile picture">
+                                                 alt="User profile picture" id="store-head">
                                         </div>
 
                                         <h3 class="profile-username text-center" id="name_profile"></h3>
 
-                                        <p class="text-muted text-center" id="job_profile">...</p>
+                                        <p class="text-muted text-center" id="job_profile"><i class="fa fa-star" style="color: #dad55e"></i>...</p>
 
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
@@ -146,6 +146,9 @@
             let storeInfo = JSON.parse(rowData);
             console.log("storeInfo:",storeInfo);
             console.log("name:",storeInfo.storeName);
+            let split = storeInfo.storeHead.split("\"");
+            console.log("split:",split)
+            $('#store-head').attr("src",split[5]);
             $('#name_profile').text(storeInfo.storeName);//获取商店名称
             let name = JSON.parse(sessionStorage.getItem("userId"));
             if (name.type == 3){

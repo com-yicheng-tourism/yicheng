@@ -30,12 +30,20 @@ public class ImageController {
 
     @RequestMapping(value = "/seekExperts",method = RequestMethod.GET)
     public String createFolw(HttpServletRequest request,
-                             HttpServletResponse response, String picName) {
+                             HttpServletResponse response, String picName,Integer type) {
         // response.setContentType("image/*");
         FileInputStream fis = null;
         OutputStream os = null;
         try {
-            fis = new FileInputStream("D:/gif/head/"+picName);
+            String baseDir = null;
+            if (type == 1){
+                baseDir = "D:/gif/head/"; //用户头像
+            }else if (type == 2){
+                baseDir = "D:/gif/store/"; //店铺头像
+            }else if (type == 3){
+                baseDir = "D:/gif/comment/"; //评论图片
+            }
+            fis = new FileInputStream(baseDir+picName);
             os = response.getOutputStream();
             int count = 0;
             byte[] buffer = new byte[1024 * 8];

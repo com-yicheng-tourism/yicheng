@@ -16,20 +16,23 @@ $(function () {
         colModel: [
             {label: '店铺id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
             {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', hidden:true,width: 50},
+            {label: '头像', name: 'storeHead', index: 'storeHead', width: 30,formatter: imgFormat},
             {label: '店铺名称', name: 'storeName', index: 'storeName', width: 50},
-            {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false,align: "center", width: 80},
+            {label: '店主', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
             {label: '店主手机号', name: 'authorPhone', index: 'authorPhone', sortable: false,align: "center", width: 80},
             {label: '店铺状态', name: 'storeState', index: 'storeState', sortable: false,align: "center", width: 80,formatter:typeFormat},
-            {label: '店主', name: 'createBy', index: 'createBy', sortable: false,align: "center", width: 80},
+            {label: '注册时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 80},
+            {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false,align: "center", width: 80},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
+
         ],
         height: 635,
         rowNum: 10,
         rowList: [10, 30, 50],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
-        rownumbers: true,
-        multiselect: true,
+        // rownumbers: true,
+        // multiselect: true,
         autowidth: true,
         pager: "#storePager",
         jsonReader: {
@@ -73,7 +76,11 @@ $(function () {
         $("#storeTable").setGridWidth($(".card-body").width());
     });
 });
+function imgFormat(storeHead) {
 
+    return "<img id='storeHead' class=\"round_icon\" src='"+storeHead+"'>"
+
+}
 function toStoreMain(){
     //获取选中行id
     var id=$('#storeTable').jqGrid('getGridParam','selrow');

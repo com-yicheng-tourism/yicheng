@@ -1,9 +1,14 @@
 package com.yicheng.tourism.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Transient;
+
 import java.util.Date;
 
 public class Store {
     private String id;
+
+    private String storeHead;
 
     private String storeNumber;
 
@@ -17,6 +22,10 @@ public class Store {
 
     private String createBy;
 
+    @Transient
+    private String nickName;
+
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
     private String updateBy;
@@ -29,6 +38,22 @@ public class Store {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
+
+    public String getStoreHead() {
+        return storeHead;
+    }
+
+    public void setStoreHead(String storeHead) {
+        this.storeHead = storeHead == null ? null : storeHead.trim();
     }
 
     public String getStoreNumber() {

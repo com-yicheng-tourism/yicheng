@@ -1,276 +1,336 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Widgets</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <style>
-    ::-webkit-scrollbar{
-    display:none;
-    }
-  </style>
-</head>
-<body >
-<div class="wrapper">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>AdminLTE 3 | Widgets</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <style>
+            ::-webkit-scrollbar{
+                display:none;
+            }
+        </style>
+    </head>
+    <body >
+        <div class="wrapper">
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="margin-left: 0px;">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" style="margin-left: 0px;">
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- /.row -->
-        <div class="row" >
-          <div class="col-md-6" style="width: 100%;max-width: 100%;flex: 0 0 100%">
-            <!-- Box Comment -->
-            <div class="card card-widget">
-              <div class="card-header">
-                <div class="user-block">
-                  <img class="img-circle" src="/dist/img/user1-128x128.jpg" alt="User Image">
-                  <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                  <span class="description">Shared publicly - 7:30 PM Today</span>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!-- /.row -->
+                        <div class="row" >
+                            <div class="col-md-6" style="width: 100%;max-width: 100%;flex: 0 0 100%" id="commentBody">
+
+                            </div>
+
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+
+                <div class="content">
+                    <!-- 模态框（Modal） -->
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
+                        <div class="modal-dialog" role="document" style="top: 50%">
+                            <div class="modal-content" >
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="modalAddTitle">添加评论</h6>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td style="width: 120px;">
+                                                    <label >评论文字：<span style="color: red;">*</span></label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                                                           tips="3" style="height: 35px;" placeholder="评论内容">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 120px;">
+                                                    <label >评论图片：</label>
+                                                </td>
+                                                <td>
+                                                    <!--                      <input type="file" name="storeScript" id="storeScript" accept="image/*" class="form-control" maxlength="200"-->
+                                                    <!--                             tips="3" style="height: 35px;" placeholder="上传评论图片">-->
+                                                    <img id="preview"  alt="" />
+                                                    <form class="am-form" method="post" enctype="multipart/form-data" id="uploadPicForm" action="/img/upload">
+                                                        <input type="file"  name="file" onchange="previewImage(this)" >
+                                                        <button type="submit" class="am-btn am-btn-primary am-btn-xs" >保存</button>
+                                                    </form>
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" id="saveButton" >确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal -->
                 </div>
-                <!-- /.user-block -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
-                    <i class="far fa-circle"></i></button>
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <img class="img-fluid pad" src="/dist/img/photo2.png" alt="Photo">
 
-                <p>I took this photo this morning. What do you guys think?</p>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-                <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
-                <span class="float-right text-muted">127 likes - 3 comments</span>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer card-comments">
-                <div class="card-comment">
-                  <!-- User image -->
-                  <img class="img-circle img-sm" src="/dist/img/user3-128x128.jpg" alt="User Image">
-
-                  <div class="comment-text">
-                    <span class="username">
-                      Maria Gonzales
-                      <span class="text-muted float-right">8:03 PM Today</span>
-                    </span><!-- /.username -->
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when looking at its layout.
-                  </div>
-                  <!-- /.comment-text -->
+                <div>
+                    <a id="editContent" onclick="commentEdit()" class="btn btn-primary back-to-top" role="button" aria-label="添加评论" style="margin-bottom: 40px;color: aliceblue; padding: 6px 11px;">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="回到顶部">
+                        <i class="fas fa-chevron-up"></i>
+                    </a>
                 </div>
-                <!-- /.card-comment -->
-                <div class="card-comment">
-                  <!-- User image -->
-                  <img class="img-circle img-sm" src="/dist/img/user4-128x128.jpg" alt="User Image">
 
-                  <div class="comment-text">
-                    <span class="username">
-                      Luna Stark
-                      <span class="text-muted float-right">8:03 PM Today</span>
-                    </span><!-- /.username -->
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when looking at its layout.
-                  </div>
-                  <!-- /.comment-text -->
-                </div>
-                <!-- /.card-comment -->
-              </div>
-              <!-- /.card-footer -->
-              <div class="card-footer">
-<!--                <form action="#" method="post">-->
-                  <img class="img-fluid img-circle img-sm" src="/dist/img/user4-128x128.jpg" alt="Alt Text">
-                  <!-- .img-push is used to add margin to elements next to floating images -->
-                  <div class="img-push">
-                    <input type="text" id="replyComment"  class="form-control form-control-sm" placeholder="请在此添加回复,按回车键结束">
-                  </div>
-<!--                </form>-->
-              </div>
-              <!-- /.card-footer -->
             </div>
-            <!-- /.card -->
-          </div>
 
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        <!-- ./wrapper -->
 
-    <div class="content">
-      <!-- 模态框（Modal） -->
-      <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
-        <div class="modal-dialog" role="document" style="top: 50%">
-          <div class="modal-content" >
-            <div class="modal-header">
-              <h6 class="modal-title" id="modalAddTitle">添加评论</h6>
-            </div>
-            <div class="modal-body">
-              <form id="addForm">
-                <table class="table table-bordered">
-                  <tr>
-                    <td style="width: 120px;">
-                      <label >评论文字：<span style="color: red;">*</span></label>
-                    </td>
-                    <td>
-                      <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
-                             tips="3" style="height: 35px;" placeholder="评论内容">
-                    </td>
-                  </tr>
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="/dist/js/demo.js"></script>
+        <script src="/plugins/summernote/summernote-bs4.min.js"></script>
 
-                  <tr>
-                    <td style="width: 120px;">
-                      <label >评论图片：</label>
-                    </td>
-                    <td>
-<!--                      <input type="file" name="storeScript" id="storeScript" accept="image/*" class="form-control" maxlength="200"-->
-<!--                             tips="3" style="height: 35px;" placeholder="上传评论图片">-->
-                      <img id="preview"  alt="" />
-                      <form class="am-form" method="post" enctype="multipart/form-data" id="uploadPicForm" action="/img/upload">
-                        <input type="file"  name="file" onchange="previewImage(this)" >
-                        <button type="submit" class="am-btn am-btn-primary am-btn-xs" >保存</button>
-                      </form>
-                    </td>
+        <script>
+            let name = JSON.parse(sessionStorage.getItem("userId"));
+            $.ajax({
+                type : "GET",
+                url : "comment/qry",
+                dataType : "json",
+                async : false,
+                data : {
+                    shopId : "",
+                    commodityId : ""
+                },
+                success:function (result) {
+                    let data = result.data;
+                    if (result.code == "000_000_000" && data != ""){
+                        for (var i=0;i<data.length;i++){
+                            let divElement = document.createElement("div");
+                            var divId="div"+i;
+                            divElement.setAttribute("id",divId);
+                            let commentBody = document.getElementById("commentBody");
+                            commentBody.appendChild(divElement);
+                            divElement.style.display="block";
+                            divElement.innerHTML="<!-- Box Comment -->\n" +
+                                "            <div class=\"card card-widget\">\n" +
+                                "              <div class=\"card-header\">\n" +
+                                "                <div class=\"user-block\">\n" +
+                                "                  <img class=\"img-circle\"  id='comment-img' alt=\"User Image\">\n" +
+                                "                  <span class=\"username\"><a href=\"#\" id='editor'>Jonathan Burke Jr.</a></span>\n" +
+                                "                  <span class=\"description\" id='edit-time'>Shared publicly - 7:30 PM Today</span>\n" +
+                                "                </div>\n" +
+                                "                <!-- /.user-block -->\n" +
+                                "                <div class=\"card-tools\">\n" +
+                                "                  <button type=\"button\" class=\"btn btn-tool\" data-toggle=\"tooltip\" title=\"Mark as read\">\n" +
+                                "                    <i class=\"far fa-circle\"></i></button>\n" +
+                                "                  <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\"><i class=\"fas fa-minus\"></i>\n" +
+                                "                  </button>\n" +
+                                "                  <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\"><i class=\"fas fa-times\"></i>\n" +
+                                "                  </button>\n" +
+                                "                </div>\n" +
+                                "                <!-- /.card-tools -->\n" +
+                                "              </div>\n" +
+                                "              <!-- /.card-header -->\n" +
+                                "              <div class=\"card-body\">\n" +
+                                "                <img class=\"img-fluid pad\" id='comment-photo' alt=\"Photo\" style='width: 1256px;height: 834px;'>\n" +
+                                "\n" +
+                                "                <p id='comment-text'>I took this photo this morning. What do you guys think?</p>\n" +
+                                "                <button type=\"button\" class=\"btn btn-default btn-sm\"><i class=\"fas fa-share\"></i> Share</button>\n" +
+                                "                <button type=\"button\" class=\"btn btn-default btn-sm\"><i class=\"far fa-thumbs-up\"></i> Like</button>\n" +
+                                "                <span class=\"float-right text-muted\">127 likes - 3 comments</span>\n" +
+                                "              </div>\n" +
+                                "              <!-- /.card-body -->\n" +
+                                "              <div class=\"card-footer card-comments\" id='comment-reply'>\n" +
+                                "              </div>\n" +
+                                "              <!-- /.card-footer -->\n" +
+                                "              <div class=\"card-footer\">\n" +
+                                "                <!--                <form action=\"#\" method=\"post\">-->\n" +
+                                "                <img class=\"img-fluid img-circle img-sm\" id='cur-user-pic' alt=\"Alt Text\">\n" +
+                                "                <!-- .img-push is used to add margin to elements next to floating images -->\n" +
+                                "                <div class=\"img-push\">\n" +
+                                "                  <input type=\"text\" id=\"replyComment\" onclick='reply(this)'  class=\"form-control form-control-sm\" placeholder=\"请在此添加回复,按回车键结束\">\n" +
+                                "                </div>\n" +
+                                "                <!--                </form>-->\n" +
+                                "              </div>\n" +
+                                "              <!-- /.card-footer -->\n" +
+                                "            </div>\n" +
+                                "            <!-- /.card -->"
+                            // $('#commentBody').append();
+                            var divIdName = "#"+divId;
 
-                  </tr>
+                            $(divIdName+" "+'#comment-img').attr("src",data[i].userPic);
+                            $(divIdName+" "+'#editor').text(data[i].nickName);
+                            $(divIdName+" "+'#edit-time').text(data[i].createTime);
+                            $(divIdName+" "+'#comment-photo').attr("src",data[i].commentImg);
+                            $(divIdName+" "+'#comment-text').text(data[i].commentText);
+                            let replyList = data[i].replyList;
+                            // console.log("replyList:",replyList)
+                            for (var j=0;j<replyList.length;j++){
+                                console.log(replyList[j])
+                                let divReply = document.createElement("div");
+                                var divReplyId="div-reply"+j;
+                                divReply.setAttribute("id",divReplyId);
+                                // let commentReply = document.getElementById(divIdName+" "+"#comment-reply");
+                                let commentReply = $(divIdName+" "+"#comment-reply");
+                                console.log("commentReply:",commentReply);
+                                commentReply.append(divReply);
+                                // commentReply.appendChild(divReply);
+                                divReply.style.display="block";
+                                divReply.innerHTML="                <div class=\"card-comment\">\n" +
+                                    "                  <!-- User image -->\n" +
+                                    "                  <img class=\"img-circle img-sm\" id='reply-user-img'  alt=\"User Image\">\n" +
+                                    "\n" +
+                                    "                    <div class=\"username\" id='replyer' style='margin-left: 40px' >\n" +
+                                    "                      Maria Gonzales\n" +
 
-                </table>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="button" class="btn btn-primary" id="saveButton" >确认</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /.modal -->
-    </div>
+                                    "                    </div><!-- /.username -->\n" +
+                                    "                      <div class=\"text-muted float-right\" id='reply-time' style='margin-top: -30px'>8:03 PM Today</div>\n" +
+                                    "                  <div class=\"comment-text\" id='comment-text'>\n" +
 
-    <div>
-      <a id="editContent" onclick="commentEdit()" class="btn btn-primary back-to-top" role="button" aria-label="添加评论" style="margin-bottom: 40px;color: aliceblue; padding: 6px 11px;">
-        <i class="fas fa-edit"></i>
-      </a>
-      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="回到顶部">
-        <i class="fas fa-chevron-up"></i>
-      </a>
-    </div>
+                                    "                    It is a long established fact that a reader will be distracted\n" +
+                                    "                    by the readable content of a page when looking at its layout.\n" +
+                                    "                  </div>\n" +
 
-  </div>
+                                    "                  <!-- /.comment-text -->\n" +
+                                    "                </div>\n" +
+                                    "                <!-- /.card-comment -->\n";
+                                var divReplyIdName =divIdName+ " #"+divReplyId;
+                                // console.log(divReplyIdName)
+                                $(divReplyIdName+" "+'#reply-user-img').attr("src",replyList[j].userPic);
+                                $(divReplyIdName+" "+'#replyer').text(replyList[j].nickName);
+                                $(divReplyIdName+" "+'#reply-time').text(replyList[j].createTime);
+                                $(divReplyIdName+" "+'#comment-text').text(replyList[j].commentText);
+                            }
+                            $(divIdName+" "+'#cur-user-pic').attr("src",name.profilePic);
+                            $(divIdName+" "+'#replyComment').attr("data",data[i].commentId);
 
-</div>
-<!-- ./wrapper -->
+                            // sessionStorage.setItem(divIdName,JSON.stringify(data[i].commentId));
+                        }
+                    }
+                }
+            });
+            function reply(obj){
+                let data1 = obj.id;
+                console.log("id",data1)
+                // let attr = $('.'+data1).attr("data");
+                let attr = document.getElementById(data1).getAttribute("data");
+                console.log("data1:",attr);
+                // commentId=attr;
+                $('#replyComment').keypress(function (event) {
+                    if (event.which === 13){
+                        console.log("回复评论")
+                        console.log($('#replyComment').val());
+                        // let commentText = $('#replyComment').val() == "" ? "" : $('#replyComment').val();
+                        $.ajax({
+                            type : "GET",
+                            url : "comment/reply",
+                            dataType : "json",
+                            async : false,
+                            // contentType : "application/json",
+                            data : {
+                                userId : name.userName,
+                                commentId : attr,
+                                commentText : $('#replyComment').val()
+                            },
+                            success:function (result) {
+                                if (result.data == "评价成功"){
 
-<!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/dist/js/demo.js"></script>
-  <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+                                    alert(result.data);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
 
-  <script>
-    let name = sessionStorage.getItem("userId");
-    $('#replyComment').keypress(function (event) {
-      if (event.which === 13){
-        console.log("回复评论")
-        $.ajax({
-          type : "GET",
-          url : "comment/reply",
-          dataType : "json",
-          async : true,
-          // contentType : "application/json",
-          data : {
+            function commentEdit() {
+                // document.getElementById("contentEdit").innerHTML = '<object type="text/html" data="/edit" width="100%" height="700px"></object>';
+                $('#modalAdd').modal('show');
+            }
+            $(function () {
+                // Summernote
+                $('.textarea').summernote()
+            })
+        </script>
+        <script>
+            // 上传图片前预览
+            function previewImage(file) {
+                var MAXWIDTH = 120;  // 最大图片宽度
+                var MAXHEIGHT = 120;  // 最大图片高度
+                if (file.files && file.files[0]) {
+                    var img = document.getElementById('preview');
+                    img.onload = function () {
+                        var rect = getZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                        img.width = rect.width;
+                        img.height = rect.height;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                        img.src = evt.target.result;
+                    }
+                    reader.readAsDataURL(file.files[0]);
+                } else {
+                    //兼容IE
+                    file.select();
+                    var src = document.selection.createRange().text;
+                    var img = document.getElementById('preview');
+                    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                }
+            }
 
-            },
-          success:function (result) {
+            // 获取缩放的尺寸
+            function getZoomParam(maxWidth, maxHeight, width, height) {
+                var param = { top: 0, left: 0, width: width, height: height };
+                if (width > maxWidth || height > maxHeight) {
+                    rateWidth = width / maxWidth;
+                    rateHeight = height / maxHeight;
+                    if (rateWidth > rateHeight) {
+                        param.width = maxWidth;
+                        param.height = Math.round(height / rateWidth);
+                    } else {
+                        param.width = Math.round(width / rateHeight);
+                        param.height = maxHeight;
+                    }
+                }
+                param.left = Math.round((maxWidth - param.width) / 2);
+                param.top = Math.round((maxHeight - param.height) / 2);
+                return param;
+            }
+            function doUpload() {
+                let form = document.getElementById("uploadPicForm");
+                console.log(form);
+                // console.log("form:",form)
+                const  formData = new FormData();
 
-          }
-        });
-      }
-    });
-    function commentEdit() {
-      // document.getElementById("contentEdit").innerHTML = '<object type="text/html" data="/edit" width="100%" height="700px"></object>';
-      $('#modalAdd').modal('show');
-    }
-    $(function () {
-      // Summernote
-      $('.textarea').summernote()
-    })
-  </script>
-  <script>
-    // 上传图片前预览
-    function previewImage(file) {
-      var MAXWIDTH = 120;  // 最大图片宽度
-      var MAXHEIGHT = 120;  // 最大图片高度
-      if (file.files && file.files[0]) {
-        var img = document.getElementById('preview');
-        img.onload = function () {
-          var rect = getZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-          img.width = rect.width;
-          img.height = rect.height;
-        }
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-          img.src = evt.target.result;
-        }
-        reader.readAsDataURL(file.files[0]);
-      } else {
-        //兼容IE
-        file.select();
-        var src = document.selection.createRange().text;
-        var img = document.getElementById('preview');
-        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-      }
-    }
-
-    // 获取缩放的尺寸
-    function getZoomParam(maxWidth, maxHeight, width, height) {
-      var param = { top: 0, left: 0, width: width, height: height };
-      if (width > maxWidth || height > maxHeight) {
-        rateWidth = width / maxWidth;
-        rateHeight = height / maxHeight;
-        if (rateWidth > rateHeight) {
-          param.width = maxWidth;
-          param.height = Math.round(height / rateWidth);
-        } else {
-          param.width = Math.round(width / rateHeight);
-          param.height = maxHeight;
-        }
-      }
-      param.left = Math.round((maxWidth - param.width) / 2);
-      param.top = Math.round((maxHeight - param.height) / 2);
-      return param;
-    }
-    function doUpload() {
-      let form = document.getElementById("uploadPicForm");
-      console.log(form);
-      // console.log("form:",form)
-      const  formData = new FormData();
-
-      formData.append("img",form);
-      console.log("formData:",formData.get("img"))
-    }
-  </script>
-</body>
+                formData.append("img",form);
+                console.log("formData:",formData.get("img"))
+            }
+        </script>
+    </body>
 </html>
