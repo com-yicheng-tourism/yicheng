@@ -3,26 +3,30 @@
 <mapper namespace="com.yicheng.tourism.mapper.ext.CommodityMapperExt">
 
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.commodity.req.CommodityQueryReq"
-            resultMap="com.yicheng.tourism.mapper.commodityMapper.BaseResultMap">
-        select <include refid="com.yicheng.tourism.mapper.commodityMapper.Base_Column_List"></include>
-        from t_commodity
+            resultMap="com.yicheng.tourism.mapper.CommodityMapper.BaseResultMap">
+        select t1.*
+        from t_commodity t1,t_store_commodity t2,t_store t3
         <include refid="query_sql_where"></include>
     </select>
     <sql id="query_sql_where">
         <where>
+            <if test="c.storeNumber !=null and '' != c.storeNumber">
+                AND t3.store_number = #{c.storeNumber} AND t3.id =t2.store_id AND t2.commodity_id = t1.id
+            </if>
+
             <if test="c.id != null and '' != c.id">
-                and id=#{c.id}
+                and t1.id=#{c.id}
             </if>
             <if test="c.commodityName != null and '' != c.commodityName">
-                and commodity_name like concat("%",#{c.commodityName},"%")
+                and t1.commodity_name like concat("%",#{c.commodityName},"%")
             </if>
             <if test="c.commodityState != null and '' != c.commodityState">
-                and commodity_state like concat("%",#{c.commodityState},"%")
+                and t1.commodity_state like concat("%",#{c.commodityState},"%")
             </if>
         </where>
     </sql>
 
-    <update id="update" parameterType="com.yicheng.tourism.entity.commodity">
+    <update id="update" parameterType="com.yicheng.tourism.entity.Commodity">
         update t_commodity
         <set>
             <if test="c.commodityName != null">
@@ -46,12 +50,12 @@
         where id=#{c.id}
     </update>
 
-    <delete id="delete" parameterType="com.yicheng.tourism.entity.commodity">
+    <delete id="delete" parameterType="com.yicheng.tourism.entity.Commodity">
     	delete from t_commodity where id = #{com.id}
   	</delete>
 
 
-    <insert id="insert" parameterType="com.yicheng.tourism.entity.commodity">
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.Commodity">
         INSERT INTO t_commodity
         (id, commodity_number, commodity_name,
         commodity_script, commodity_price, commodity_state,
@@ -80,9 +84,9 @@
         </foreach>
     </insert>
 
-    <select id="findById" parameterType="com.yicheng.tourism.entity.commodity"
-            resultMap="com.yicheng.tourism.mapper.commodityMapper.BaseResultMap">
-        select <include refid="com.yicheng.tourism.mapper.commodityMapper.Base_Column_List"></include>
+    <select id="findById" parameterType="com.yicheng.tourism.entity.Commodity"
+            resultMap="com.yicheng.tourism.mapper.CommodityMapper.BaseResultMap">
+        select <include refid="com.yicheng.tourism.mapper.CommodityMapper.Base_Column_List"></include>
         from t_commodity
         where id = #{com.id}
     </select>

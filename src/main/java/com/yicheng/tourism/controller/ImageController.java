@@ -42,6 +42,8 @@ public class ImageController {
                 baseDir = "D:/gif/store/"; //店铺头像
             }else if (type == 3){
                 baseDir = "D:/gif/comment/"; //评论图片
+            }else if (type == 4){
+                baseDir = "D:/gif/commodity/"; //商品图片
             }
             fis = new FileInputStream(baseDir+picName);
             os = response.getOutputStream();

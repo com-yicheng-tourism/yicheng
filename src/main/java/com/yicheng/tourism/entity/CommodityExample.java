@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class commodityExample {
+public class CommodityExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public commodityExample() {
+    public CommodityExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -515,73 +515,353 @@ public class commodityExample {
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberIsNull() {
-            addCriterion("commodity_author_number is null");
+        public Criteria andImg1IsNull() {
+            addCriterion("img1 is null");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberIsNotNull() {
-            addCriterion("commodity_author_number is not null");
+        public Criteria andImg1IsNotNull() {
+            addCriterion("img1 is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberEqualTo(String value) {
-            addCriterion("commodity_author_number =", value, "commodityAuthorNumber");
+        public Criteria andImg1EqualTo(String value) {
+            addCriterion("img1 =", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberNotEqualTo(String value) {
-            addCriterion("commodity_author_number <>", value, "commodityAuthorNumber");
+        public Criteria andImg1NotEqualTo(String value) {
+            addCriterion("img1 <>", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberGreaterThan(String value) {
-            addCriterion("commodity_author_number >", value, "commodityAuthorNumber");
+        public Criteria andImg1GreaterThan(String value) {
+            addCriterion("img1 >", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberGreaterThanOrEqualTo(String value) {
-            addCriterion("commodity_author_number >=", value, "commodityAuthorNumber");
+        public Criteria andImg1GreaterThanOrEqualTo(String value) {
+            addCriterion("img1 >=", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberLessThan(String value) {
-            addCriterion("commodity_author_number <", value, "commodityAuthorNumber");
+        public Criteria andImg1LessThan(String value) {
+            addCriterion("img1 <", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberLessThanOrEqualTo(String value) {
-            addCriterion("commodity_author_number <=", value, "commodityAuthorNumber");
+        public Criteria andImg1LessThanOrEqualTo(String value) {
+            addCriterion("img1 <=", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberLike(String value) {
-            addCriterion("commodity_author_number like", value, "commodityAuthorNumber");
+        public Criteria andImg1Like(String value) {
+            addCriterion("img1 like", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberNotLike(String value) {
-            addCriterion("commodity_author_number not like", value, "commodityAuthorNumber");
+        public Criteria andImg1NotLike(String value) {
+            addCriterion("img1 not like", value, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberIn(List<String> values) {
-            addCriterion("commodity_author_number in", values, "commodityAuthorNumber");
+        public Criteria andImg1In(List<String> values) {
+            addCriterion("img1 in", values, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberNotIn(List<String> values) {
-            addCriterion("commodity_author_number not in", values, "commodityAuthorNumber");
+        public Criteria andImg1NotIn(List<String> values) {
+            addCriterion("img1 not in", values, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberBetween(String value1, String value2) {
-            addCriterion("commodity_author_number between", value1, value2, "commodityAuthorNumber");
+        public Criteria andImg1Between(String value1, String value2) {
+            addCriterion("img1 between", value1, value2, "img1");
             return (Criteria) this;
         }
 
-        public Criteria andCommodityAuthorNumberNotBetween(String value1, String value2) {
-            addCriterion("commodity_author_number not between", value1, value2, "commodityAuthorNumber");
+        public Criteria andImg1NotBetween(String value1, String value2) {
+            addCriterion("img1 not between", value1, value2, "img1");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2IsNull() {
+            addCriterion("img2 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2IsNotNull() {
+            addCriterion("img2 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2EqualTo(String value) {
+            addCriterion("img2 =", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotEqualTo(String value) {
+            addCriterion("img2 <>", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2GreaterThan(String value) {
+            addCriterion("img2 >", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2GreaterThanOrEqualTo(String value) {
+            addCriterion("img2 >=", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2LessThan(String value) {
+            addCriterion("img2 <", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2LessThanOrEqualTo(String value) {
+            addCriterion("img2 <=", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2Like(String value) {
+            addCriterion("img2 like", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotLike(String value) {
+            addCriterion("img2 not like", value, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2In(List<String> values) {
+            addCriterion("img2 in", values, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotIn(List<String> values) {
+            addCriterion("img2 not in", values, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2Between(String value1, String value2) {
+            addCriterion("img2 between", value1, value2, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg2NotBetween(String value1, String value2) {
+            addCriterion("img2 not between", value1, value2, "img2");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3IsNull() {
+            addCriterion("img3 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3IsNotNull() {
+            addCriterion("img3 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3EqualTo(String value) {
+            addCriterion("img3 =", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3NotEqualTo(String value) {
+            addCriterion("img3 <>", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3GreaterThan(String value) {
+            addCriterion("img3 >", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3GreaterThanOrEqualTo(String value) {
+            addCriterion("img3 >=", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3LessThan(String value) {
+            addCriterion("img3 <", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3LessThanOrEqualTo(String value) {
+            addCriterion("img3 <=", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3Like(String value) {
+            addCriterion("img3 like", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3NotLike(String value) {
+            addCriterion("img3 not like", value, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3In(List<String> values) {
+            addCriterion("img3 in", values, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3NotIn(List<String> values) {
+            addCriterion("img3 not in", values, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3Between(String value1, String value2) {
+            addCriterion("img3 between", value1, value2, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg3NotBetween(String value1, String value2) {
+            addCriterion("img3 not between", value1, value2, "img3");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4IsNull() {
+            addCriterion("img4 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4IsNotNull() {
+            addCriterion("img4 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4EqualTo(String value) {
+            addCriterion("img4 =", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4NotEqualTo(String value) {
+            addCriterion("img4 <>", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4GreaterThan(String value) {
+            addCriterion("img4 >", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4GreaterThanOrEqualTo(String value) {
+            addCriterion("img4 >=", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4LessThan(String value) {
+            addCriterion("img4 <", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4LessThanOrEqualTo(String value) {
+            addCriterion("img4 <=", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4Like(String value) {
+            addCriterion("img4 like", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4NotLike(String value) {
+            addCriterion("img4 not like", value, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4In(List<String> values) {
+            addCriterion("img4 in", values, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4NotIn(List<String> values) {
+            addCriterion("img4 not in", values, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4Between(String value1, String value2) {
+            addCriterion("img4 between", value1, value2, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg4NotBetween(String value1, String value2) {
+            addCriterion("img4 not between", value1, value2, "img4");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5IsNull() {
+            addCriterion("img5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5IsNotNull() {
+            addCriterion("img5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5EqualTo(String value) {
+            addCriterion("img5 =", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5NotEqualTo(String value) {
+            addCriterion("img5 <>", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5GreaterThan(String value) {
+            addCriterion("img5 >", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5GreaterThanOrEqualTo(String value) {
+            addCriterion("img5 >=", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5LessThan(String value) {
+            addCriterion("img5 <", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5LessThanOrEqualTo(String value) {
+            addCriterion("img5 <=", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5Like(String value) {
+            addCriterion("img5 like", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5NotLike(String value) {
+            addCriterion("img5 not like", value, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5In(List<String> values) {
+            addCriterion("img5 in", values, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5NotIn(List<String> values) {
+            addCriterion("img5 not in", values, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5Between(String value1, String value2) {
+            addCriterion("img5 between", value1, value2, "img5");
+            return (Criteria) this;
+        }
+
+        public Criteria andImg5NotBetween(String value1, String value2) {
+            addCriterion("img5 not between", value1, value2, "img5");
             return (Criteria) this;
         }
 

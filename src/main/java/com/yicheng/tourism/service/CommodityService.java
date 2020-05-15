@@ -3,17 +3,16 @@ package com.yicheng.tourism.service;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
-import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
-import com.yicheng.tourism.entity.commodity;
+import com.yicheng.tourism.entity.Commodity;
 
 public interface CommodityService {
-    BaseResponse<PageInfo<commodity>> findPage(CommodityQueryReq req);
+    BaseResponse<PageInfo<Commodity>> findPage(CommodityQueryReq req);
 
-    Object insertCommodity(commodity com);
+    Object insertCommodity(Commodity com);
 
-    Object deleteCommodity(commodity com);
+    Object deleteCommodity(Commodity com);
 
-    Object updateCommodity(commodity com);
+    Object updateCommodity(Commodity com);
 
-    Object findById(commodity com);
+    Object findById(Commodity com);
 }

@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
-import com.yicheng.tourism.entity.commodity;
+import com.yicheng.tourism.entity.Commodity;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.ext.CommodityMapperExt;
 import com.yicheng.tourism.service.CommodityService;
@@ -30,7 +30,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return
      */
     @Override
-    public BaseResponse<PageInfo<commodity>> findPage(CommodityQueryReq req) {
+    public BaseResponse<PageInfo<Commodity>> findPage(CommodityQueryReq req) {
         if (StringUtils.isEmpty(req.getPage())){
             req.setPage(1);
         }
@@ -38,9 +38,12 @@ public class CommodityServiceImpl implements CommodityService {
             req.setRows(10);
         }
         PageHelper.startPage(req.getPage(),req.getRows());
-        List<commodity> commodities = commodityMapperExt.qryByCondition(req);
+        List<Commodity> commodities = commodityMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(commodities)){
-            PageInfo<commodity> pageInfo = new PageInfo<>(commodities);
+            commodities.forEach(commodity -> {
+                commodity.setImg1("http://localhost:8080/img/seekExperts?type=4&picName="+commodity.getImg1());
+            });
+            PageInfo<Commodity> pageInfo = new PageInfo<>(commodities);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }
         return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
@@ -52,7 +55,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return
      */
     @Override
-    public Object insertCommodity(commodity com) {
+    public Object insertCommodity(Commodity com) {
         try {
             commodityMapperExt.insert(com);
         } catch (Exception e) {
@@ -64,11 +67,11 @@ public class CommodityServiceImpl implements CommodityService {
 
     /**
      * 删除商品信息
-     * @param id
+     * @param
      * @return
      */
     @Override
-    public Object deleteCommodity(commodity com) {
+    public Object deleteCommodity(Commodity com) {
         try {
             commodityMapperExt.delete(com);
         } catch (Exception e) {
@@ -83,7 +86,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return
      */
     @Override
-    public Object updateCommodity(commodity com) {
+    public Object updateCommodity(Commodity com) {
         try {
             commodityMapperExt.update(com);
         } catch (Exception e) {
@@ -93,8 +96,8 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public Object findById(commodity com) {
-        List<commodity> commodities = new ArrayList<>();
+    public Object findById(Commodity com) {
+        List<Commodity> commodities = new ArrayList<>();
         try {
             commodities = commodityMapperExt.findById(com);
         } catch (Exception e) {

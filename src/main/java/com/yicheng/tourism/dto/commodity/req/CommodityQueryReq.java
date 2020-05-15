@@ -12,7 +12,8 @@ public class CommodityQueryReq {
     private Integer page;
     @ApiModelProperty(value = "每页大小",dataType = "Integer")
     private Integer rows;
-
+    @ApiModelProperty(value = "店铺编号",dataType = "String")
+    private String storeNumber;
     @ApiModelProperty(value = "商品id",dataType = "String")
     private String id;
 

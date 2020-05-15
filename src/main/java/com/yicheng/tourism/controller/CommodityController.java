@@ -3,12 +3,8 @@ package com.yicheng.tourism.controller;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
-import com.yicheng.tourism.dto.store.req.StoreQueryReq;
-import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
-import com.yicheng.tourism.entity.Store;
-import com.yicheng.tourism.entity.commodity;
+import com.yicheng.tourism.entity.Commodity;
 import com.yicheng.tourism.service.CommodityService;
-import com.yicheng.tourism.service.StoreManageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -29,31 +25,31 @@ public class CommodityController {
 
     @ApiOperation(value = "商品按条件分页查询")
     @RequestMapping(value = "/query",method = RequestMethod.GET)
-    public BaseResponse<PageInfo<commodity>> findPageDate(CommodityQueryReq req){
+    public BaseResponse<PageInfo<Commodity>> findPageDate(CommodityQueryReq req){
         return commodityService.findPage(req);
     }
 
     @ApiOperation(value = "插入商铺数据")
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public Object insert(@RequestBody commodity com){
+    public Object insert(@RequestBody Commodity com){
         return commodityService.insertCommodity(com);
     }
 
     @ApiOperation(value = "更新商品数据")
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public Object update(@RequestBody commodity com){
+    public Object update(@RequestBody Commodity com){
         return commodityService.updateCommodity(com);
     }
 
     @ApiOperation(value = "删除商品数据")
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public Object delete(@RequestBody commodity com){
+    public Object delete(@RequestBody Commodity com){
         return commodityService.deleteCommodity(com);
     }
 
     @ApiOperation(value = "根据id查询数据商品数据")
     @RequestMapping(value = "/queryById",method = RequestMethod.POST)
-    public Object queryById(@RequestBody commodity com){
+    public Object queryById(@RequestBody Commodity com){
         return commodityService.findById(com);
     }
 }
