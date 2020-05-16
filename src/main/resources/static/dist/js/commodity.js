@@ -69,8 +69,9 @@ $(function () {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
         } else if(userType == '2') {
-            return   "<button type=\"button\" class=\"btn btn-info\"  onclick=\"toCommodityEdit()\"><font style=\"vertical-align: inherit;\"><font style=\"vertical-align: inherit;\">编辑</font></font></button>"+
-                "<button type=\"button\" class=\"btn btn-info\" onclick=\"toCommodityMain()\"><font style=\"vertical-align: inherit;\"><font style=\"vertical-align: inherit;\">商品详情</font></font></button>"
+            return  "<button class='btn btn-warning ' onclick=\"toMeal()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>套餐</button> " +
+                "<button  class=\"btn btn-info\"  onclick=\"toCommodityEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button>"+
+                "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>详情</button>"
         } else {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
         }
@@ -88,6 +89,23 @@ function imgFormat(img1) {
     return "<img id='commodityPic' class=\"round_icon\" src='"+img1+"'>"
 
 }
+
+function toMeal() {
+    //获取选中行id
+    var id = $("#commodityTable").jqGrid("getGridParam", "selrow");
+    console.log("rowId",id)
+    if (id == null) {
+        return;
+    }
+    //根据选中行id获取行数据
+    var rowData = $("#commodityTable").jqGrid('getRowData',id);
+    console.log("rowData",rowData);
+    //将行数据放到sessionStorage
+    sessionStorage.setItem("commodityId",JSON.stringify(rowData));
+    // window.parent.document.getElementById("meal").innerHTML = '<object type="text/html" data="/meal" width="100%" height="700px"></object>';
+    $('#modalMeal').modal('show');
+}
+
 function toCommodityMain(){
     //获取选中行id
     var id = $("#commodityTable").jqGrid("getGridParam", "selrow");
@@ -328,8 +346,8 @@ function reset() {
  */
 function reload() {
     reset();
-    var page = $("#commodityTable").commodityTable('getGridParam', 'page');
-    $("#commodityTable").commodityTable('setGridParam', {
+    var page = $("#commodityTable").jqGrid('getGridParam', 'page');
+    $("#commodityTable").jqGrid('setGridParam', {
         page: page
     }).trigger("reloadGrid");
 }

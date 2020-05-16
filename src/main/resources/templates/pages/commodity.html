@@ -207,6 +207,129 @@
         <!-- /.modal -->
     </div>
 
+    <div class="content">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="modalMeal" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" style="width: 750px">
+            <div class="modal-dialog" role="document" style="width: 750px">
+                <div class="modal-content" style="width: 750px;margin-left: 60px">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalMealTitle">套餐</h6>
+                    </div>
+                    <div style="text-align: center; margin-top: 5px">
+                        <button type="button" class="btn btn-default"
+                                onclick="toMealAdd()">新增
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="card-body">
+                            <table id="mealTable" class="table table-bordered" style="max-width: 668px;">
+                            </table>
+                            <div id="mealPager"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <div class="content">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="modalMealAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalMealAddTitle">套餐添加</h6>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addMealForm">
+                            <div class="form-group">
+                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                            </div>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="mealName">套餐名称：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="mealName" id="mealName" class="form-control" maxlength="50"
+                                               tips="3" style="height: 35px;" placeholder="套餐名称">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="mealPrice">价格：</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="mealPrice" id="mealPrice" class="form-control" maxlength="200"
+                                               tips="3" style="height: 35px;" placeholder="价格">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveMealButton">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <div class="content">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="modalMealEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modalMealEditTitle">套餐编辑</h6>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editMealForm">
+                            <div class="form-group">
+                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                            </div>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="display: none">
+                                        <input type="text" name="editId" id="editId" style="height: 1px; width: 1px" >
+                                    </td>
+                                    <td style="width: 120px;">
+                                        <label for="mealName">套餐名称：<span style="color: red;">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="mealName" id="mealName" class="form-control" maxlength="50"
+                                               tips="3" style="height: 35px;" placeholder="商品名称">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="price">价格：</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="price" id="price" class="form-control" maxlength="200"
+                                               tips="3" style="height: 35px;" placeholder="价格">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveMealEdit">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+
 <!--  编辑模态框  -->
     <div class="content">
         <!-- 模态框（Modal） -->
@@ -329,5 +452,6 @@
 <script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
 <!-- ./wrapper -->
 <script src="/dist/js/commodity.js"></script>
+<script src="/dist/js/meal.js"></script>
 </body>
 </html>

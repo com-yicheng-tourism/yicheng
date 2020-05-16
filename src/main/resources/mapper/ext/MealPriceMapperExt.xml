@@ -12,4 +12,54 @@
         </foreach>
     </insert>
 
+    <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.meal.req.MealQueryReq"
+            resultMap="com.yicheng.tourism.mapper.MealPriceMapper.BaseResultMap">
+        select *
+        from t_meal_price
+        <include refid="query_sql_where"></include>
+    </select>
+    <sql id="query_sql_where">
+        <where>
+            <if test="c.id != null and '' != c.id">
+                and id=#{c.id}
+            </if>
+            <if test="c.commodityId != null and '' != c.commodityId">
+                and commodity_id=#{c.commodityId}
+            </if>
+        </where>
+    </sql>
+
+    <update id="update" parameterType="com.yicheng.tourism.entity.MealPrice">
+        update t_meal_price
+        <set>
+            <if test="c.setMeal != null and '' != c.setMeal">
+                set_meal = #{c.setMeal,jdbcType=VARCHAR},
+            </if>
+            <if test="c.price != null and '' != c.price">
+                price = #{c.price,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id=#{c.id}
+    </update>
+
+    <delete id="delete" parameterType="com.yicheng.tourism.entity.MealPrice">
+    	delete from t_meal_price where id = #{c.id}
+  	</delete>
+
+
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.MealPrice">
+        INSERT INTO t_meal_price
+        (id, commodity_id, set_meal,commodity_price)
+        VALUES
+        (#{c.id,jdbcType=VARCHAR},
+        #{c.setMeal,jdbcType=VARCHAR},
+        #{c.price,jdbcType=DOUBLE},
+    </insert>
+
+    <select id="findById" parameterType="com.yicheng.tourism.entity.MealPrice"
+            resultMap="com.yicheng.tourism.mapper.MealPriceMapper.BaseResultMap">
+        select <include refid="com.yicheng.tourism.mapper.MealPriceMapper.Base_Column_List"></include>
+        from t_meal_price
+        where commodity_id = #{c.commodityId}
+    </select>
 </mapper>

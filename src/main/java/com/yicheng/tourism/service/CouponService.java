@@ -14,7 +14,7 @@ public interface CouponService {
      * @param req
      * @return
      */
-    BaseResponse<PageInfo<List<Coupon>>> qry(QryCouponReq req);
+    BaseResponse<PageInfo<Coupon>> qry(QryCouponReq req);
 
     /**插入优惠券信息
      * @param req

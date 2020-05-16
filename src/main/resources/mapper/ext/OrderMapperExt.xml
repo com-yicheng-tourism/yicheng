@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.OrderMapperExt">
+
+    <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.order.req.OrderQueryReq"
+            resultMap="com.yicheng.tourism.mapper.OrderMapper.BaseResultMap">
+        select *
+        from t_order
+        <include refid="query_sql_where"></include>
+    </select>
+    <sql id="query_sql_where">
+        <where>
+            <if test="c.storeNumber != null and '' != c.storeNumber">
+                and store_id=#{c.storeNumber}
+            </if>
+            <if test="c.commodityName != null and '' != c.commodityName">
+                and commodity_name like concat("%",#{c.commodityName},"%")
+            </if>
+            <if test="c.userId != null and '' != c.userId">
+                and user_id like concat("%",#{c.userId},"%")
+            </if>
+        </where>
+    </sql>
+</mapper>

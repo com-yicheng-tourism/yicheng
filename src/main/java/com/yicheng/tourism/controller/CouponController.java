@@ -39,7 +39,7 @@ public class CouponController {
 
     @ApiOperation(value = "优惠券信息按条件分页查询")
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
-    public BaseResponse<PageInfo<List<Coupon>>> qryByPage(QryCouponReq req){
+    public BaseResponse<PageInfo<Coupon>> qryByPage(QryCouponReq req){
         return couponService.qry(req);
     }
 

@@ -69,6 +69,19 @@ $(function () {
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#storeTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
+        },
+        success:function () {
+            //获取选中行id
+            var id=$('#storeTable').jqGrid('getGridParam','selrow');
+            console.log("rowId",id)
+            if (id == null) {
+                return;
+            }
+            //根据选中行id获取行数据
+            var rowData = $("#storeTable").jqGrid('getRowData',id);
+            console.log("rowData",rowData);
+            //将行数据放到sessionStorage
+            sessionStorage.setItem("store_detail",JSON.stringify(rowData));
         }
     });
 

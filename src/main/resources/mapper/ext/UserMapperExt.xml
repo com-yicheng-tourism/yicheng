@@ -59,7 +59,7 @@
             </if>
         </where>
     </sql>
-    
+
     <update id="updateByUsername" parameterType="com.yicheng.tourism.entity.User">
         update t_user
         <set>

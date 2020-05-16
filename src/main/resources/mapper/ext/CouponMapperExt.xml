@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yicheng.tourism.mapper.ext.CouponMapperExt">
-    <select id="qry" parameterType="com.yicheng.tourism.dto.coupon.req.QryCouponReq"
-                    resultType="com.yicheng.tourism.entity.Coupon">
-        select
-        <include refid="com.yicheng.tourism.mapper.CouponMapper.Base_Column_List"></include>
+
+    <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.coupon.req.QryCouponReq"
+            resultMap="com.yicheng.tourism.mapper.CouponMapper.BaseResultMap">
+        select *
         from t_coupon
         <include refid="sql_where_qry"></include>
     </select>
     <sql id="sql_where_qry">
         <where>
-            <if test="c.startTime != null and c.startTime != ''">
-
+            <if test="c.storeId != null and '' != c.storeId">
+                and store_id = #{c.storeId}
             </if>
         </where>
     </sql>

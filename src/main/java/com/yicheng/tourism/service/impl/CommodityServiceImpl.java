@@ -100,6 +100,15 @@ public class CommodityServiceImpl implements CommodityService {
         List<Commodity> commodities = new ArrayList<>();
         try {
             commodities = commodityMapperExt.findById(com);
+            if (!CollectionUtils.isEmpty(commodities)) {
+                commodities.forEach(commodity -> {
+                    commodity.setImg1("http://localhost:8080/img/seekExperts?type=4&picName=" + commodity.getImg1());
+                    commodity.setImg2("http://localhost:8080/img/seekExperts?type=4&picName=" + commodity.getImg2());
+                    commodity.setImg3("http://localhost:8080/img/seekExperts?type=4&picName=" + commodity.getImg3());
+                    commodity.setImg4("http://localhost:8080/img/seekExperts?type=4&picName=" + commodity.getImg4());
+                    commodity.setImg5("http://localhost:8080/img/seekExperts?type=4&picName=" + commodity.getImg5());
+                });
+            }
         } catch (Exception e) {
             return -1;
         }

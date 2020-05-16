@@ -11,7 +11,7 @@
     <sql id="query_sql_where">
         <where>
             AND t1.create_by = t2.user_name
-            <if test="c.id != null and '' != c.storeName">
+            <if test="c.id != null and '' != c.id">
                 and t1.id=#{c.id}
             </if>
             <if test="c.storeName != null and '' != c.storeName">

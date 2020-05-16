@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>lou.springboot | 店铺管理页</title>
+    <!-- jqgrid ui -->
+    <link href="/plugins/jqGrid-5.4.0/ui.jqgrid-bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/plugins/bootstrap/js/css/bootstrap.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- sweet alert -->
+    <!--    <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">-->
+    <link href="/plugins/bootstrap/js/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/dist/css/main.css" rel="stylesheet"/>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/fontawesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="/plugins/sweetalert2/sweetalert2.css">
+    <style>
+        ::-webkit-scrollbar{
+            display:none;
+        }
+    </style>
+    <style>
+        body{padding: 20px;}
+        .demo-input{padding-left: 10px; height: 38px; min-width: 262px; line-height: 38px; border: 1px solid #e6e6e6;  background-color: #fff;  border-radius: 2px;}
+        .demo-footer{padding: 50px 0; color: #999; font-size: 14px;}
+        .demo-footer a{padding: 0 5px; color: #01AAED;}
+        .round_icon{
+            width: 34px;
+            height: 34px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: auto;
+            left: 50%;
+            right: 50%;
+            top: 50%;
+            bottom: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper"  style="padding-top : 3%;padding-bottom : 3%;padding-left: 1%">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div style="margin-left: 0px;" class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">套餐管理页</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="../index.html">主页</a></li>
+                            <li class="breadcrumb-item active">套餐管理页</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+            <div class="widget-content" style="height: 70px;width: 1075px;">
+                <div class=" padd" style="box-sizing: border-box">
+                    <table class="table border-none" style="width: auto;">
+                        <tr>
+                            <td>
+                                <label for="storeName">店铺名称</label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="50" class="form-control" name="storeName" id="storeName">
+                            </td>
+                            <td>
+                                <label for="storeAuthor">店主</label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="50" class="form-control" name="storeAuthor" id="storeAuthor">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="paramSearch"
+                                        onclick="toSearch()">查询
+                                </button>
+                            </td>
+
+                            <td>
+                                <button type="button" class="btn btn-default"
+                                        onclick="toExport()">导出
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="mealTable" class="table table-bordered">
+                            </table>
+                            <div id="mealPager"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.content-wrapper -->
+
+</div>
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- sweet alert -->
+<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
+<script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
+<!-- ./wrapper -->
+<script src="/dist/js/meal.js"></script>
+</body>
+</html>

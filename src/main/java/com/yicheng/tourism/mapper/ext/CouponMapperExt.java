@@ -14,4 +14,5 @@ public interface CouponMapperExt {
      */
    List<Coupon> qry(@Param("c") QryCouponReq req);
 
+    List<Coupon> qryByCondition(@Param("c")QryCouponReq req);
 }

@@ -58,6 +58,21 @@ public class Ahandler {
         return "/pages/orderList";
     }
 
+    @RequestMapping(value = "/myorder",method = RequestMethod.GET)
+    public String myOrder() {
+        return "/pages/myorder";
+    }
+
+    @RequestMapping(value = "/meal",method = RequestMethod.GET)
+    public String meal() {
+        return "/pages/meal";
+    }
+
+    @RequestMapping(value = "/coupon",method = RequestMethod.GET)
+    public String coupon() {
+        return "/pages/coupon";
+    }
+
     @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String main() {
         return "/pages/editors";
