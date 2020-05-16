@@ -10,4 +10,6 @@ public interface NavMapperExt {
 
 
     List<Nav> qryByRole(@Param("c") List<String> roleId);
+
+    List<Nav> qryAll();
 }

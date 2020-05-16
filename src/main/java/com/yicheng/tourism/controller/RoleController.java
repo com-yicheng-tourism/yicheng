@@ -57,8 +57,9 @@ public class RoleController {
     public BaseResponse<String> assignPermission(@RequestBody List<AssignPermissionReq> req, HttpServletRequest request){
 
         ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
-        User user = (User) valueOperations.get(request.getSession().getAttribute("userId"));
-        if (StringUtils.isEmpty(user)){
+        User userId = (User) request.getSession().getAttribute("userId");
+        User user = (User) valueOperations.get(userId.getUserName());
+        if (null == user){
             return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
         }
         return roleService.assignPermission(req,user.getUserName());

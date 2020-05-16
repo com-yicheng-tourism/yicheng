@@ -10,4 +10,8 @@
       #{item}
     </foreach>
   </select>
+  <select id="qryAll"  resultType="com.yicheng.tourism.entity.Nav">
+    select *
+    from t_nav
+  </select>
 </mapper>

@@ -13,4 +13,6 @@ public class AssignPermissionReq {
     String permissionId;
     @ApiModelProperty(value = "备注",dataType = "String")
     String notes;
+    @ApiModelProperty(value = "主键",dataType = "String")
+    String id;
 }

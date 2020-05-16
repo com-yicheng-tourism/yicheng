@@ -17,6 +17,7 @@ import com.yicheng.tourism.mapper.ext.RolePermissionMapperExt;
 import com.yicheng.tourism.service.RoleService;
 import com.yicheng.tourism.util.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -101,32 +102,62 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public BaseResponse<String> assignPermission(List<AssignPermissionReq> reqs,String username) {
-        List<RolePermission> rolePermissions = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(reqs)){
-            for (AssignPermissionReq req : reqs){
-                if (StringUtils.isEmpty(req.getRoleId())){
-                    return new BaseResponse<>(RespStatusEnum.ROLE_ID_IS_NULL.getCode(),RespStatusEnum.ROLE_ID_IS_NULL.getMessage());
-                }
-                if (StringUtils.isEmpty(req.getPermissionId())){
-                    return new BaseResponse<>(RespStatusEnum.PERMISSION_ID_IS_NULL.getCode(),RespStatusEnum.PERMISSION_ID_IS_NULL.getMessage());
-                }
-                RolePermission rolePermission = new RolePermission();
-                rolePermission.setSerialId(UUIDUtil.get());
-                rolePermission.setRoleId(req.getRoleId());
-                rolePermission.setPermissionId(req.getPermissionId());
-                rolePermission.setCreateTime(new Date());
-
-                rolePermission.setCreateId(username);
-                rolePermission.setNotes(req.getNotes());
-                rolePermissions.add(rolePermission);
-            }
-        }
-        int i = rolePermissionMapperExt.insertBatch(rolePermissions);
-//        int i = rolePermissionMapper.insert(rolePermission);
-        if (i != 0){
-            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配成功");
-        }
-        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配失败");
+//        List<String> roleIdList =new ArrayList<>();
+//        List<String> navIdList =new ArrayList<>();
+//        List<String> permissionIdList =new ArrayList<>();
+//        if (!CollectionUtils.isEmpty(reqs)){
+//            for (AssignPermissionReq req : reqs){
+//                if (req.getId().startsWith("10")){
+//                    roleIdList.add(req.getId());
+//                }
+//                if (req.getId().startsWith("20")){
+//                    navIdList.add(req.getId());
+//                }
+//                if (req.getId().startsWith("30")){
+//                    permissionIdList.add(req.getId());
+//                }
+//            }
+//            List<Nav> navList = navMapperExt.qryByRole(roleIdList);
+////            List<> delList
+//            boolean flag =true;
+//            for (Nav nav :navList){
+//                for (String navId :navIdList){
+//                    if (nav.getId() .equals(navId)){
+//                        flag=false;
+//                        continue;
+//                    }
+//                }
+//                if (flag){
+//
+//                }
+//            }
+//        }
+//        List<RolePermission> rolePermissions = new ArrayList<>();
+//        if (!CollectionUtils.isEmpty(reqs)){
+//            for (AssignPermissionReq req : reqs){
+//                if (StringUtils.isEmpty(req.getRoleId())){
+//                    return new BaseResponse<>(RespStatusEnum.ROLE_ID_IS_NULL.getCode(),RespStatusEnum.ROLE_ID_IS_NULL.getMessage());
+//                }
+//                if (StringUtils.isEmpty(req.getPermissionId())){
+//                    return new BaseResponse<>(RespStatusEnum.PERMISSION_ID_IS_NULL.getCode(),RespStatusEnum.PERMISSION_ID_IS_NULL.getMessage());
+//                }
+//                RolePermission rolePermission = new RolePermission();
+//                rolePermission.setSerialId(UUIDUtil.get());
+//                rolePermission.setRoleId(req.getRoleId());
+//                rolePermission.setPermissionId(req.getPermissionId());
+//                rolePermission.setCreateTime(new Date());
+//
+//                rolePermission.setCreateId(username);
+//                rolePermission.setNotes(req.getNotes());
+//                rolePermissions.add(rolePermission);
+//            }
+//        }
+//        int i = rolePermissionMapperExt.insertBatch(rolePermissions);
+////        int i = rolePermissionMapper.insert(rolePermission);
+//        if (i != 0){
+//            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配成功");
+//        }
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"权限分配成功");
     }
 
     /**
@@ -139,16 +170,39 @@ public class RoleServiceImpl implements RoleService {
         List<RolePermissionResp> rolePermissionResp = new ArrayList<>();
         List<Role> rolePermissionResps = roleMapperExt.qryAll();
         List<RolePermissionResp> rolePermission = rolePermissionResps.stream().map(RolePermissionResp::new).collect(Collectors.toList());
-        List<String> roleId = new ArrayList<>();
-        rolePermissionResps.forEach(role -> {
-            roleId.add(role.getId());
-        });
-        List<Nav> navs = navMapperExt.qryByRole(roleId);
-        List<RolePermissionResp> navList = navs.stream().map(RolePermissionResp::new).collect(Collectors.toList());
-        List<Permission> permissionList = permissionMapperExt.qryByRole(roleId);
-        List<RolePermissionResp> permissionResps = permissionList.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+//        List<String> roleId = new ArrayList<>();
+//        rolePermissionResps.forEach(role -> {
+//            roleId.add(role.getId());
+//        });
+//        List<Nav> navs = navMapperExt.qryByRole(roleId);
+        List<Nav> navs = navMapperExt.qryAll();
+        List<Nav> navList = new ArrayList<>();
+
+        for (int i =0; i< rolePermissionResps.size();i++){
+            for (int j=0;j<navs.size();j++){
+                Nav nav = new Nav();
+                BeanUtils.copyProperties(navs.get(j),nav);
+                nav.setPid(rolePermissionResps.get(i).getId());
+                navList.add(nav);
+            }
+        }
+        List<RolePermissionResp> navLists = navList.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+//        List<Permission> permissionList = permissionMapperExt.qryByRole(roleId);
+        List<Permission> permissionList = permissionMapperExt.qryAll();
+        List<Permission> permissions = new ArrayList<>();
+        for (int i =0; i< navs.size();i++){
+            for (int j=0;j<permissionList.size();j++){
+                Permission permission = new Permission();
+                BeanUtils.copyProperties(permissionList.get(j),permission);
+                permission.setPid(navs.get(i).getId());
+                permissions.add(permission);
+            }
+
+        }
+        List<RolePermissionResp> permissionResps = permissions.stream().map(RolePermissionResp::new).collect(Collectors.toList());
+
         rolePermissionResp.addAll(rolePermission);
-        rolePermissionResp.addAll(navList);
+        rolePermissionResp.addAll(navLists);
         rolePermissionResp.addAll(permissionResps);
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),rolePermissionResp);
     }

@@ -91,9 +91,9 @@ public class Ahandler {
         return "/pages/commoditymain";
     }
 
-    @RequestMapping(value = "/picture",method = RequestMethod.GET)
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
     public String picture() {
-        return "/pages/picture";
+        return "/pages/home";
     }
 //    @RequestMapping(value="/{page}",method= RequestMethod.GET)
 //    public String page(@PathVariable("page") String page) {
