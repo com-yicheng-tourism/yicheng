@@ -14,16 +14,33 @@ $(function () {
         url: 'store/query',
         datatype: "json",
         colModel: [
-            {label: '店铺id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
-            {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', hidden:true,width: 50},
-            {label: '头像', name: 'storeHead', index: 'storeHead', width: 30,formatter: imgFormat},
+            {label: '店铺id', name: 'id', index: 'id', hidden: true, width: 50, key: true},
+            {label: '店铺编号', name: 'storeNumber', index: 'storeNumber', hidden: true, width: 50},
+            {label: '头像', name: 'storeHead', index: 'storeHead', width: 30, formatter: imgFormat},
             {label: '店铺名称', name: 'storeName', index: 'storeName', width: 50},
-            {label: '店主', name: 'nickName', index: 'nickName', sortable: false,align: "center", width: 80},
-            {label: '店主手机号', name: 'authorPhone', index: 'authorPhone', sortable: false,align: "center", width: 80},
-            {label: '店铺状态', name: 'storeState', index: 'storeState', sortable: false,align: "center", width: 80,formatter:typeFormat},
-            {label: '注册时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 80},
-            {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false,align: "center", width: 80},
-            {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
+            {label: '店主', name: 'nickName', index: 'nickName', sortable: false, align: "center", width: 80},
+            {label: '店主手机号', name: 'authorPhone', index: 'authorPhone', sortable: false, align: "center", width: 80},
+            {
+                label: '店铺状态',
+                name: 'storeState',
+                index: 'storeState',
+                sortable: false,
+                align: "center",
+                width: 80,
+                formatter: typeFormat
+            },
+            {label: '注册时间', name: 'createTime', index: 'createTime', sortable: false, align: "center", width: 80},
+            {label: '店铺描述', name: 'storeScript', index: 'storeScript', sortable: false, align: "center", width: 80},
+            {
+                label: '操作',
+                name: 'state',
+                index: 'state',
+                width: 80,
+                sortable: false,
+                align: "center",
+                edittype: "button",
+                formatter: cmgStateFormat
+            }
 
         ],
         height: 635,
@@ -46,41 +63,50 @@ $(function () {
             rows: "rows",
             order: "order"
         },
-        postData : {
-            keyWords : ""
+        postData: {
+            keyWords: ""
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#storeTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+
     function cmgStateFormat(grid, rows) {
         let name = JSON.parse(sessionStorage.getItem("userId"));
         var userType = name.type;
         if (userType == '1') {
-            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
-        } else if(userType == '2'){
-            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>"+
+        } else if (userType == '2') {
+            return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\"><i class=\"fa fa-plus\"></i>编辑</button>" +
                 "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
-        }else {
-            return  "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
+        } else {
+            return "<button class=\"btn btn-info\" onclick=\"toStoreMain()\"><i class=\"fa fa-plus\"></i>进入店铺</button>"
         }
 
-    };
-    function typeFormat(type){
-        return type == "0" ? "开启" : ( type == "1" ? "关闭" : "封禁中");
     }
+
+    function typeFormat(type) {
+        return type == "0" ? "开启" : (type == "1" ? "关闭" : "封禁中");
+    }
+
     $(window).resize(function () {
         console.log("gaibianledaxiao ")
         $("#storeTable").setGridWidth($(".card-body").width());
     });
 });
+
 function imgFormat(storeHead) {
 
     return "<img id='storeHead' class=\"round_icon\" src='"+storeHead+"'>"
 
 }
+
+$("#storeHead").click(function () {
+    
+})
+
 function toStoreMain(){
     //获取选中行id
     var id=$('#storeTable').jqGrid('getGridParam','selrow');

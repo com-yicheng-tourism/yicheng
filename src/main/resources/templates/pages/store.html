@@ -179,10 +179,8 @@
                                                 <label >店铺描述：</label>
                                             </td>
                                             <td>
-                                                <textarea name="storeScript" id="storeScript" class="form-control"  maxlength="200"
-                                                       tips="3" style="height: 60px;" placeholder="店铺描述">
+                                                <textarea  name="storeScript" id="storeScript"  maxlength="500" rows="4"  style="height: 100px; width: 360px;" placeholder="店铺描述"></textarea>
                                             </td>
-
                                         </tr>
                                     </table>
                                 </form>
@@ -214,7 +212,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label for="param-search-type">店铺名称：<span style="color: red;">*</span></label>
+                                                <label for="storeName">店铺名称：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
                                                 <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
@@ -223,7 +221,7 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label for="param-search-type">联系电话：<span style="color: red;">*</span></label>
+                                                <label for="phone">联系电话：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
                                                 <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
@@ -233,7 +231,7 @@
 
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label for="param-search-type">状态：<span style="color: red;">*</span></label>
+                                                <label for="state">状态：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
                                                 <select name="state" id="state" class="form-control" maxlength="50"
@@ -245,11 +243,11 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label for="param-search-type">店铺描述：</label>
+                                                <label for="storeScript">店铺描述：</label>
                                             </td>
                                             <td>
-                                                <textarea name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                                                       tips="3" style="height: 60px;" placeholder="店铺描述">
+                                                <textarea name="storeScript" id="storeScript" class="form-control" maxlength="500" rows="4"
+                                                          style="height: 100px; width: 360px;" placeholder="店铺描述"></textarea>
                                             </td>
                                         </tr>
                                     </table>
@@ -265,8 +263,7 @@
                 <!-- /.modal -->
             </div>
 
-
-<!--删除模态框-->
+            <!--删除模态框-->
             <div class="content">
                 <!-- 模态框（Modal） -->
                 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">

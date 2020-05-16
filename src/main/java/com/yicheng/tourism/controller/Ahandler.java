@@ -47,6 +47,17 @@ public class Ahandler {
     public String home() {
         return "/pages/comment";
     }
+
+    @RequestMapping(value = "/testDemo",method = RequestMethod.GET)
+    public String testDemo() {
+        return "/pages/testDemo";
+    }
+
+    @RequestMapping(value = "/orderList",method = RequestMethod.GET)
+    public String orderList() {
+        return "/pages/orderList";
+    }
+
     @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String main() {
         return "/pages/editors";
