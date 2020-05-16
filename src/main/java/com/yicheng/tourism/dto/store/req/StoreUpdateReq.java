@@ -8,6 +8,10 @@ import java.util.Date;
 public class StoreUpdateReq {
     private String id;
 
+    private String userStoreId;
+
+    private String userId;
+
     private String storeNumber;
 
     private String storeName;
