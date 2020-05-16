@@ -53,7 +53,7 @@ public class StoreManageServiceImpl implements StoreManageService {
         store.setId(CreateTestDataUtil.createSerialId());
         store.setStoreNumber(CreateTestDataUtil.createUserName());
         store.setCreateBy(CreateTestDataUtil.createUserName());
-        store.setUserStoreId(CreateTestDataUtil.createSerialId());
+//        store.setUserStoreId(CreateTestDataUtil.createSerialId());
         try {
             storeMapperExt.insertStore(store);
             userStoreMapperExt.insert(store);
