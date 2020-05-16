@@ -260,7 +260,7 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(req.getPage(),req.getRows());
         List<User> users = userMapperExt.qryByCondition(req);
         if (!CollectionUtils.isEmpty(users)){
-            users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?picName="+user.getProfilePic()));
+            users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+user.getProfilePic()));
             PageInfo<User> pageInfo = new PageInfo<>(users);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
         }
