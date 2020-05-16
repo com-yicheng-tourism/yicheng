@@ -70,12 +70,12 @@
 
     <insert id="insertBatch" parameterType="list">
         INSERT INTO t_store
-        (id, store_number, store_name,
+        (id, store_head,store_number, store_name,
         store_script, author_phone, store_state,
         create_by, create_time)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.id,jdbcType=VARCHAR}, #{item.storeNumber,jdbcType=VARCHAR}, #{item.storeName,jdbcType=VARCHAR},
+            (#{item.id,jdbcType=VARCHAR},  #{item.storeHead,jdbcType=VARCHAR},#{item.storeNumber,jdbcType=VARCHAR}, #{item.storeName,jdbcType=VARCHAR},
             #{item.storeScript,jdbcType=VARCHAR}, #{item.authorPhone,jdbcType=DOUBLE}, #{item.storeState,jdbcType=VARCHAR},
             #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
         </foreach>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yicheng.tourism.mapper.ext.StoreCommodityMapperExt">
+
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO t_store_commodity
+        (id, store_id, commodity_id,
+        create_by, create_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.storeId,jdbcType=VARCHAR}, #{item.commodityId,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

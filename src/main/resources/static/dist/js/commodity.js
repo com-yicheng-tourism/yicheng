@@ -8,6 +8,11 @@ $(function () {
     })
     $('#modalEdit').on('hide.bs.modal', function () {
         reset();
+    })
+
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userId = name.serialId;
+
     });
     let rowData = sessionStorage.getItem("store_detail");
     let storeInfo = JSON.parse(rowData);
@@ -55,8 +60,6 @@ $(function () {
         }
     });
     function cmgStateFormat(grid, rows) {
-        let name = JSON.parse(sessionStorage.getItem("userId"));
-        var userType = name.type;
         if (userType == '1') {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
@@ -114,8 +117,8 @@ function toCommodityEdit() {
             console.log(result)
             $("#editForm #commodityName").val(result.data.list[0].commodityName);
             $("#editForm #commodityScript").val(result.data.list[0].commodityScript);
-            $("#editForm #price").val(result.data.list[0].price);
-            $("#editForm #state").val(result.data.list[0].state);
+            $("#editForm #price").val(result.data.list[0].commodityPrice);
+            $("#editForm #state").val(result.data.list[0].commodityState);
             $("#editForm #editId").val(id);
         }
     }, 'json');

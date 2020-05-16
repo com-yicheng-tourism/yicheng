@@ -153,16 +153,6 @@
 
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label >店铺描述：</label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                                                       tips="3" style="height: 35px;" placeholder="店铺描述">
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 120px;">
                                                 <label >联系电话：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
@@ -183,6 +173,17 @@
                                                 </select>
                                             </td>
                                         </tr>
+
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >店铺描述：</label>
+                                            </td>
+                                            <td>
+                                                <textarea name="storeScript" id="storeScript" class="form-control"  maxlength="200"
+                                                       tips="3" style="height: 60px;" placeholder="店铺描述">
+                                            </td>
+
+                                        </tr>
                                     </table>
                                 </form>
                             </div>
@@ -196,6 +197,7 @@
                 <!-- /.modal -->
             </div>
 
+            <!-- 编辑模态框-->
             <div class="content">
                 <!-- 模态框（Modal） -->
                 <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
@@ -219,17 +221,6 @@
                                                        tips="3" style="height: 35px;" placeholder="店铺名称">
                                             </td>
                                         </tr>
-
-                                        <tr>
-                                            <td style="width: 120px;">
-                                                <label for="param-search-type">店铺描述：</label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                                                       tips="3" style="height: 35px;" placeholder="店铺描述">
-                                            </td>
-
-                                        </tr>
                                         <tr>
                                             <td style="width: 120px;">
                                                 <label for="param-search-type">联系电话：<span style="color: red;">*</span></label>
@@ -252,6 +243,15 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label for="param-search-type">店铺描述：</label>
+                                            </td>
+                                            <td>
+                                                <textarea name="storeScript" id="storeScript" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 60px;" placeholder="店铺描述">
+                                            </td>
+                                        </tr>
                                     </table>
                                 </form>
                             </div>
@@ -266,7 +266,7 @@
             </div>
 
 
-
+<!--删除模态框-->
             <div class="content">
                 <!-- 模态框（Modal） -->
                 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">

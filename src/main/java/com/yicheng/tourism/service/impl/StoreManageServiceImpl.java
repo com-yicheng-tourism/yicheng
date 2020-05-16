@@ -8,8 +8,10 @@ import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
 import com.yicheng.tourism.entity.Store;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.ext.StoreMapperExt;
+import com.yicheng.tourism.mapper.ext.UserStoreMapperExt;
 import com.yicheng.tourism.service.StoreManageService;
 import com.yicheng.tourism.util.CreateTestDataUtil;
+import com.yicheng.tourism.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +24,9 @@ public class StoreManageServiceImpl implements StoreManageService {
 
     @Autowired
     private StoreMapperExt storeMapperExt;
+
+    @Autowired
+    private UserStoreMapperExt userStoreMapperExt;
 
     @Override
     public BaseResponse<PageInfo<Store>> findPage(StoreQueryReq req) {
@@ -48,8 +53,10 @@ public class StoreManageServiceImpl implements StoreManageService {
         store.setId(CreateTestDataUtil.createSerialId());
         store.setStoreNumber(CreateTestDataUtil.createUserName());
         store.setCreateBy(CreateTestDataUtil.createUserName());
+        store.setUserStoreId(CreateTestDataUtil.createSerialId());
         try {
             storeMapperExt.insertStore(store);
+            userStoreMapperExt.insert(store);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
