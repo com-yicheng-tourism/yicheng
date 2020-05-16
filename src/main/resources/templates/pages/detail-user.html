@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper" style="padding-top : 3%;padding-bottom : 3%;padding-left: 1%">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div style="margin-left: 0px;min-height: 600px;" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+<!--    <section class="content-header">-->
+<!--      <div class="container-fluid">-->
+<!--        <div class="row mb-2">-->
+<!--          <div class="col-sm-6">-->
+<!--            <h1>个人中心</h1>-->
+<!--          </div>-->
+<!--          <div class="col-sm-6">-->
+<!--            <ol class="breadcrumb float-sm-right">-->
+<!--              <li class="breadcrumb-item"><a href="#">主页</a></li>-->
+<!--              <li class="breadcrumb-item active">个人中心</li>-->
+<!--            </ol>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--    </section>-->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle head_pic"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center" id="name_profile"></h3>
+
+                <p class="text-muted text-center" id="job_profile"></p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>性别</b> <a class="float-right" id="sex_profile">1,322</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Following</b> <a class="float-right">543</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Friends</b> <a class="float-right">13,287</a>
+                  </li>
+                </ul>
+
+<!--                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">关于我</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> 教育经历</strong>
+
+                <p class="text-muted" id="edu_profile">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> 住址</strong>
+
+                <p class="text-muted" id="address_profile">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> 技能</strong>
+
+                <p class="text-muted" id="skill_profile">
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> 个性签名</strong>
+
+                <p class="text-muted" id="signature_profile">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#like" data-toggle="tab">收藏</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#shopping-car" data-toggle="tab">购物车</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#order" data-toggle="tab">订单</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="like">
+
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="shopping-car">
+
+                  </div>
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane" id="order">
+
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+  <script>
+      let rowData = sessionStorage.getItem("user_detail");
+      let userInfo = JSON.parse(rowData);
+      console.log("storeInfo:",userInfo);
+      let split = userInfo.profilePic.split("\"");
+      console.log("split:",split)
+    $('.head_pic').attr("src",split[5]);
+    $('#name_profile').text(rowData.nickName);
+    $('#job_profile').text(rowData.job);
+    $('#sex_profile').text(rowData.sex);
+    $('#edu_profile').text(rowData.education);
+    $('#address_profile').text(rowData.userAddress);
+    // $('#skill_profile').text(name.skill);
+    // if (rowData.skill !== '' && rowData.skill.indexOf("-") !==-1){
+    //     let split1 = rowData.skill.split("-");
+    //     var i=0;
+    //     split1.forEach(function (item) {
+    //         let spanElement = document.createElement("span");
+    //         let byId = document.getElementById('skill_profile');
+    //         byId.appendChild(spanElement);
+    //         spanElement.className="tag tag-danger";
+    //         spanElement.style.display = 'block';
+    //         spanElement.innerText=item;
+    //     });
+    // }
+    $('#signature_profile').text(rowData.signature);//个性签名
+  </script>
+</body>
+</html>

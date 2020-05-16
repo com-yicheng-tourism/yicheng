@@ -12,10 +12,15 @@ $(function () {
 
     let name = JSON.parse(sessionStorage.getItem("userId"));
     var userId = name.serialId;
+    var userType = name.type;
 
-    });
+
     let rowData = sessionStorage.getItem("store_detail");
     let storeInfo = JSON.parse(rowData);
+    var storeNumber="";
+    if (storeInfo != null && storeInfo.storeNumber !== ""){
+        storeNumber = storeInfo.storeNumber;
+    }
     $("#commodityTable").jqGrid({
         url: 'commodity/query',
         datatype: "json",
@@ -51,7 +56,7 @@ $(function () {
             order: "order"
         },
         postData : {
-            storeNumber : storeInfo.storeNumber,
+            storeNumber : storeNumber,
             keyWords : ""
         },
         gridComplete: function () {

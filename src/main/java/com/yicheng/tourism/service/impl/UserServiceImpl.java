@@ -231,11 +231,16 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public BaseResponse<String> edit(UpdateUserInfoReq req) {
-        if (StringUtils.isEmpty(req.getSerialId())){
+        if (StringUtils.isEmpty(req.getUserName())){
+            return new BaseResponse<>(RespStatusEnum.SERIAL_CODE_IS_NULL.getCode(),RespStatusEnum.SERIAL_CODE_IS_NULL.getMessage());
+        }
+        String id = userMapperExt.qrySerialId(req.getUserName());
+        if (StringUtils.isEmpty(id)){
             return new BaseResponse<>(RespStatusEnum.SERIAL_CODE_IS_NULL.getCode(),RespStatusEnum.SERIAL_CODE_IS_NULL.getMessage());
         }
         User user = new User();
         BeanUtils.copyProperties(req,user);
+        user.setSerialId(id);
         int i = userMapper.updateByPrimaryKeySelective(user);
         if (i != 0){
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"修改成功");
@@ -259,12 +264,10 @@ public class UserServiceImpl implements UserService {
         }
         PageHelper.startPage(req.getPage(),req.getRows());
         List<User> users = userMapperExt.qryByCondition(req);
-        if (!CollectionUtils.isEmpty(users)){
             users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+user.getProfilePic()));
             PageInfo<User> pageInfo = new PageInfo<>(users);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
-        }
-        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+//        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
     }
 
     /**

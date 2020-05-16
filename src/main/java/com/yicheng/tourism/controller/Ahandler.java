@@ -35,6 +35,10 @@ public class Ahandler {
     public String profileUser() {
         return "/pages/profile-user";
     }
+    @RequestMapping(value = "/userDetail",method = RequestMethod.GET)
+    public String userDetail() {
+        return "/pages/detail-user";
+    }
     @RequestMapping(value = "/profileShop",method = RequestMethod.GET)
     public String profileShop() {
         return "/pages/profile-shop";

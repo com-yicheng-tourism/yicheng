@@ -225,21 +225,21 @@
                         <ul id="nav-manage" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                             data-accordion="false">
                             <li class="nav-item">
-                                <a href="article.html" class="nav-link">
-                                    <i class="nav-icon fa fa-edit"></i>
+                                <a href="###" class="nav-link" onclick="home()">
+                                    <i class="nav-icon fa fa-home"></i>
                                     <p>
-                                        富文本管理
+                                        首页
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" id="picture" onclick="jumpToPicture()" class="nav-link">
-                                    <i class="nav-icon fa fa-image"></i>
-                                    <p>
-                                        图片管理
-                                    </p>
-                                </a>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a href="#" id="picture" onclick="jumpToPicture()" class="nav-link">-->
+<!--                                    <i class="nav-icon fa fa-image"></i>-->
+<!--                                    <p>-->
+<!--                                        图片管理-->
+<!--                                    </p>-->
+<!--                                </a>-->
+<!--                            </li>-->
                             <li class="nav-item active"  id="user-manage">
                                 <a href="#" onclick="jumpToUser()" class="nav-link">
                                     <i class="fa fa-user-circle nav-icon"></i>
@@ -337,7 +337,6 @@
             }
             function jumpToStore() {
 
-
                 document.getElementById("main").innerHTML = '<object type="text/html" data="/store" width="100%" height="700px"></object>';
             }
             function jumpToCommodity() {
@@ -365,9 +364,13 @@
             function jumpToProfile() {
                 document.getElementById("main").innerHTML = '<object type="text/html" data="/profileUser" width="100%" height="700px"></object>';
             }
-            // function jumpToUser() {
-            //     window.location.href="/user";
-            // }
+            function home() {
+                if (name.type == 1){
+                    document.getElementById("main").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+                }else {
+                    document.getElementById("main").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+                }
+            }
         </script>
     </body>
 </html>

@@ -48,6 +48,15 @@
                     or user_phone like concat("%",#{c.keyWords},"%")
                     or user_address like concat("%",#{c.keyWords},"%")
             </if>
+            <if test="c.type != null and '' != c.type">
+                and type =#{c.type}
+            </if>
+            <if test="c.startTime != null and '' != c.startTime">
+                and birthday &gt;= #{c.startTime}
+            </if>
+            <if test="c.endTime != null and '' != c.endTime">
+                and birthday &lt;= #{c.endTime}
+            </if>
         </where>
     </sql>
     

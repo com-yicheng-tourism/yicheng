@@ -5,7 +5,15 @@
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.commodity.req.CommodityQueryReq"
             resultMap="com.yicheng.tourism.mapper.CommodityMapper.BaseResultMap">
         select t1.*
-        from t_commodity t1,t_store_commodity t2,t_store t3
+        from
+        <choose>
+            <when test="c.storeNumber !=null and '' != c.storeNumber">
+                t_commodity t1,t_store_commodity t2,t_store t3
+            </when>
+            <otherwise>
+                t_commodity t1
+            </otherwise>
+        </choose>
         <include refid="query_sql_where"></include>
     </select>
     <sql id="query_sql_where">

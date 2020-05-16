@@ -3,6 +3,7 @@ package com.yicheng.tourism.mapper.ext;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -39,4 +40,7 @@ public interface UserMapperExt {
     void insertBatch(@Param("list")List<User> users);
 
     int verification(String username,String apiUrl);
+
+    @Select("select serial_id from t_user where user_name=#{username}")
+    String qrySerialId(String username);
 }
