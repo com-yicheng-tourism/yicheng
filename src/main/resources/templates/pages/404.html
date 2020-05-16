@@ -49,11 +49,11 @@
         <h2 class="headline text-warning"> 404</h2>
 
         <div class="error-content">
-          <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
+          <h3><i class="fas fa-exclamation-triangle text-warning"></i> 抱歉! 登录超时.</h3>
 
           <p>
-            We could not find the page you were looking for.
-            Meanwhile, you may <a href="../index.html">return to dashboard</a> or try using the search form.
+           我们无法找到您指定的页面,可能是因为登录超时.
+            与此同时, 您可以 <a href="###" onclick="returnToLogin()">跳转到登录界面</a>
           </p>
 
           <form class="search-form">
@@ -90,5 +90,10 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
+  <script>
+    function returnToLogin() {
+      window.location.href="/login";
+    }
+  </script>
 </body>
 </html>

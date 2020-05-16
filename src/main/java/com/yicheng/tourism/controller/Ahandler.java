@@ -32,19 +32,36 @@ public class Ahandler {
         return "/pages/page-register";
     }
     @RequestMapping(value = "/profileUser",method = RequestMethod.GET)
-    public String profileUser() {
+    public String profileUser(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/profile-user";
     }
     @RequestMapping(value = "/userDetail",method = RequestMethod.GET)
-    public String userDetail() {
-        return "/pages/detail-user";
+    public String userDetail(HttpServletRequest request) {
+
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }return "/pages/detail-user";
     }
     @RequestMapping(value = "/profileShop",method = RequestMethod.GET)
-    public String profileShop() {
+    public String profileShop(HttpServletRequest request)
+    {        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/profile-shop";
     }
     @RequestMapping(value = "/comment",method = RequestMethod.GET)
-    public String home() {
+    public String home(HttpServletRequest request)
+    {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/comment";
     }
 
@@ -54,22 +71,42 @@ public class Ahandler {
     }
 
     @RequestMapping(value = "/orderList",method = RequestMethod.GET)
-    public String orderList() {
+    public String orderList(HttpServletRequest request)
+    {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/orderList";
     }
 
     @RequestMapping(value = "/myorder",method = RequestMethod.GET)
-    public String myOrder() {
+    public String myOrder(HttpServletRequest request) {
+
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/myorder";
     }
 
     @RequestMapping(value = "/meal",method = RequestMethod.GET)
-    public String meal() {
+    public String meal(HttpServletRequest request) {
+
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/meal";
     }
 
     @RequestMapping(value = "/coupon",method = RequestMethod.GET)
-    public String coupon() {
+    public String coupon(HttpServletRequest request) {
+
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/coupon";
     }
 
@@ -78,7 +115,12 @@ public class Ahandler {
         return "/pages/editors";
     }
     @RequestMapping(value = "/auth",method = RequestMethod.GET)
-    public String userManage() {
+    public String userManage(HttpServletRequest request)
+    {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/auth";
     }
     @RequestMapping(value = "/user",method = RequestMethod.GET)
@@ -94,15 +136,29 @@ public class Ahandler {
         return "/testDate";
     }
     @RequestMapping(value = "/store",method = RequestMethod.GET)
-    public String storeElement() {
+    public String storeElement(HttpServletRequest request)
+    {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/store";
     }
     @RequestMapping(value = "/commodity",method = RequestMethod.GET)
-    public String commodityElement() {
+    public String commodityElement(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/commodity";
     }
     @RequestMapping(value = "/commoditymain",method = RequestMethod.GET)
-    public String commodityMainElement() {
+    public String commodityMainElement(HttpServletRequest request) {
+
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/pages/commoditymain";
     }
 
