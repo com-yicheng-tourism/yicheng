@@ -1,7 +1,9 @@
 package com.yicheng.tourism.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Transient;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class User {
@@ -15,6 +17,7 @@ public class User {
 
     private String userPwd;
 
+
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
 
@@ -25,6 +28,8 @@ public class User {
     private String userAddress;
 
     private String sex;
+
+    private BigDecimal balance;
 
     private String job;
 
@@ -47,6 +52,17 @@ public class User {
     private String signature;
 
     private Boolean isLogout;
+
+    @Transient
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
+    }
 
     public String getSerialId() {
         return serialId;
@@ -126,6 +142,14 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public String getJob() {

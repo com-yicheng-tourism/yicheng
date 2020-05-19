@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @ApiModel(value = "查询用户列表返回")
@@ -41,6 +42,8 @@ public class UserQryResp {
 
     private Boolean isLogout;
 
+    private BigDecimal balance;
+
     private String job;
 
     private String sex;
@@ -50,4 +53,6 @@ public class UserQryResp {
     private String skill;
 
     private String signature;
+
+    private String roleName;
 }

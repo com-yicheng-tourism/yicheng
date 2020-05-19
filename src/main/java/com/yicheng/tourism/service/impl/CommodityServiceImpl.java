@@ -37,8 +37,14 @@ public class CommodityServiceImpl implements CommodityService {
         if (StringUtils.isEmpty(req.getRows())){
             req.setRows(10);
         }
+        List<Commodity> commodities=null;
         PageHelper.startPage(req.getPage(),req.getRows());
-        List<Commodity> commodities = commodityMapperExt.qryByCondition(req);
+        if (StringUtils.isEmpty(req.getUserId())){
+            commodities = commodityMapperExt.qryByCondition(req);
+        }else {
+            commodities = commodityMapperExt.getShoppingCart(req.getUserId());
+        }
+
         if (!CollectionUtils.isEmpty(commodities)){
             commodities.forEach(commodity -> {
                 commodity.setImg1("http://localhost:8080/img/seekExperts?type=4&picName="+commodity.getImg1());
@@ -113,5 +119,10 @@ public class CommodityServiceImpl implements CommodityService {
             return -1;
         }
         return commodities;
+    }
+
+    @Override
+    public List<Commodity> getShoppingCart(String userId) {
+        return commodityMapperExt.getShoppingCart(userId);
     }
 }

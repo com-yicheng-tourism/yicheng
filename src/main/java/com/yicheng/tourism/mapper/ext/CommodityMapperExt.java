@@ -19,4 +19,6 @@ public interface CommodityMapperExt {
     void insertBatch(@Param("list")List<Commodity> list);
 
     List<Commodity> findById(@Param("com")Commodity com);
+
+    List<Commodity> getShoppingCart(String userId);
 }

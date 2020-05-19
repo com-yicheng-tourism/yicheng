@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- sweet alert -->
-    <!--    <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">-->
+<!--        <link rel="stylesheet" href="plugins/sweetalert/sweetalert.css">-->
 <!--    <link href="/plugins/bootstrap/js/css/bootstrap.min.css" rel="stylesheet"/>-->
     <link href="/dist/css/main.css" rel="stylesheet"/>
     <!-- Tell the browser to be responsive to screen width -->
@@ -185,6 +185,27 @@
                         </select>
                       </td>
                     </tr>
+                      <tr>
+                          <td style="width: 120px;">
+                              <label>用户角色：<span style="color: red;">*</span></label>
+                          </td>
+                          <td>
+                              <select class="form-control custom-select" id="edit_role">
+                                  <option selected="" disabled=""><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">选择一个</font></font></option>
+                                  <option><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">超级管理员</font></font></option>
+                                  <option><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">用户管理员</font></font></option>
+                                  <option><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">系统管理员</font></font></option>
+                                  <option><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">租户角色</font></font></option>
+                                  <option selected=""><font style="vertical-align: inherit;"><font
+                                          style="vertical-align: inherit;">游客角色</font></font></option>
+                              </select>
+                          </td>
+                      </tr>
                     <tr>
                       <td style="width: 120px;">
                         <label>生日：</label>
@@ -238,7 +259,7 @@
     <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="/plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
     <script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
-    <!--    <script src="/dist/js/public.js"></script>-->
+        <script src="/dist/js/public.js"></script>
     <script src="/dist/js/user.js"></script>
     <script src="/dist/js/adminlte.js"></script>
     <script src="/dist/js/demo.js"></script>

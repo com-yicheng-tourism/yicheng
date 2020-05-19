@@ -14,8 +14,38 @@ function init(){
         reset();
     })
 
-    let rowData = sessionStorage.getItem("store_detail");
-    let storeInfo = JSON.parse(rowData);
+    // let rowData = sessionStorage.getItem("store_detail");
+    // let storeInfo = JSON.parse(rowData);
+
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userType = name.type;
+    let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+    let userName="";
+    var storeNumber="";
+    if (qryType === 1){
+        let item = sessionStorage.getItem("user_detail");
+        let userInfo="";
+        if (item != null && item !== ""){
+            userInfo = JSON.parse(item);
+        }
+        if (userInfo.userName != null && userInfo.userName !== ""){
+            userName = userInfo.userName;
+            sessionStorage.setItem("user_detail",name.userName);
+        }else {
+            userName = name.userName;
+            console.log(userName)
+        }
+    }else if (qryType === 2){
+        let rowData = sessionStorage.getItem("store_detail");
+        let storeInfo = JSON.parse(rowData);
+
+        if (storeInfo != null && storeInfo.storeNumber !== ""){
+            storeNumber = storeInfo.storeNumber;
+        }
+    }else if (qryType === 0){
+        userName="";
+        storeNumber=""
+    }
     $("#orderTable").jqGrid({
         url: 'order/query',
         datatype: "json",
@@ -49,8 +79,9 @@ function init(){
             order: "order"
         },
         postData : {
-            storeNumber : storeInfo.storeNumber,
-            keyWords : ""
+            storeNumber : storeNumber,
+            keyWords : "",
+            userId : userName
         },
         gridComplete: function () {
             //隐藏grid底部滚动条

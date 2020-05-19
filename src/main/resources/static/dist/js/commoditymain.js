@@ -1,10 +1,19 @@
 $(function () {
     init();
+    
+    $('#addToShoppingCart').click(function () {
+
+    })
 });
 
 function init(){
     let commodity = JSON.parse(sessionStorage.getItem("commodity"));
-    var id = commodity.id;
+    var id;
+    id = commodity.id;
+    if (id == null || id == ''){
+        let commodity1 = JSON.parse(sessionStorage.getItem("commodity"));
+        id = commodity1.id;
+    }
     var data = {
         "id": id
     };
@@ -63,4 +72,5 @@ function init(){
 function change(price){
     $("#price").text("￥ "+price);
 }
+
 

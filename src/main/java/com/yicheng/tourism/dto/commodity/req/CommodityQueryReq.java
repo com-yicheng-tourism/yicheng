@@ -22,4 +22,7 @@ public class CommodityQueryReq {
 
     @ApiModelProperty(value = "商品状态",dataType = "String")
     private String commodityState;
+
+    @ApiModelProperty(value = "用户id",dataType = "String")
+    private String userId;
 }

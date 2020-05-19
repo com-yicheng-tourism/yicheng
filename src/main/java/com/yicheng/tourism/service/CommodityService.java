@@ -5,6 +5,8 @@ import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
 import com.yicheng.tourism.entity.Commodity;
 
+import java.util.List;
+
 public interface CommodityService {
     BaseResponse<PageInfo<Commodity>> findPage(CommodityQueryReq req);
 
@@ -15,4 +17,6 @@ public interface CommodityService {
     Object updateCommodity(Commodity com);
 
     Object findById(Commodity com);
+
+    List<Commodity> getShoppingCart(String userId);
 }

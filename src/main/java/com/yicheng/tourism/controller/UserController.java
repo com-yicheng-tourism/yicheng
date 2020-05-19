@@ -34,7 +34,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @ApiOperation(value = "查询所有的用户信息")
-    @GetMapping("query")
+    @GetMapping("queryS")
     public String qryAllUser(){
         return null;
     }

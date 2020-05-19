@@ -1,5 +1,6 @@
 package com.yicheng.tourism.mapper.ext;
 
+import com.yicheng.tourism.dto.home.resp.HomeCountResp;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.entity.User;
 import org.apache.ibatis.annotations.Param;
@@ -43,4 +44,6 @@ public interface UserMapperExt {
 
     @Select("select serial_id from t_user where user_name=#{username}")
     String qrySerialId(String username);
+
+    HomeCountResp homeCount();
 }

@@ -51,7 +51,8 @@ $(function () {
             {label: '邮箱', name: 'mail', index: 'mail', sortable: false,align: "center", width: 60},
             {label: '生日', name: 'birthday', index: 'birthday', sortable: false,align: "center", width: 35},
             {label: '身份', name: 'type', index: 'type', sortable: false,align: "center", width: 20,formatter:typeFormat},
-            {label: '地址', name: 'userAddress', index: 'userAddress', sortable: false,align: "center", width: 80},
+            {label: '角色', name: 'roleName', index: 'roleName', sortable: false,align: "center", width: 40},
+            {label: '地址', name: 'userAddress', index: 'userAddress', sortable: false,align: "center", width: 60},
             {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
         ],
         height: 600,
@@ -159,6 +160,7 @@ function userEdit() {
     $('#edit_nick_name').val(rowData.nickName);
     $('#edit_birthday').val(rowData.birthday);
     $('#edit_type').val(rowData.type);
+    $('#edit_role').val(rowData.roleName);
     $('#edit_mail').val(rowData.mail);
     $('#edit_address').val(rowData.userAddress);
     $('#modalEditTitle').html('用户编辑');
@@ -244,93 +246,17 @@ $('#editButton').click(function () {
             });
         }
     });
-    //验证数据
-    // if (validObjectForEdit()) {
-    //     //一切正常后发送网络请求
-    //     var password = $("#passwordEdit").val();
-    //     var id = $("#userId").val();
-    //     var data = {"id": id, "password": password};
-    //     $.ajax({
-    //         type: 'PUT',//方法类型
-    //         dataType: "json",//预期服务器返回的数据类型
-    //         url: 'users/updatePassword',//url
-    //         contentType: "application/json; charset=utf-8",
-    //         data: JSON.stringify(data),
-    //         beforeSend: function (request) {
-    //             //设置header值
-    //             request.setRequestHeader("token", getCookie("token"));
-    //         },
-    //         success: function (result) {
-    //             checkResultCode(result.resultCode);
-    //             console.log(result);//打印服务端返回的数据
-    //             if (result.resultCode == 200) {
-    //                 swal("修改成功", {
-    //                     icon: "success",
-    //                 });
-    //                 $('#modalEdit').modal('hide');
-    //                 //reload
-    //                 reload();
-    //             }
-    //             else {
-    //                 swal(result.message, {
-    //                     icon: "error",
-    //                 });
-    //             }
-    //             ;
-    //         },
-    //         error: function () {
-    //             reset();
-    //             swal(result.message, {
-    //                 icon: "error",
-    //             });
-    //         }
-    //     });
-    //
-    // }
 });
 
 /**
  * 用户删除
  */
 function userDel() {
-    var ids = getSelectedRows();
+    var ids=$('#jqGrid').jqGrid('getGridParam','selrow');
     if (ids == null) {
         return;
     }
-    swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    }).then((flag) => {
-            if(flag) {
-                $.ajax({
-                    type: "DELETE",
-                    url: "users/delete",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    beforeSend: function (request) {
-                        //设置header值
-                        request.setRequestHeader("token", getCookie("token"));
-                    },
-                    success: function (r) {
-                        checkResultCode(r.resultCode);
-                        if (r.resultCode == 200) {
-                            swal("删除成功", {
-                                icon: "success",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            swal(r.message, {
-                                icon: "error",
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    );
+    // alert("确定要删除吗")
 }
 
 

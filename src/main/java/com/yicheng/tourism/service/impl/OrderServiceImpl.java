@@ -31,7 +31,13 @@ public class OrderServiceImpl implements OrderService {
             req.setRows(10);
         }
         PageHelper.startPage(req.getPage(),req.getRows());
-        List<Order> orderList = orderMapperExt.qryByCondition(req);
+        List<Order> orderList=null;
+        if (StringUtils.isEmpty(req.getUserId())){
+            orderList = orderMapperExt.qryByCondition(req);
+        }else {
+            orderList = orderMapperExt.qryByUserId(req.getUserId());
+        }
+
         if (!CollectionUtils.isEmpty(orderList)){
             PageInfo<Order> pageInfo = new PageInfo<>(orderList);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);

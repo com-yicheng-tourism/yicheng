@@ -35,28 +35,30 @@
     </select>
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.user.req.UserQryConditionReq"
             resultMap="com.yicheng.tourism.mapper.UserMapper.BaseResultMap">
-        select <include refid="com.yicheng.tourism.mapper.UserMapper.Base_Column_List"></include>
-        from t_user
+        select t1.*,t3.name roleName
+        from t_user t1,t_user_role t2,t_role t3
         <include refid="qry_sql_where"></include>
     </select>
     <sql id="qry_sql_where">
         <where>
+            and t1.user_name = t2.user_id and t2.role_id = t3.id
             <if test="c.keyWords != null and '' != c.keyWords">
-                and user_name like concat("%",#{c.keyWords},"%")
-                    or mail like concat("%",#{c.keyWords},"%")
-                    or nick_name like concat("%",#{c.keyWords},"%")
-                    or user_phone like concat("%",#{c.keyWords},"%")
-                    or user_address like concat("%",#{c.keyWords},"%")
+                and (t1.user_name like concat("%",#{c.keyWords},"%")
+                    or t1.mail like concat("%",#{c.keyWords},"%")
+                    or t1.nick_name like concat("%",#{c.keyWords},"%")
+                    or t1.user_phone like concat("%",#{c.keyWords},"%")
+                    or t1.user_address like concat("%",#{c.keyWords},"%"))
             </if>
             <if test="c.type != null and '' != c.type">
-                and type =#{c.type}
+                and t1.type =#{c.type}
             </if>
             <if test="c.startTime != null and '' != c.startTime">
-                and birthday &gt;= #{c.startTime}
+                and t1.birthday &gt;= #{c.startTime}
             </if>
             <if test="c.endTime != null and '' != c.endTime">
-                and birthday &lt;= #{c.endTime}
+                and t1.birthday &lt;= #{c.endTime}
             </if>
+
         </where>
     </sql>
 
@@ -100,5 +102,11 @@
     <select id="verification" parameterType="String" resultType="Integer">
         select count(*) from t_user t1,t_user_role t2,t_api t3,t_role_permission t4 where t1.user_name=t2.user_id
          and t2.role_id = t4.role_id and t4.permission_id=t3.id and t1.user_name=#{username} and t3.url=#{apiUrl}
+    </select>
+
+    <select id="homeCount" resultType="com.yicheng.tourism.dto.home.resp.HomeCountResp">
+        select count(*) tenantCount
+        from t_user t1
+        where t1.type = 2 or t1.type =3
     </select>
 </mapper>

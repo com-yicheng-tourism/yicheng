@@ -132,6 +132,7 @@ function toStoreMain(){
     console.log("rowData",rowData);
     //将行数据放到sessionStorage
     sessionStorage.setItem("store_detail",JSON.stringify(rowData));
+    sessionStorage.setItem("qryType","2");
     //执行跳转
     window.parent.document.getElementById("main").innerHTML = '<object type="text/html" data="/profileShop" width="100%" height="700px">'
 }

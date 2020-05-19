@@ -17,6 +17,8 @@ public class Commodity {
 
     private String commodityState;
 
+    private Integer number;
+
     private String img1;
 
     private String img2;
@@ -82,6 +84,14 @@ public class Commodity {
 
     public void setCommodityState(String commodityState) {
         this.commodityState = commodityState == null ? null : commodityState.trim();
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getImg1() {

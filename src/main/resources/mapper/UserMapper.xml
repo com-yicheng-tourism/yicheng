@@ -12,6 +12,7 @@
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
     <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="type" jdbcType="CHAR" property="type" />
     <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
@@ -84,8 +85,8 @@
   </sql>
   <sql id="Base_Column_List">
     serial_id, user_name, mail, nick_name, user_pwd, birthday, profile_pic, user_phone, 
-    user_address, sex, job, type, ip_address, create_time, create_id, modify_time, modify_id, 
-    education, skill, signature, is_logout
+    user_address, sex, balance, job, type, ip_address, create_time, create_id, modify_time, 
+    modify_id, education, skill, signature, is_logout
   </sql>
   <select id="selectByExample" parameterType="com.yicheng.tourism.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -122,17 +123,19 @@
     insert into t_user (serial_id, user_name, mail, 
       nick_name, user_pwd, birthday, 
       profile_pic, user_phone, user_address, 
-      sex, job, type, ip_address, 
-      create_time, create_id, modify_time, 
-      modify_id, education, skill, 
-      signature, is_logout)
+      sex, balance, job, type, 
+      ip_address, create_time, create_id, 
+      modify_time, modify_id, education, 
+      skill, signature, is_logout
+      )
     values (#{serialId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{userPwd,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
       #{profilePic,jdbcType=CHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=CHAR}, #{job,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, #{ipAddress,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{modifyId,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{skill,jdbcType=VARCHAR}, 
-      #{signature,jdbcType=VARCHAR}, #{isLogout,jdbcType=BIT})
+      #{sex,jdbcType=CHAR}, #{balance,jdbcType=DECIMAL}, #{job,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{ipAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createId,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{skill,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{isLogout,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yicheng.tourism.entity.User">
     insert into t_user
@@ -166,6 +169,9 @@
       </if>
       <if test="sex != null">
         sex,
+      </if>
+      <if test="balance != null">
+        balance,
       </if>
       <if test="job != null">
         job,
@@ -231,6 +237,9 @@
       </if>
       <if test="sex != null">
         #{sex,jdbcType=CHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
       </if>
       <if test="job != null">
         #{job,jdbcType=VARCHAR},
@@ -306,6 +315,9 @@
       <if test="record.sex != null">
         sex = #{record.sex,jdbcType=CHAR},
       </if>
+      <if test="record.balance != null">
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
       <if test="record.job != null">
         job = #{record.job,jdbcType=VARCHAR},
       </if>
@@ -356,6 +368,7 @@
       user_phone = #{record.userPhone,jdbcType=VARCHAR},
       user_address = #{record.userAddress,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=CHAR},
+      balance = #{record.balance,jdbcType=DECIMAL},
       job = #{record.job,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=CHAR},
       ip_address = #{record.ipAddress,jdbcType=VARCHAR},
@@ -400,6 +413,9 @@
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DECIMAL},
       </if>
       <if test="job != null">
         job = #{job,jdbcType=VARCHAR},
@@ -448,6 +464,7 @@
       user_phone = #{userPhone,jdbcType=VARCHAR},
       user_address = #{userAddress,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},
+      balance = #{balance,jdbcType=DECIMAL},
       job = #{job,jdbcType=VARCHAR},
       type = #{type,jdbcType=CHAR},
       ip_address = #{ipAddress,jdbcType=VARCHAR},

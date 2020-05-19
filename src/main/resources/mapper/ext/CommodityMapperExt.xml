@@ -101,4 +101,10 @@
         from t_commodity
         where id = #{com.id}
     </select>
+
+    <select id="getShoppingCart" resultMap="com.yicheng.tourism.mapper.CommodityMapper.BaseResultMap">
+        select t2.*
+        from t_shopping_cart t1,t_commodity t2
+        where t1.user_id = #{userId} and t1.commodity_id = t2.id
+    </select>
 </mapper>

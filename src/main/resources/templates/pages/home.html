@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">2986</span></div>
+                                        <div class="stat-text"><span id="tenant"></span></div>
                                         <div class="stat-heading">合作伙伴</div>
                                     </div>
                                 </div>
@@ -323,7 +323,19 @@
         <!--        <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>-->
         <!--        <script src="assets/js/main.js"></script>-->
         <!--  Chart js -->
-
+        <script>
+            $.ajax({
+                type : "GET",
+                url : "home/count",
+                dataType : "json",
+                success : function (result) {
+                    console.log(result.data.tenantCount);
+                    console.log( document.getElementById("tenant"))
+                    // document.getElementById("tenant").innerText=result.data.tenantCount;
+                    $('#tenant').html(result.data.tenantCount)
+                }
+            })
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
         <script src="/dist/js/chartjs-init.js"></script>
 
@@ -366,9 +378,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
                 <script src="/dist/js/main.js"></script>
-          Chart js
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-        Chartist Chart
                 <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
@@ -379,6 +389,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
         <script type='text/javascript' src='/dist/js/calendar.js'></script>
                 <script src="/dist/js/traffic.js"></script>
+
     </body>
 
 </html>

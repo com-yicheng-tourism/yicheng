@@ -24,7 +24,11 @@ public class Ahandler {
         return "/pages/login";
     }
     @RequestMapping({"/index"})
-    public String indexHtml() {
+    public String indexHtml(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
         return "/yicheng";
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)

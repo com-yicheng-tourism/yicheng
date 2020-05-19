@@ -11,15 +11,33 @@ $(function () {
     })
 
     let name = JSON.parse(sessionStorage.getItem("userId"));
-    var userId = name.serialId;
     var userType = name.type;
-
-
-    let rowData = sessionStorage.getItem("store_detail");
-    let storeInfo = JSON.parse(rowData);
+    let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+    let userName="";
     var storeNumber="";
-    if (storeInfo != null && storeInfo.storeNumber !== ""){
-        storeNumber = storeInfo.storeNumber;
+    if (qryType === 1){
+        let item = sessionStorage.getItem("user_detail");
+        let userInfo="";
+        if (item != null && item !== ""){
+            userInfo = JSON.parse(item);
+        }
+        if (userInfo.userName != null && userInfo.userName !== ""){
+            userName = userInfo.userName;
+            sessionStorage.setItem("user_detail",name.userName);
+        }else {
+            userName = name.userName;
+            console.log(userName)
+        }
+    }else if (qryType === 2){
+        let rowData = sessionStorage.getItem("store_detail");
+        let storeInfo = JSON.parse(rowData);
+
+        if (storeInfo != null && storeInfo.storeNumber !== ""){
+            storeNumber = storeInfo.storeNumber;
+        }
+    }else if (qryType == 0){
+        userName="";
+        storeNumber=""
     }
     $("#commodityTable").jqGrid({
         url: 'commodity/query',
@@ -57,7 +75,8 @@ $(function () {
         },
         postData : {
             storeNumber : storeNumber,
-            keyWords : ""
+            keyWords : "",
+            userId : userName
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -164,28 +183,28 @@ function toDelete(){
         buttons: true,
         dangerMode: true,
     }).then((flag) => {
-        if(flag) {
-            $.ajax({
-                type: "POST",
-                url: "commodity/delete",
-                contentType: "application/json",
-                data: JSON.stringify(rowid),
-                success: function (r) {
-                    if (r.resultCode == 200) {
-                        swal("删除成功", {
-                            icon: "success",
-                        });
-                        $("#commodityTable").trigger("reloadGrid");
-                    } else {
-                        swal("删除失败", {
-                            icon: "error",
-                        });
+            if(flag) {
+                $.ajax({
+                    type: "POST",
+                    url: "commodity/delete",
+                    contentType: "application/json",
+                    data: JSON.stringify(rowid),
+                    success: function (r) {
+                        if (r.resultCode == 200) {
+                            swal("删除成功", {
+                                icon: "success",
+                            });
+                            $("#commodityTable").trigger("reloadGrid");
+                        } else {
+                            swal("删除失败", {
+                                icon: "error",
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
-    }
-);
+    );
 }
 
 //绑定modal上的保存按钮

@@ -9,4 +9,6 @@ import java.util.List;
 public interface OrderMapperExt {
 
     List<Order> qryByCondition(@Param("c")OrderQueryReq req);
+
+    List<Order> qryByUserId(String userId);
 }

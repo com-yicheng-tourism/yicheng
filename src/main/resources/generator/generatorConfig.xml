@@ -43,6 +43,11 @@
         <javaClientGenerator targetPackage="com.yicheng.tourism.mapper" type="XMLMAPPER" targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
+<!--        <table schema="${jdbc_user}" tableName="t_shopping_cart" domainObjectName="ShoppingCart"-->
+<!--               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"-->
+<!--               enableSelectByExample="true" selectByExampleQueryId="true" >-->
+<!--            <property name="useActualColumnNames" value="false"/>-->
+<!--        </table>-->
         <table schema="${jdbc_user}" tableName="t_commodity" domainObjectName="Commodity"
                enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true" >

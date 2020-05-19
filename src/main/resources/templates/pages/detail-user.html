@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title</title>
+  <title>dsfsd</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -121,7 +121,7 @@
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#like" data-toggle="tab">收藏</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#shopping-car" data-toggle="tab">购物车</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#shopping-cart" data-toggle="tab">购物车</a></li>
                     <li class="nav-item"><a class="nav-link" href="#order" data-toggle="tab">订单</a></li>
                 </ul>
               </div><!-- /.card-header -->
@@ -131,7 +131,7 @@
                         暂未收藏任何物品
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="shopping-car">
+                  <div class="tab-pane" id="shopping-cart">
                         暂未添加商品到购物车
                   </div>
                   <!-- /.tab-pane -->
@@ -176,21 +176,12 @@
     $('#sex_profile').text(rowData.sex);
     $('#edu_profile').text(rowData.education);
     $('#address_profile').text(rowData.userAddress);
-    // $('#skill_profile').text(name.skill);
-    // if (rowData.skill !== '' && rowData.skill.indexOf("-") !==-1){
-    //     let split1 = rowData.skill.split("-");
-    //     var i=0;
-    //     split1.forEach(function (item) {
-    //         let spanElement = document.createElement("span");
-    //         let byId = document.getElementById('skill_profile');
-    //         byId.appendChild(spanElement);
-    //         spanElement.className="tag tag-danger";
-    //         spanElement.style.display = 'block';
-    //         spanElement.innerText=item;
-    //     });
-    // }
+
     $('#signature_profile').text(rowData.signature);//个性签名
+
+      sessionStorage.setItem("qryType","1");
       document.getElementById("order").innerHTML = '<object type="text/html" data="/myorder" width="100%" height="700px"></object>';
+      document.getElementById("shopping-cart").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
 
   </script>
 </body>
