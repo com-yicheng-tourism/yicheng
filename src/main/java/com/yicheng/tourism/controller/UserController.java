@@ -11,13 +11,11 @@ import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.service.UserService;
 import com.yicheng.tourism.util.IpUtil;
-import com.yicheng.tourism.util.SessionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -95,13 +93,8 @@ public class UserController {
 
     @ApiOperation(value = "权限验证")
     @RequestMapping(value = "/verification",method = RequestMethod.GET)
-    public BaseResponse<String> verification(String username ,String apiUrl ,  HttpServletRequest request) {
-        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
-        User userId = (User) request.getSession().getAttribute("userId");
-        User user = (User) valueOperations.get(userId.getUserName());
-        if (StringUtils.isEmpty(user)){
-            return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage(),RespStatusEnum.TOKEN_FAILURE.getMessage());
-        }
-        return userService.verification(username,apiUrl);
+    public BaseResponse<User> verification(HttpServletRequest request) {
+
+        return userService.verification(request);
     }
 }

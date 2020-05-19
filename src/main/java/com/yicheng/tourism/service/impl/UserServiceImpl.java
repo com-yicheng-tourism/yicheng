@@ -306,15 +306,20 @@ public class UserServiceImpl implements UserService {
     /**
      * 验证用户是否有对应api的访问权限
      *
-     * @param username
-     * @param apiUrl
      * @return
      */
     @Override
-    public BaseResponse<String> verification(String username, String apiUrl) {
-        int i = userMapperExt.verification(username, apiUrl);
+    public BaseResponse<User> verification(HttpServletRequest request) {
+//        log.error("请求地址:{}",request.getRequestURI());
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
+        User userId = (User) request.getSession().getAttribute("userId");
+        User user = (User) valueOperations.get(userId.getUserName());
+        if (StringUtils.isEmpty(user)){
+            return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+        }
+        int i = userMapperExt.verification(user.getUserName(), request.getRequestURI().substring(0,request.getRequestURI().lastIndexOf("/")));
         if (i != 0 ){
-            return new BaseResponse<>(RespStatusEnum.HAVING_PERMISSION.getCode(),RespStatusEnum.HAVING_PERMISSION.getMessage());
+            return new BaseResponse<>(RespStatusEnum.HAVING_PERMISSION.getCode(),RespStatusEnum.HAVING_PERMISSION.getMessage(),user);
         }
         return new BaseResponse<>(RespStatusEnum.NO_PERMISSION.getCode(),RespStatusEnum.NO_PERMISSION.getMessage());
     }

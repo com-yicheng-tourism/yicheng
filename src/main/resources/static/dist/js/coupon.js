@@ -1,5 +1,14 @@
 $(function () {
     init();
+    function toAdd() {
+        $('#modalAdd').show();
+    }
+    function toExport() {
+        
+    }
+    function toSearch() {
+        
+    }
 });
 
 function init(){

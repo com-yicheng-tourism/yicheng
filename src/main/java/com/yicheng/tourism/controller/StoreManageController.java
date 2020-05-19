@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(value = "店铺管理接口",description = "店铺管理接口")
@@ -43,6 +44,12 @@ public class StoreManageController {
     @RequestMapping(value = "/updateStore",method = RequestMethod.POST)
     public Object updateStore(@RequestBody StoreUpdateReq store){
         return storeManageService.updateStore(store);
+    }
+
+    @ApiOperation(value = "强制关闭店铺")
+    @RequestMapping(value = "/close",method = RequestMethod.POST)
+    public BaseResponse<String> closeStore(String id,String status, HttpServletRequest request){
+        return storeManageService.closeStore(id , status,request);
     }
 
     @ApiOperation(value = "删除商铺数据")

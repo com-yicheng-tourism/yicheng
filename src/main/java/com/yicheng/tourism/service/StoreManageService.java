@@ -6,6 +6,7 @@ import com.yicheng.tourism.dto.store.req.StoreQueryReq;
 import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
 import com.yicheng.tourism.entity.Store;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface StoreManageService {
@@ -36,4 +37,9 @@ public interface StoreManageService {
      * @return
      */
     int deleteStore(String id);
+
+    /**关闭店铺
+     * @return
+     */
+    BaseResponse<String> closeStore(String id , String status, HttpServletRequest request);
 }

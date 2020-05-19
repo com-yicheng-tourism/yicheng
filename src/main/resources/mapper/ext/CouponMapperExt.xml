@@ -6,13 +6,13 @@
             resultMap="com.yicheng.tourism.mapper.CouponMapper.BaseResultMap">
         select *
         from t_coupon
-        <include refid="sql_where_qry"></include>
+        where store_id = #{c.storeId}
     </select>
-    <sql id="sql_where_qry">
-        <where>
-            <if test="c.storeId != null and '' != c.storeId">
-                and store_id = #{c.storeId}
-            </if>
-        </where>
-    </sql>
+<!--    <sql id="sql_where_qry">-->
+<!--        <where>-->
+<!--            <if test="c.storeId != null and '' != c.storeId">-->
+<!--                and store_id = #{c.storeId}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </sql>-->
 </mapper>
