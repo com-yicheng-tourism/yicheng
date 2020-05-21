@@ -10,7 +10,7 @@ import java.util.List;
 public interface CommodityService {
     BaseResponse<PageInfo<Commodity>> findPage(CommodityQueryReq req);
 
-    Object insertCommodity(Commodity com);
+    Object insertCommodity(CommodityQueryReq req);
 
     Object deleteCommodity(Commodity com);
 

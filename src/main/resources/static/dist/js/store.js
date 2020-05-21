@@ -9,17 +9,34 @@ $(function () {
     $('#modalEdit').on('hide.bs.modal', function () {
         reset();
     });
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userType = name.type;
+    if (userType == '1') {
+        $('#addBtn').css('display','block');
+    }
+    if (userType != '3'){
+        $('#exportBtn').css('display','block');
+    }
     init();
-
-
-
-
-
     $(window).resize(function () {
-        console.log("gaibianledaxiao ")
         $("#storeTable").setGridWidth($(".card-body").width());
     });
 });
+
+function toSearch(){
+    var storeName = $("#storeNameFind").val();
+    var storeAuthor = $("#storeAuthor").val();
+    console.log(storeName+"---"+storeAuthor);
+    $("#storeTable").jqGrid('setGridParam',{
+        url:'store/query',
+        postData: {
+            storeName : storeName,
+            createBy : storeAuthor
+        },
+        page:1
+    }).trigger("reloadGrid");
+}
+
 function init() {
     $("#storeTable").jqGrid({
         url: 'store/query',
@@ -74,9 +91,7 @@ function init() {
             rows: "rows",
             order: "order"
         },
-        postData: {
-            keyWords: ""
-        },
+
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#storeTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
@@ -94,7 +109,7 @@ function init() {
             //将行数据放到sessionStorage
             sessionStorage.setItem("store_detail",JSON.stringify(rowData));
         }
-    });
+    }).trigger("reloadGrid");
 }
 function typeFormat(type) {
     return type == "0" ? "开启" : (type == "1" ? "关闭" : "封禁中");
@@ -111,11 +126,11 @@ function cmgStateFormat(type) {
     if (userType == '1') {
         if (type == "0"){
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
-                "<button class=\"btn btn-danger\" onclick=\"toClose()\">关闭</button>" +
+                "<button class=\"btn btn-warning\" onclick=\"toClose()\">关闭</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }else {
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
-                "<button class=\"btn btn-danger\" onclick=\"toClose()\">开启</button>" +
+                "<button class=\"btn btn-warning\" onclick=\"toClose()\">开启</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }
 
@@ -258,10 +273,10 @@ $('#saveButton').click(function () {
         let name = JSON.parse(sessionStorage.getItem("userId"));
         var userId = name.serialId;
         //一切正常后发送网络请求
-        var  storeName=  $("#addForm #storeName").val();
-        var  storeScript=  $("#addForm #storeScript").val();
-        var  phone= $("#addForm #phone").val();
-        var  state= $("#addForm #state").val();
+        var  storeName=  $("#addForm #storeNameAdd").val();
+        var  storeScript=  $("#addForm #storeScriptAdd").val();
+        var  phone= $("#addForm #phoneAdd").val();
+        var  state= $("#addForm #stateAdd").val();
         var data = {
             "userId": userId,
             "storeName": storeName,
@@ -380,9 +395,9 @@ function showErrorInfo(info) {
  * 数据验证
  */
 function validObjectForAdd() {
-    var  storeName=  $("#addForm #storeName").val();
-    var  phone= $("#addForm #phone").val();
-    var  state= $("#addForm #state").val();
+    var  storeName=  $("#addForm #storeNameAdd").val();
+    var  phone= $("#addForm #phoneAdd").val();
+    var  state= $("#addForm #stateAdd").val();
     console.log(storeName+"--"+phone+"--"+state);
     if (isNull(storeName) || isNull(phone) || isNull(state)) {
         showErrorInfo("数据错误！");

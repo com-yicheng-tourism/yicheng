@@ -1,6 +1,7 @@
 package com.yicheng.tourism.mapper.ext;
 
 import com.yicheng.tourism.dto.home.resp.HomeCountResp;
+import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.entity.User;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +47,10 @@ public interface UserMapperExt {
     String qrySerialId(String username);
 
     HomeCountResp homeCount();
+
+    @Select("select * from t_user where user_name=#{c.userName}")
+    List<User> findById(@Param("c") UpdateUserInfoReq req);
+
+    @Select("select user_pwd from t_user where user_name = #{userName}")
+    String findByUserName(@Param("userName") String userName);
 }

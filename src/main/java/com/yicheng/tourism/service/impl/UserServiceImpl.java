@@ -377,5 +377,29 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public Object queryById(UpdateUserInfoReq req) {
+        List<User> users = new ArrayList<>();
+        try {
+            users = userMapperExt.findById(req);
+
+        } catch (Exception e) {
+            return -1;
+        }
+        return users;
+    }
+
+    @Override
+    public Object pasdVer(User user) {
+        String pasd = userMapperExt.findByUserName(user.getUserName());
+        if (MD5Util.encrypt(user.getUserPwd()).equals(pasd)){
+
+            return 0;
+        } else {
+            return -1;
+        }
+
+    }
+
 
 }

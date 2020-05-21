@@ -79,10 +79,10 @@
                             <table class="table border-none" style="width: auto;">
                                 <tr>
                                     <td>
-                                        <label for="storeName">店铺名称</label>
+                                        <label for="storeNameFind">店铺名称</label>
                                     </td>
                                     <td>
-                                        <input type="text" maxlength="50" class="form-control" name="storeName" id="storeName">
+                                        <input type="text" maxlength="50" class="form-control" name="storeNameFind" id="storeNameFind">
                                     </td>
                                     <td>
                                         <label for="storeAuthor">店主</label>
@@ -96,12 +96,12 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-default"
+                                        <button type="button"  class="btn btn-default" id="addBtn" style="display: none"
                                                 onclick="toAdd()">新增
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-default"
+                                        <button type="button" class="btn btn-default"   id="exportBtn" style="display: none"
                                                 onclick="toExport()">导出
                                         </button>
                                     </td>
@@ -146,7 +146,7 @@
                                                 <label >店铺名称：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                                                <input type="text" name="storeNameAdd" id="storeNameAdd" class="form-control" maxlength="50"
                                                        tips="3" style="height: 35px;" placeholder="店铺名称">
                                             </td>
                                         </tr>
@@ -156,7 +156,7 @@
                                                 <label >联系电话：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
+                                                <input type="text" name="phoneAdd" id="phoneAdd" class="form-control" maxlength="11"
                                                        tips="3" style="height: 35px;" placeholder="联系电话">
                                             </td>
                                         </tr>
@@ -166,7 +166,7 @@
                                                 <label >状态：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <select name="state" id="state" class="form-control" maxlength="50"
+                                                <select name="state" id="stateAdd" class="form-control" maxlength="50"
                                                         tips="3" style="height: 35px;" placeholder="状态">
                                                     <option value="0">开启</option>
                                                     <option value="1">关闭</option>
@@ -179,7 +179,7 @@
                                                 <label >店铺描述：</label>
                                             </td>
                                             <td>
-                                                <textarea  name="storeScript" id="storeScript"  maxlength="500" rows="4"  style="height: 100px; width: 360px;" placeholder="店铺描述"></textarea>
+                                                <textarea  name="storeScriptAdd" id="storeScriptAdd"  maxlength="500" rows="4"  style="height: 100px; width: 360px;" placeholder="店铺描述"></textarea>
                                             </td>
                                         </tr>
                                     </table>

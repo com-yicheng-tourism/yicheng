@@ -69,4 +69,8 @@ public interface UserService {
      * @return
      */
     User getToken(HttpServletRequest request);
+
+    Object queryById(UpdateUserInfoReq req);
+
+    Object pasdVer(User user);
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface StoreCommodityMapperExt {
 
     void insertBatch(@Param("list")List<StoreCommodity> list);
+
+    void insert(@Param("c") StoreCommodity storeCommodity);
 }

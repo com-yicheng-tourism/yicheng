@@ -19,10 +19,19 @@ public class CommodityQueryReq {
 
     @ApiModelProperty(value = "商品名称",dataType = "String")
     private String commodityName;
-
     @ApiModelProperty(value = "商品状态",dataType = "String")
     private String commodityState;
 
+    @ApiModelProperty(value = "商品描述",dataType = "String")
+    private String commodityScript;
+
+    @ApiModelProperty(value = "价格",dataType = "Double")
+    private Double commodityPrice;
+
+    @ApiModelProperty(value = "数量",dataType = "Integer")
+    private Integer number;
+
     @ApiModelProperty(value = "用户id",dataType = "String")
     private String userId;
+
 }
