@@ -11,16 +11,22 @@ $(function () {
     })
     let name = JSON.parse(sessionStorage.getItem("userId"));
     var userType = name.type;
-    console.log(userType);
-    if (userType != '3'){
-        $('#exportBtn').css('display','block');
-        $('#commodityState').css('display','block');
-        $('#labState').css('display','block');
-        $('#addBtn').css('display','block');
-        init();
-    } else {
+    // console.log(userType);
+    let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+
+    if (userType == "3"){
         init2();
-    }
+    }else if ( userType == "1" && qryType == "0"){
+        init3();
+    }else if (userType == "1"){
+        init4();
+    }else {
+     $('#exportBtn').css('display','block');
+     $('#commodityState').css('display','block');
+     $('#labState').css('display','block');
+     $('#addBtn').css('display','block');
+     init();
+ }
 
 
     $(window).resize(function () {
@@ -41,9 +47,168 @@ function toSearch(){
         page:1
     }).trigger("reloadGrid");
 }
+function init4(){
+    // var commodityName = $("#commodityName").val();
+    // var commodityState = $("#commodityState").val();
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userType = name.type;
+    let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+    let userName="";
+    var storeNumber="";
+    if (qryType == "1"){
+        let item = sessionStorage.getItem("user_detail");
+        let userInfo="";
+        if (item != null && item != ""){
+            userInfo = JSON.parse(item);
+        }
+        if (userInfo.userName != null && userInfo.userName != ""){
+            userName = userInfo.userName;
+            sessionStorage.setItem("user_detail",name.userName);
+        }else {
+            userName = name.userName;
+            console.log(userName)
+        }
+    }else if (qryType == "2"){
+        let rowData = sessionStorage.getItem("store_detail");
+        let storeInfo = JSON.parse(rowData);
+
+        if (storeInfo != null && storeInfo.storeNumber != ""){
+            storeNumber = storeInfo.storeNumber;
+        }
+    }else if (qryType == "0"){
+        userName="";
+        storeNumber=""
+    }
+    // var data={
+    //     "storeNumber" : storeNumber,
+    //     "keyWords" : "",
+    //     "userId" : userName
+    //     // "commodityName" : commodityName,
+    //     // "commodityState" : commodityState
+    // };
+    // console.log("data:",data)
+    $("#commodityTable").jqGrid({
+        url: 'commodity/query',
+        datatype: "json",
+        colModel: [
+            {label: '商品id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
+            {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
+            {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
+            {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
+            {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
+            {label: '上架时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 50},
+            {label: '商品描述', name: 'commodityScript', index: 'commodityScript', sortable: false,align: "center", width: 50},
+            {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
+        ],
+        height: 600,
+        rowNum: 10,
+        rowList: [10, 30, 50],
+        styleUI: 'Bootstrap',
+        loadtext: '信息读取中...',
+        rownumbers: false,
+        multiselect: false,
+        autowidth: true,
+        pager: "#commodityPager",
+        jsonReader: {
+            root: "data.list",
+            page: "data.pageNum",
+            total: "data.pages",
+            records: "data.total"
+        },
+        prmNames: {
+            page: "page",
+            rows: "rows",
+            order: "order"
+        },
+        postData : {storeNumber : storeNumber,
+            keyWords : "",
+            userId: userName},
+        gridComplete: function () {
+            //隐藏grid底部滚动条
+            $("#commodityTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
+        }
+    });
+    function cmgStateFormat(grid, rows) {
+        // let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+        // if (userType == '1') {
+        //     return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>编辑</button>"+
+        //         "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        // } else if(userType == '2') {
+        //     return  "<button class='btn btn-warning ' onclick=\"toMeal()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>套餐</button> " +
+        //         "<button  class=\"btn btn-info\"  onclick=\"toCommodityEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>编辑</button>"+
+        //         "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>详情</button>"
+        // }
+        // if (qryType == "0"){
+        //     return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>配置</button>"+
+        //         "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+        // }
+    };
+    function typeFormat(type){
+        return type == "0" ? "已上架" : type=="1"?"已下架":"待审核";
+    }
+}
+
+function init3(){
+    var commodityName = $("#commodityName").val();
+    var commodityState = $("#commodityState").val();
+    $("#commodityTable").jqGrid({
+        url: 'commodity/query',
+        datatype: "json",
+        colModel: [
+            {label: '商品id', name: 'id', index: 'id', hidden:true,width: 50, key: true},
+            {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
+            {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
+            {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
+            {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
+            {label: '上架时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 50},
+            {label: '商品描述', name: 'commodityScript', index: 'commodityScript', sortable: false,align: "center", width: 50},
+            {label: '操作', name: 'state', index: 'state', width: 80,sortable: false,align: "center", edittype:"button", formatter: cmgStateFormat}
+        ],
+        height: 600,
+        rowNum: 10,
+        rowList: [10, 30, 50],
+        styleUI: 'Bootstrap',
+        loadtext: '信息读取中...',
+        rownumbers: false,
+        multiselect: false,
+        autowidth: true,
+        pager: "#commodityPager",
+        jsonReader: {
+            root: "data.list",
+            page: "data.pageNum",
+            total: "data.pages",
+            records: "data.total"
+        },
+        prmNames: {
+            page: "page",
+            rows: "rows",
+            order: "order"
+        },
+        postData : {
+            keyWords : "",
+            commodityName : commodityName,
+            commodityState : commodityState
+        },
+        gridComplete: function () {
+            //隐藏grid底部滚动条
+            $("#commodityTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
+        }
+    });
+    function cmgStateFormat(grid, rows) {
+        return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>强制</button>"+
+            "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
+    };
+    function typeFormat(type){
+        return type == "0" ? "已上架" : type=="1"?"已下架":"待审核";
+    }
+}
+
 function init2(){
     var commodityName = $("#commodityName").val();
     var commodityState = $("#commodityState").val();
+
     $("#commodityTable").jqGrid({
         url: 'commodity/query',
         datatype: "json",
@@ -104,30 +269,38 @@ function init(){
     let qryType = JSON.parse(sessionStorage.getItem("qryType"));
     let userName="";
     var storeNumber="";
-    if (qryType === 1){
+    if (qryType == "1"){
         let item = sessionStorage.getItem("user_detail");
         let userInfo="";
-        if (item != null && item !== ""){
+        if (item != null && item != ""){
             userInfo = JSON.parse(item);
         }
-        if (userInfo.userName != null && userInfo.userName !== ""){
+        if (userInfo.userName != null && userInfo.userName != ""){
             userName = userInfo.userName;
             sessionStorage.setItem("user_detail",name.userName);
         }else {
             userName = name.userName;
             console.log(userName)
         }
-    }else if (qryType === 2){
+    }else if (qryType == "2"){
         let rowData = sessionStorage.getItem("store_detail");
         let storeInfo = JSON.parse(rowData);
 
-        if (storeInfo != null && storeInfo.storeNumber !== ""){
+        if (storeInfo != null && storeInfo.storeNumber != ""){
             storeNumber = storeInfo.storeNumber;
         }
-    }else if (qryType === 0){
+    }else if (qryType == "0"){
         userName="";
         storeNumber=""
     }
+    // var data={
+    //     "storeNumber" : storeNumber,
+    //     "keyWords" : "",
+    //     "userId" : userName,
+    //     "commodityName" : commodityName,
+    //     "commodityState" : commodityState
+    // };
+    // console.log("data:",data)
     $("#commodityTable").jqGrid({
         url: 'commodity/query',
         datatype: "json",
@@ -162,13 +335,11 @@ function init(){
             rows: "rows",
             order: "order"
         },
-        postData : {
-            storeNumber : storeNumber,
+        postData : {storeNumber : storeNumber,
             keyWords : "",
-            userId : userName,
+            userId: userName,
             commodityName : commodityName,
-            commodityState : commodityState
-        },
+            commodityState : commodityState},
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#commodityTable").closest(".ui-jqGrid-bdiv").css({"overflow-x": "hidden"});
@@ -193,6 +364,7 @@ function init(){
         return type == "0" ? "已上架" : type=="1"?"已下架":"待审核";
     }
 }
+
 function imgFormat(img1) {
 
     return "<img id='commodityPic' class=\"round_icon\" src='"+img1+"'>"
