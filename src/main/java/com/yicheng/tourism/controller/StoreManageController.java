@@ -47,7 +47,7 @@ public class StoreManageController {
     }
 
     @ApiOperation(value = "强制关闭店铺")
-    @RequestMapping(value = "/close",method = RequestMethod.GET)
+    @RequestMapping(value = "/close",method = RequestMethod.POST)
     public BaseResponse<String> closeStore(String id, HttpServletRequest request){
         return storeManageService.closeStore(id ,request);
     }

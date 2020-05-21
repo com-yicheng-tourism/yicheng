@@ -347,6 +347,48 @@
                     "<!--                                    <p>商品管理</p>-->\n" +
                     "<!--                                </a>-->\n" +
                     "<!--                            </li>-->")
+            }else if (name.type == 3){
+                $('#nav-manage').append("<li class=\"nav-item\">\n" +
+                    "                                <a href=\"###\" class=\"nav-link\" onclick=\"home()\">\n" +
+                    "                                    <i class=\"nav-icon fa fa-home\"></i>\n" +
+                    "                                    <p>\n" +
+                    "                                        首页\n" +
+                    "                                    </p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n" +
+                    "                            <li class=\"nav-item\" id=\"store-manage\">\n" +
+                    "                                <a href=\"#\"  onclick=\"shoppingCart()\" class=\"nav-link\">\n" +
+                    "                                    <i class=\"fa fa-store nav-icon\"></i>\n" +
+                    "                                    <p>购物车</p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n" +
+                    "<li class=\"nav-item\" id=\"store-manage\">\n" +
+                "                                <a href=\"#\"  onclick=\"orderList()\" class=\"nav-link\">\n" +
+                "                                    <i class=\"fa fa-store nav-icon\"></i>\n" +
+                "                                    <p>我的订单</p>\n" +
+                "                                </a>\n" +
+                "                            </li>\n" +
+                        "<li class=\"nav-item\" id=\"store-manage\">\n" +
+                    "                                <a href=\"#\"  onclick=\"like()\" class=\"nav-link\">\n" +
+                    "                                    <i class=\"fa fa-store nav-icon\"></i>\n" +
+                    "                                    <p>我的收藏</p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n" +
+                    "<!--                            <li class=\"nav-item\" id=\"commodity-manage\">-->\n" +
+                    "<!--                                <a href=\"#\"  onclick=\"jumpToCommodity()\" class=\"nav-link\">-->\n" +
+                    "<!--                                    <i class=\"fa fa-store nav-icon\"></i>-->\n" +
+                    "<!--                                    <p>商品管理</p>-->\n" +
+                    "<!--                                </a>-->\n" +
+                    "<!--                            </li>-->");
+                function shoppingCart() {
+                    document.getElementById("main").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+                }
+                function orderList() {
+                    document.getElementById("main").innerHTML = '<object type="text/html" data="/orderList" width="100%" height="700px"></object>';
+                }
+                function like() {
+                        document.getElementById("main").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+                }
             }
             function jumpToPicture() {
                 window.location.href = "/picture";
@@ -421,6 +463,7 @@
                 sessionStorage.setItem("qryType","0");
                 document.getElementById("main").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
             }
+
         </script>
     </body>
 </html>

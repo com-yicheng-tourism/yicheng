@@ -166,12 +166,6 @@ function toClose() {
     // console.log("rowData",rowData);
     var storeId = rowData.id;
 
-    var status = "";
-    if (rowData.type == "0"){
-        status = 1;
-    }else if (rowData.type == "1"){
-        status = 0;
-    }
     //将行数据放到sessionStorage
     reset();
     $.ajax({
@@ -180,12 +174,11 @@ function toClose() {
         dataType : "json",
         data : {
             id : storeId,
-            status : status
         },
         success :function (result) {
             console.log(result.message);
             alert(result.message);
-            init();
+            window.location.href="/store"
         }
     })
 }

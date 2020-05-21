@@ -82,7 +82,7 @@
             <!-- About Me Box -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">关于我</h3>
+                <h3 class="card-title">关于ta</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -100,7 +100,7 @@
 
                 <hr>
 
-                <strong><i class="fas fa-pencil-alt mr-1"></i> 技能</strong>
+                <strong><i class="fas fa-pencil-alt mr-1" id=""></i> 技能</strong>
 
                 <p class="text-muted" id="skill_profile">
                 </p>
@@ -127,17 +127,26 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="active tab-pane" id="like">
-                        暂未收藏任何物品
+                  <div class="active tab-pane" id="like" style="min-height: 400px">
+                    <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
+                      暂未收藏任何物品
+                    </div>
+
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="shopping-cart">
-                        暂未添加商品到购物车
+                  <div class="tab-pane" id="shopping-cart" style="min-height: 400px">
+                    <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
+                      暂未添加商品到购物车
+                    </div>
+
                   </div>
                   <!-- /.tab-pane -->
 
-                  <div class="tab-pane" id="order">
+                  <div class="tab-pane" id="order" style="min-height: 400px">
+                    <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
                       暂无订单
+                    </div>
+
                   </div>
                   <!-- /.tab-pane -->
                 </div>
@@ -171,13 +180,13 @@
       let split = userInfo.profilePic.split("\"");
       console.log("split:",split)
     $('.head_pic').attr("src",split[5]);
-    $('#name_profile').text(rowData.nickName);
-    $('#job_profile').text(rowData.job);
-    $('#sex_profile').text(rowData.sex);
-    $('#edu_profile').text(rowData.education);
-    $('#address_profile').text(rowData.userAddress);
-
-    $('#signature_profile').text(rowData.signature);//个性签名
+    $('#name_profile').text(userInfo.nickName);
+    $('#job_profile').text(userInfo.job);
+    $('#sex_profile').text(userInfo.sex);
+    $('#edu_profile').text(userInfo.education);
+    $('#address_profile').text(userInfo.userAddress == "" ? "未添加地址信息" : userInfo.userAddress);
+    $("#skill_profile").text("未完善能力信息");
+    $('#signature_profile').text(userInfo.signature == ""  ? "未添加个性签名" : userInfo.signature);//个性签名
 
       sessionStorage.setItem("qryType","1");
       document.getElementById("order").innerHTML = '<object type="text/html" data="/myorder" width="100%" height="700px"></object>';
