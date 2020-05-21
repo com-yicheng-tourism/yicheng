@@ -1,22 +1,4 @@
 $(function () {
-    //隐藏错误提示框
-    $('.alert-danger').css("display", "none");
-
-    //modal绑定hide事件
-    $('#modalAdd').on('hide.bs.modal', function () {
-        reset();
-    })
-    $('#modalEdit').on('hide.bs.modal', function () {
-        reset();
-    })
-    let name = JSON.parse(sessionStorage.getItem("userId"));
-    var userType = name.type;
-    if (userType == '1') {
-        $('#addBtn').css('display','block');
-    }
-    if (userType != '3'){
-        $('#exportBtn').css('display','block');
-    }
     init();
 
     $(window).resize(function () {
@@ -24,9 +6,9 @@ $(function () {
     });
 });
 
-function toSearch(){
-    init();
-}
+// function toSearch(){
+//     init();
+// }
 function init(){
     var commodityName = $("#commodityName").val();
     var commodityState = $("#commodityState").val();
@@ -55,7 +37,7 @@ function init(){
         if (storeInfo != null && storeInfo.storeNumber !== ""){
             storeNumber = storeInfo.storeNumber;
         }
-    }else if (qryType === 0){
+    }else if (qryType == 0){
         userName="";
         storeNumber=""
     }
@@ -106,7 +88,6 @@ function init(){
         }
     });
     function cmgStateFormat(grid, rows) {
-        let qryType = JSON.parse(sessionStorage.getItem("qryType"));
         if (userType == '1') {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>编辑</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
@@ -117,10 +98,7 @@ function init(){
         } else {
             return "<button class=\"btn btn-info\" onclick=\"toCommodityMain()\"><i class=\"fa fa-plus\"></i>商品详细</button>"
         }
-        if (qryType == "0"){
-            return "<button class=\"btn btn-info\" onclick=\"toCommodityEdit()\"><i class=\"btn-outline-primary btn-xs\"></i>配置</button>"+
-                "<button class=\"btn btn-danger\" onclick=\"toDelete()\"><i class=\"fa fa-plus\"></i>删除</button>";
-        }
+
     };
     function typeFormat(type){
         return type == "0" ? "已上架" : type=="1"?"已下架":"待审核";

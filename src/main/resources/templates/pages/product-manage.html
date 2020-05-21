@@ -42,15 +42,15 @@
               <div class="card-body" style="padding: 0px;">
                 <div class="tab-content">
                   <div class="active tab-pane" id="product" style="min-height: 400px">
-                    <table id="orderTable" class="table table-bordered">
+<!--                    <table id="orderTable" class="table table-bordered">-->
                       <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
                         暂无数据
                       </div>
-                    </table>
-                    <div id="orderPager"></div>
+<!--                    </table>-->
+<!--                    <div id="orderPager"></div>-->
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="product-stream" style="min-height: 400px">
+                  <div class="tab-pane" id="product-stream"  style="min-height: 400px">
                     <table id="orderTable" class="table table-bordered">
                       <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
                         暂无数据
@@ -82,42 +82,16 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
-<!--  <script>-->
-<!--    let name = JSON.parse(sessionStorage.getItem("userId"));-->
-<!--    $('.head_pic').attr("src",name.profilePic);-->
-<!--    $('#name_profile').text(name.nickName);-->
-<!--    $('#job_profile').text(name.job);-->
-<!--    $('#sex_profile').text(name.sex);-->
-<!--    $('#travel-currency').text(name.balance);-->
-<!--    $('#edu_profile').text(name.education);-->
-<!--    $('#address_profile').text(name.userAddress);-->
-<!--    // $('#skill_profile').text(name.skill);-->
-<!--    if (name.skill != '' && name.skill !=null){-->
-<!--      if (name.skill.indexOf("-") !=-1){-->
-<!--        let split = name.skill.split("-");-->
-<!--        var i=0;-->
-<!--        split.forEach(function (item) {-->
-<!--          let spanElement = document.createElement("span");-->
-<!--          let byId = document.getElementById('skill_profile');-->
-<!--          byId.appendChild(spanElement);-->
-<!--          spanElement.className="tag tag-danger";-->
-<!--          spanElement.style.display = 'block';-->
-<!--          spanElement.innerText=item;-->
-<!--        });-->
-<!--      }-->
-<!--    }-->
-<!--    $('#signature_profile').text(name.signature);//个性签名-->
-<!--      $.ajax({-->
-<!--        type : "GET",-->
-<!--        url : "",-->
-<!--        dataType : "json",-->
-<!--        success : function (result) {-->
+  <script>
+    // function JumpToProduct() {
+      sessionStorage.setItem("qryType","0");
+      document.getElementById("product").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
 
-<!--        }-->
-<!--      });-->
-<!--      sessionStorage.setItem("qryType","1");-->
-<!--      document.getElementById("shopping-cart").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';-->
-<!--    document.getElementById("order").innerHTML = '<object type="text/html" data="/orderList" width="100%" height="700px"></object>';-->
-<!--  </script>-->
+    // }
+    // function JumpToProductRecord() {
+      document.getElementById("product-stream").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+
+    // }
+  </script>
 </body>
 </html>
