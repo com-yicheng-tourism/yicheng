@@ -41,5 +41,5 @@ public interface StoreManageService {
     /**关闭店铺
      * @return
      */
-    BaseResponse<String> closeStore(String id , String status, HttpServletRequest request);
+    BaseResponse<String> closeStore(String id , HttpServletRequest request);
 }

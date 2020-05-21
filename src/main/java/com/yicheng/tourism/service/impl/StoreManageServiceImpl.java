@@ -6,6 +6,7 @@ import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.store.req.StoreQueryReq;
 import com.yicheng.tourism.dto.store.req.StoreUpdateReq;
 import com.yicheng.tourism.entity.Store;
+import com.yicheng.tourism.entity.StoreExample;
 import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.StoreMapper;
@@ -99,9 +100,17 @@ public class StoreManageServiceImpl implements StoreManageService {
      * @return
      */
     @Override
-    public BaseResponse<String> closeStore(String id,String status, HttpServletRequest request) {
+    public BaseResponse<String> closeStore(String id, HttpServletRequest request) {
         BaseResponse<User> verification = userService.verification(request);
         User user = verification.getData();
+        StoreExample storeExample = new StoreExample();
+        StoreExample.Criteria criteria = storeExample.createCriteria();
+        criteria.andIdEqualTo(id);
+        List<Store> stores = storeMapper.selectByExample(storeExample);
+        String status = null ;
+        if (!StringUtils.isEmpty(stores.get(0))){
+            status = stores.get(0).getStoreState().equals("0")  ? "1" : "0";
+        }
         Store store = new Store();
         store.setId(id);
         store.setStoreState(status);
