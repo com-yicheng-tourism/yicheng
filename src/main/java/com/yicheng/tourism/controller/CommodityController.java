@@ -34,8 +34,8 @@ public class CommodityController {
 
     @ApiOperation(value = "插入商铺数据")
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public Object insert(@RequestBody Commodity com){
-        return commodityService.insertCommodity(com);
+    public Object insert(@RequestBody CommodityQueryReq req){
+        return commodityService.insertCommodity(req);
     }
 
     @ApiOperation(value = "更新商品数据")

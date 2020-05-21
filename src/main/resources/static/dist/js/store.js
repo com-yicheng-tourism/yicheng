@@ -111,11 +111,11 @@ function cmgStateFormat(type) {
     if (userType == '1') {
         if (type == "0"){
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
-                "<button class=\"btn btn-danger\" onclick=\"toClose()\">封禁</button>" +
+                "<button class=\"btn btn-danger\" onclick=\"toClose()\">关闭</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }else {
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
-                "<button class=\"btn btn-danger\" onclick=\"toClose()\">解禁</button>" +
+                "<button class=\"btn btn-danger\" onclick=\"toClose()\">开启</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }
 
@@ -165,26 +165,27 @@ function toClose() {
     var rowData = $("#storeTable").jqGrid('getRowData',id);
     // console.log("rowData",rowData);
     var storeId = rowData.id;
-    // console.log(rowData)
-    // var status = "";
-    // if (rowData.storeState == "0"){
-    //     status = 1;
-    // }else if (rowData.storeState == "1"){
-    //     status = 0;
-    // }
+
+    var status = "";
+    if (rowData.type == "0"){
+        status = 1;
+    }else if (rowData.type == "1"){
+        status = 0;
+    }
     //将行数据放到sessionStorage
     reset();
     $.ajax({
-        type : "GET",
+        type : "POST",
         url : "store/close",
         dataType : "json",
         data : {
-            id : storeId
+            id : storeId,
+            status : status
         },
         success :function (result) {
             console.log(result.message);
             alert(result.message);
-            window.location.href = "/store";
+            init();
         }
     })
 }

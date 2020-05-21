@@ -54,7 +54,7 @@ public class StoreManageController {
 
     @ApiOperation(value = "删除商铺数据")
     @RequestMapping(value = "/deleteStore",method = RequestMethod.POST)
-    public Object deleteStore(String id){
+    public Object deleteStore(@RequestBody String id){
         return storeManageService.deleteStore(id);
     }
 }

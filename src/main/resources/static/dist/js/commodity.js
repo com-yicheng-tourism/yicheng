@@ -9,7 +9,27 @@ $(function () {
     $('#modalEdit').on('hide.bs.modal', function () {
         reset();
     })
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userType = name.type;
+    if (userType == '1') {
+        $('#addBtn').css('display','block');
+    }
+    if (userType != '3'){
+        $('#exportBtn').css('display','block');
+    }
+    init();
 
+    $(window).resize(function () {
+        $("#commodityTable").setGridWidth($(".card-body").width());
+    });
+});
+
+function toSearch(){
+    init();
+}
+function init(){
+    var commodityName = $("#commodityName").val();
+    var commodityState = $("#commodityState").val();
     let name = JSON.parse(sessionStorage.getItem("userId"));
     var userType = name.type;
     let qryType = JSON.parse(sessionStorage.getItem("qryType"));
@@ -76,7 +96,9 @@ $(function () {
         postData : {
             storeNumber : storeNumber,
             keyWords : "",
-            userId : userName
+            userId : userName,
+            commodityName : commodityName,
+            commodityState : commodityState
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -97,12 +119,9 @@ $(function () {
 
     };
     function typeFormat(type){
-        return type == "0" ? "已上架" : "已下架";
+        return type == "0" ? "已上架" : type=="1"?"已下架":"待审核";
     }
-    $(window).resize(function () {
-        $("#commodityTable").setGridWidth($(".card-body").width());
-    });
-});
+}
 function imgFormat(img1) {
 
     return "<img id='commodityPic' class=\"round_icon\" src='"+img1+"'>"
@@ -157,7 +176,7 @@ function toCommodityEdit() {
     $.get( 'commodity/query', {id: id}, function (result) {
         if (result != null) {
             console.log(result)
-            $("#editForm #commodityName").val(result.data.list[0].commodityName);
+            $("#editForm #commodityNameEd").val(result.data.list[0].commodityName);
             $("#editForm #commodityScript").val(result.data.list[0].commodityScript);
             $("#editForm #price").val(result.data.list[0].commodityPrice);
             $("#editForm #state").val(result.data.list[0].commodityState);
@@ -212,11 +231,11 @@ $('#saveButton').click(function () {
     //验证数据
     if (validObjectForAdd()) {
         //一切正常后发送网络请求
-        var commodityName =$("#addForm #commodityName").val();
-        var commodityScript = $("#addForm #commodityScript").val();
-        var price =$("#addForm #price").val();
-        var state =$("#addForm #state").val();
-        var authorStore = $("#addForm #authorStore").val();
+        var commodityName =$("#addForm #commodityNameAdd").val();
+        var commodityScript = $("#addForm #commodityScriptAdd").val();
+        var price =$("#addForm #priceAdd").val();
+        var state =$("#addForm #stateAdd").val();
+        var authorStore = $("#addForm #authorStoreAdd").val();
         var data = {
             "commodityName": commodityName,
             "commodityScript": commodityScript,
@@ -263,7 +282,7 @@ $('#editButton').click(function () {
     if (validObjectForEdit()) {
         //一切正常后发送网络请求
         var  id=  $("#editForm #editId").val();
-        var commodityName =$("#editForm #commodityName").val();
+        var commodityName =$("#editForm #commodityNameEd").val();
         var commodityScript = $("#editForm #commodityScript").val();
         var price =$("#editForm #price").val();
         var state =$("#editForm #state").val();
@@ -310,7 +329,7 @@ $('#editButton').click(function () {
  * 数据验证
  */
 function validObjectForEdit() {
-    var commodityName =$("#editForm #commodityName").val();
+    var commodityName =$("#editForm #commodityNameEd").val();
     var price =$("#editForm #price").val();
     var state =$("#editForm #state").val();
     var authorStore = $("#editForm #authorStore").val();
@@ -338,10 +357,10 @@ function showErrorInfo(info) {
  * 数据验证
  */
 function validObjectForAdd() {
-    var commodityName =$("#addForm #commodityName").val();
-    var price =$("#addForm #price").val();
-    var state =$("#addForm #state").val();
-    var authorStore = $("#addForm #authorStore").val();
+    var commodityName =$("#addForm #commodityNameAdd").val();
+    var price =$("#addForm #priceAdd").val();
+    var state =$("#addForm #stateAdd").val();
+    var authorStore = $("#addForm #authorStoreAdd").val();
     if (isNull(commodityName) || isNull(price) || isNull(state) || isNull(authorStore)) {
         showErrorInfo("数据错误！");
         return false;

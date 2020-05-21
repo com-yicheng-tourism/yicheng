@@ -7,21 +7,24 @@ import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
 import com.yicheng.tourism.entity.Commodity;
 import com.yicheng.tourism.entity.ShoppingCart;
 import com.yicheng.tourism.entity.User;
+import com.yicheng.tourism.entity.StoreCommodity;
+import com.yicheng.tourism.entity.UserStore;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.ShoppingCartMapper;
 import com.yicheng.tourism.mapper.ext.CommodityMapperExt;
+import com.yicheng.tourism.mapper.ext.StoreCommodityMapperExt;
+import com.yicheng.tourism.mapper.ext.UserStoreMapperExt;
 import com.yicheng.tourism.service.CommodityService;
 import com.yicheng.tourism.service.UserService;
 import com.yicheng.tourism.util.UUIDUtil;
+import com.yicheng.tourism.util.CreateTestDataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +37,9 @@ public class CommodityServiceImpl implements CommodityService {
     private UserService userService;
     @Autowired
     private ShoppingCartMapper shoppingCartMapper;
+
+    @Autowired
+    private StoreCommodityMapperExt storeCommodityMapperExt;
 
     /**
      * 返回商品页面信息
@@ -68,13 +74,29 @@ public class CommodityServiceImpl implements CommodityService {
 
     /**
      * 新增商品信息
-     * @param com
+     * @param req
      * @return
      */
     @Override
-    public Object insertCommodity(Commodity com) {
+    public Object insertCommodity(CommodityQueryReq req) {
         try {
+            Commodity com = null;
+            com.setId(CreateTestDataUtil.createSerialId());
+            com.setCommodityNumber(CreateTestDataUtil.createUserName());
+            com.setCommodityName(req.getCommodityName());
+            com.setCommodityScript(req.getCommodityScript());
+            com.setCommodityPrice(req.getCommodityPrice());
+            com.setCommodityState(req.getCommodityState());
+            com.setNumber(req.getNumber());
+            com.setCreateBy(req.getUserId());
             commodityMapperExt.insert(com);
+
+            StoreCommodity storeCommodity = null;
+            storeCommodity.setId(CreateTestDataUtil.createSerialId());
+            storeCommodity.setStoreId(req.getStoreNumber());
+            storeCommodity.setCommodityId(com.getId());
+            storeCommodity.setCreateBy(req.getUserId());
+            storeCommodityMapperExt.insert(storeCommodity);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

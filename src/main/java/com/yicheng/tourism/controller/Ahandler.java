@@ -74,6 +74,11 @@ public class Ahandler {
         return "/pages/testDemo";
     }
 
+    @RequestMapping(value = "/myShop",method = RequestMethod.GET)
+    public String shop() {
+        return "/pages/order";
+    }
+
     @RequestMapping(value = "/orderList",method = RequestMethod.GET)
     public String orderList(HttpServletRequest request)
     {

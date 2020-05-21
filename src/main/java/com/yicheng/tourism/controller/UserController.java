@@ -97,4 +97,11 @@ public class UserController {
 
         return userService.verification(request);
     }
+
+    @ApiOperation(value = "权限验证")
+    @RequestMapping(value = "/pasdver",method = RequestMethod.POST)
+    public Object pasdVer(User user) {
+
+        return userService.pasdVer(user);
+    }
 }

@@ -55,62 +55,62 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper"  style="margin-left: 0px;">
         <!-- Content Header (Page header) -->
-<!--        <div class="content-header">-->
-<!--&lt;!&ndash;            <div class="container-fluid">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="row mb-2">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="col-sm-6">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <h1 class="m-0 text-dark">商品管理页</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&lt;!&ndash; /.col &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="col-sm-6">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <ol class="breadcrumb float-sm-right">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <li class="breadcrumb-item"><a href="index.html">主页</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <li class="breadcrumb-item active">商品管理页</li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </ol>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&lt;!&ndash; /.col &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&lt;!&ndash; /.row &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&lt;!&ndash; /.container-fluid &ndash;&gt;&ndash;&gt;-->
-<!--            <div class="widget-head" style="height: 34px;width:100%;background-color: #f8f8f8;text-shadow: 0px 1px #fff;-->
-<!--                        border-bottom: 1px solid #ccc;color: #666;font-weight: bold;font-size: 13px;padding: 8px 15px;">-->
-<!--&lt;!&ndash;                <div class="pull-left">&ndash;&gt;-->
-<!--&lt;!&ndash;                    查询条件&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            </div>-->
-<!--            <div class="widget-content" style="height: 70px;width: 1075px;">-->
-<!--                <div class=" padd" style="box-sizing: border-box">-->
-<!--                    <table class="table border-none" style="width: auto;">-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <label for="commodityName">名称</label>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <input type="text" maxlength="50" class="form-control" name="commodityName" id="commodityName">-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <label for="commodityState">状态</label>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <input type="text" maxlength="50" class="form-control" name="commodityState" id="commodityState">-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <button type="button" class="btn btn-primary" id="paramSearch"-->
-<!--                                        onclick="toSearch()">查询-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <button type="button" class="btn btn-default"-->
-<!--                                        onclick="toAdd()">新增-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <button type="button" class="btn btn-default"-->
-<!--                                        onclick="toExport()">导出-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
+        <div class="content-header">
+<!--            <div class="container-fluid">-->
+<!--                <div class="row mb-2">-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <h1 class="m-0 text-dark">商品管理页</h1>-->
+<!--                    </div>&lt;!&ndash; /.col &ndash;&gt;-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <ol class="breadcrumb float-sm-right">-->
+<!--                            <li class="breadcrumb-item"><a href="index.html">主页</a></li>-->
+<!--                            <li class="breadcrumb-item active">商品管理页</li>-->
+<!--                        </ol>-->
+<!--                    </div>&lt;!&ndash; /.col &ndash;&gt;-->
+<!--                </div>&lt;!&ndash; /.row &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+            <div class="widget-head" style="height: 34px;width:100%;background-color: #f8f8f8;text-shadow: 0px 1px #fff;
+                        border-bottom: 1px solid #ccc;color: #666;font-weight: bold;font-size: 13px;padding: 8px 15px;">
+<!--                <div class="pull-left">-->
+<!--                    查询条件-->
 <!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+            </div>
+            <div class="widget-content" style="height: 70px;width: 1075px;">
+                <div class=" padd" style="box-sizing: border-box">
+                    <table class="table border-none" style="width: auto;">
+                        <tr>
+                            <td>
+                                <label for="commodityName">商品名称</label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="50" class="form-control" name="commodityName" id="commodityName">
+                            </td>
+                            <td>
+                                <label for="commodityState">状态</label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="50" class="form-control" name="commodityState" id="commodityState">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="paramSearch"
+                                        onclick="toSearch()">查询
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" id="addBtn" style="display: none"
+                                        onclick="toAdd()">新增
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" id="exportBtn" style="display: none"
+                                        onclick="toExport()">导出
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <!-- Main content -->
         <div class="content">
@@ -145,53 +145,43 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品名称：<span style="color: red;">*</span></label>
+                                        <label>商品名称：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
+                                        <input type="text" name="commodityNameAdd" id="commodityNameAdd" class="form-control" maxlength="50"
                                                tips="3" style="height: 35px;" placeholder="商品名称">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品描述：</label>
+                                        <label >商品描述：</label>
                                     </td>
                                     <td>
-                                        <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
+                                        <input type="text" name="commodityScriptAdd" id="commodityScriptAdd" class="form-control" maxlength="200"
                                                tips="3" style="height: 35px;" placeholder="商品描述">
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品价格：<span style="color: red;">*</span></label>
+                                        <label >商品价格：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <input type="text" name="price" id="price" class="form-control" maxlength="11"
+                                        <input type="text" name="priceAdd" id="priceAdd" class="form-control" maxlength="11"
                                                tips="3" style="height: 35px;" placeholder="商品价格">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
+                                        <label >状态：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <select name="state" id="state" class="form-control" maxlength="50"
+                                        <select name="stateAdd" id="stateAdd" class="form-control" maxlength="50"
                                                 tips="3" style="height: 35px;" placeholder="状态">
-                                            <option value="0">已上架</option>
-                                            <option value="1">已下架</option>
+                                            <option value="2">待审核</option>
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="param-search-type">归属店铺：<span style="color: red;">*</span></label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="author_store" id="author_store" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="归属店铺">
                                     </td>
                                 </tr>
                             </table>
@@ -234,7 +224,7 @@
         </div>
         <!-- /.modal -->
     </div>
-
+<!--套餐新增模态框-->
     <div class="content">
         <!-- 模态框（Modal） -->
         <div class="modal fade" id="modalMealAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel">
@@ -251,20 +241,20 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="mealName">套餐名称：<span style="color: red;">*</span></label>
+                                        <label for="mealNameAdd">套餐名称：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <input type="text" name="mealName" id="mealName" class="form-control" maxlength="50"
+                                        <input type="text" name="mealNameAdd" id="mealNameAdd" class="form-control" maxlength="50"
                                                tips="3" style="height: 35px;" placeholder="套餐名称">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="mealPrice">价格：</label>
+                                        <label for="mealPriceAdd">价格：</label>
                                     </td>
                                     <td>
-                                        <input type="text" name="mealPrice" id="mealPrice" class="form-control" maxlength="200"
+                                        <input type="text" name="mealPriceAdd" id="mealPriceAdd" class="form-control" maxlength="200"
                                                tips="3" style="height: 35px;" placeholder="价格">
                                     </td>
                                 </tr>
@@ -280,7 +270,7 @@
         </div>
         <!-- /.modal -->
     </div>
-
+<!--套餐编辑模态框-->
     <div class="content">
         <!-- 模态框（Modal） -->
         <div class="modal fade" id="modalMealEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
@@ -297,23 +287,23 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td style="display: none">
-                                        <input type="text" name="editId" id="editId" style="height: 1px; width: 1px" >
+                                        <input type="text" name="editmealId" id="editmealId" style="height: 1px; width: 1px" >
                                     </td>
                                     <td style="width: 120px;">
                                         <label for="mealName">套餐名称：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
                                         <input type="text" name="mealName" id="mealName" class="form-control" maxlength="50"
-                                               tips="3" style="height: 35px;" placeholder="商品名称">
+                                               tips="3" style="height: 35px;" placeholder="套餐名称">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="price">价格：</label>
+                                        <label for="mealPrice">价格：</label>
                                     </td>
                                     <td>
-                                        <input type="text" name="price" id="price" class="form-control" maxlength="200"
+                                        <input type="text" name="mealPrice" id="mealPrice" class="form-control" maxlength="200"
                                                tips="3" style="height: 35px;" placeholder="价格">
                                     </td>
                                 </tr>
@@ -350,17 +340,17 @@
                                         <input type="text" name="editId" id="editId" style="height: 1px; width: 1px" >
                                     </td>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品名称：<span style="color: red;">*</span></label>
+                                        <label for="commodityNameEd">商品名称：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <input type="text" name="commodityName" id="commodityName" class="form-control" maxlength="50"
+                                        <input type="text" name="commodityNameEd" id="commodityNameEd" class="form-control" maxlength="50"
                                                tips="3" style="height: 35px;" placeholder="商品名称">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品描述：</label>
+                                        <label for="commodityScript">商品描述：</label>
                                     </td>
                                     <td>
                                         <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
@@ -370,7 +360,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">商品价格：<span style="color: red;">*</span></label>
+                                        <label for="price">商品价格：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
                                         <input type="text" name="price" id="price" class="form-control" maxlength="11"
@@ -380,25 +370,17 @@
 
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="param-search-type">状态：<span style="color: red;">*</span></label>
+                                        <label for="state">状态：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
                                         <select name="state" id="state" class="form-control" maxlength="50"
                                                 tips="3" style="height: 35px;" placeholder="状态">
                                             <option value="0">已上架</option>
                                             <option value="1">已下架</option>
+                                            <option value="2">待审核</option>
                                         </select>
                                     </td>
                                 </tr>
-<!--                                <tr>-->
-<!--                                    <td style="width: 120px;">-->
-<!--                                        <label for="param-search-type">归属店铺：<span style="color: red;">*</span></label>-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <input type="text" name="authorStore" id="authorStore" class="form-control" maxlength="200"-->
-<!--                                               tips="3" style="height: 35px;" placeholder="归属店铺">-->
-<!--                                    </td>-->
-<!--                                </tr>-->
                             </table>
                         </form>
                     </div>
