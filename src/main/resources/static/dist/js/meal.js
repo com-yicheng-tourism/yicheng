@@ -5,6 +5,7 @@ $(function () {
 function init(){
     let rowData = sessionStorage.getItem("commodityId");
     let commodityInfo = JSON.parse(rowData);
+    var commodityId = commodityInfo.id;
     $("#mealTable").jqGrid({
         url: 'meal/query',
         datatype: "json",
@@ -36,7 +37,7 @@ function init(){
             order: "order"
         },
         postData : {
-            commodityId : commodityInfo.id,
+            commodityId : commodityId,
             keyWords : ""
         },
         gridComplete: function () {

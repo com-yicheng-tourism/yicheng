@@ -86,10 +86,15 @@
                                 <input type="text" maxlength="50" class="form-control" name="commodityName" id="commodityName">
                             </td>
                             <td>
-                                <label for="commodityState">状态</label>
+                                <label for="commodityState" id="labState" style="display: none">状态</label>
                             </td>
                             <td>
-                                <input type="text" maxlength="50" class="form-control" name="commodityState" id="commodityState">
+                                <select name="commodityState" id="commodityState" class="form-control" maxlength="50"
+                                        tips="3" style="height: 35px; display: none;" placeholder="状态">
+                                    <option value="0">已上架</option>
+                                    <option value="1">已下架</option>
+                                    <option value="2">待审核</option>
+                                </select>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" id="paramSearch"
