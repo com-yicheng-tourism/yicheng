@@ -5,6 +5,7 @@ import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
 import com.yicheng.tourism.entity.Commodity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface CommodityService {
@@ -19,4 +20,6 @@ public interface CommodityService {
     Object findById(Commodity com);
 
     List<Commodity> getShoppingCart(String userId);
+
+    BaseResponse<String> addToShoppingCart(CommodityQueryReq req, HttpServletRequest request);
 }

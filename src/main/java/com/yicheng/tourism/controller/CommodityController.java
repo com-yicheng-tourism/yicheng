@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(value = "商品管理接口",description = "商品管理接口")
@@ -59,5 +60,11 @@ public class CommodityController {
     @RequestMapping(value = "/shoppingCart",method = RequestMethod.GET)
     public List<Commodity> shoppingCart(String userId){
         return commodityService.getShoppingCart(userId);
+    }
+
+    @ApiOperation(value = "查询购物车")
+    @RequestMapping(value = "/addToShoppingCart",method = RequestMethod.POST)
+    public BaseResponse<String> addToShoppingCart(@RequestBody  CommodityQueryReq req, HttpServletRequest request){
+        return commodityService.addToShoppingCart(req,request);
     }
 }

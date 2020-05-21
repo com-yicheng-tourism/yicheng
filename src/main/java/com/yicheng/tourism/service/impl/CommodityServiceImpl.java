@@ -5,16 +5,23 @@ import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
 import com.yicheng.tourism.entity.Commodity;
+import com.yicheng.tourism.entity.ShoppingCart;
+import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
+import com.yicheng.tourism.mapper.ShoppingCartMapper;
 import com.yicheng.tourism.mapper.ext.CommodityMapperExt;
 import com.yicheng.tourism.service.CommodityService;
+import com.yicheng.tourism.service.UserService;
+import com.yicheng.tourism.util.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +30,10 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Autowired
     private CommodityMapperExt commodityMapperExt;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ShoppingCartMapper shoppingCartMapper;
 
     /**
      * 返回商品页面信息
@@ -124,5 +135,25 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getShoppingCart(String userId) {
         return commodityMapperExt.getShoppingCart(userId);
+    }
+
+    @Override
+    public BaseResponse<String> addToShoppingCart(CommodityQueryReq req, HttpServletRequest request) {
+//        BaseResponse<User> verification = userService.verification(request);
+//        User verificationData = verification.getData();
+//        if (StringUtils.isEmpty(req.getId())){
+//            return new BaseResponse<>(RespStatusEnum.SERIAL_CODE_IS_NULL.getCode(),RespStatusEnum.SERIAL_CODE_IS_NULL.getMessage());
+//        }
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setSerialCode(UUIDUtil.get());
+        shoppingCart.setUserId(req.getUserId());
+        shoppingCart.setCommodityId(req.getId());
+        shoppingCart.setCreateTime(new Date());
+        shoppingCart.setCreateId(req.getUserId());
+        int i = shoppingCartMapper.insertSelective(shoppingCart);
+        if ( i != 0 ){
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"添加成功");
+        }
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"添加失败,请联系管理员处理!");
     }
 }
