@@ -1,11 +1,27 @@
 $(function () {
     init();
     
-    $('#addToShoppingCart').click(function () {
-
-    })
+    // $('#addToShoppingCart').click(function () {
+    //
+    // })
 });
-
+function addToShoppingCart() {
+    let curUser = JSON.parse(sessionStorage.getItem("userId"));
+    let commodity = JSON.parse(sessionStorage.getItem("commodity"));
+    let id;
+    id = commodity.id;
+    let postData = {"id" : id,"userId" : curUser.userName};
+    $.ajax({
+        type : "POST",
+        url : "commodity/addToShoppingCart",
+        dataType : "json",
+        data : JSON.stringify(postData),
+        contentType : "application/json;charset=UTF-8",
+        success : function (result) {
+            alert(result.data);
+        }
+    });
+}
 function init(){
     let commodity = JSON.parse(sessionStorage.getItem("commodity"));
     var id;
