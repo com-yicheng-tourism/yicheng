@@ -139,7 +139,7 @@
             $('#name_profile').text(storeInfo.storeName);//获取商店名称
             $('#shop-keeper').text(storeInfo.nickName);
             $('#store-number').text(storeInfo.storeNumber);
-            $('#store-statutes').text(storeInfo.storeState)
+            $('#store-statutes').text(storeInfo.type);
             $('#store-indoction').text(storeInfo.storeScript);
             let name = JSON.parse(sessionStorage.getItem("userId"));
             if (name.type == 3){

@@ -25,21 +25,21 @@ public class SendEamilController {
 
     @ApiOperation(value = "发送验证码")
     @GetMapping("/sendMail")
-    public BaseResponse<String> sendEmail(String receiver, HttpServletRequest request, HttpServletResponse response){
+    public void sendEmail(String receiver, HttpServletRequest request, HttpServletResponse response){
         boolean flag = true;
         int i = (int)((Math.random()*9+1)*100000);
         String msg = String.valueOf(i);
         SessionUtil.doGet(receiver,msg,request,response);
         try {
-            flag = sendEmailService.SendEamil(msg,receiver);
-            if (flag) {
-                return new BaseResponse<>("发送成功");
-            } else {
-                return new BaseResponse<>("发送失败");
-            }
+            sendEmailService.SendEamil(msg,receiver);
+//            if (flag) {
+//                return new BaseResponse<>("发送成功");
+//            } else {
+//                return new BaseResponse<>("发送失败");
+//            }
         }catch (Exception e){
             log.info("发送邮件出错",e);
-            return new BaseResponse<>("发送失败");
+//            return new BaseResponse<>("发送失败");
 
         }
     }

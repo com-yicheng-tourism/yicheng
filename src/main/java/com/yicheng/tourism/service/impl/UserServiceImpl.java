@@ -117,7 +117,11 @@ public class UserServiceImpl implements UserService {
             tempUser.setUserPwd(MD5Util.encrypt(req.getUserPassword()));
             tempUser.setMail("");
             tempUser.setSerialId(UUIDUtil.get());
-            tempUser.setType("0");
+            tempUser.setType("3");
+            tempUser.setProfilePic("headImage4.jpg");
+            tempUser.setNickName("游客");
+            tempUser.setBirthday(new Date());
+            tempUser.setIpAddress(IpUtil.getIpAddr(request));
             tempUser.setIsLogout(true);
             int i = userMapper.insertSelective(tempUser);
             if (i!=0){
@@ -161,6 +165,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(req.getLoginType())){
             return new BaseResponse<>(RespStatusEnum.LOGIN_TYPE_IS_NULL.getCode(),RespStatusEnum.LOGIN_TYPE_IS_NULL.getMessage());
         }
+        ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
         switch(LoginTypeEnum.valueOf(req.getLoginType())){
             case UNKNOWN://未知类型
                 return new BaseResponse<>(RespStatusEnum.LOGIN_TYPE_UNKNOWN.getCode(),RespStatusEnum.LOGIN_TYPE_UNKNOWN.getMessage());
@@ -179,8 +184,7 @@ public class UserServiceImpl implements UserService {
                 if (!user.getUserPwd().equals(MD5Util.encrypt(req.getUserPassword()))){
                     return new BaseResponse<>(RespStatusEnum.PASSWORD_ERROR.getCode(),RespStatusEnum.PASSWORD_ERROR.getMessage());
                 }
-                ValueOperations<String,Object> valueOperations = redisTemplate.opsForValue();
-                valueOperations.set(user.getUserName(),user,900, TimeUnit.SECONDS);
+                valueOperations.set(user.getUserName(),user,9000, TimeUnit.SECONDS);
                 request.getSession().setAttribute("userId",user);
                 UserQryResp qryResp = new UserQryResp();
                 BeanUtils.copyProperties(user,qryResp);
@@ -196,7 +200,13 @@ public class UserServiceImpl implements UserService {
                 if (StringUtils.isEmpty(userByMail)){
                     return new BaseResponse<>(RespStatusEnum.NO_EXISTS_USER.getCode(),RespStatusEnum.NO_EXISTS_USER.getMessage());
                 }
-                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage());
+
+                valueOperations.set(userByMail.getUserName(),userByMail,9000, TimeUnit.SECONDS);
+                request.getSession().setAttribute("userId",userByMail);
+                UserQryResp qryResp1 = new UserQryResp();
+                BeanUtils.copyProperties(userByMail,qryResp1);
+                qryResp1.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+userByMail.getProfilePic());
+                return new BaseResponse<>(RespStatusEnum.LOGIN_SUCCESS.getCode(),RespStatusEnum.LOGIN_SUCCESS.getMessage(),qryResp1);
             case PHONE_LOGIN ://手机号登录
                 break;
             default :
@@ -230,7 +240,9 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public BaseResponse<String> edit(UpdateUserInfoReq req) {
+    public BaseResponse<String> edit(UpdateUserInfoReq req,HttpServletRequest request) {
+        BaseResponse<User> verification = verification(request);
+        User verificationData = verification.getData();
         if (StringUtils.isEmpty(req.getUserName())){
             return new BaseResponse<>(RespStatusEnum.SERIAL_CODE_IS_NULL.getCode(),RespStatusEnum.SERIAL_CODE_IS_NULL.getMessage());
         }
@@ -241,6 +253,28 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(req,user);
         user.setSerialId(id);
+        if (!StringUtils.isEmpty(req.getRole())){
+            UserRoleExample userRoleExample = new UserRoleExample();
+            UserRoleExample.Criteria criteria = userRoleExample.createCriteria();
+            criteria.andUserIdEqualTo(req.getUserName());
+            List<UserRole> userRoleList = userRoleMapper.selectByExample(userRoleExample);
+            RoleExample roleExample = new RoleExample();
+            RoleExample.Criteria criteria1 = roleExample.createCriteria();
+            criteria1.andNameEqualTo(req.getRole());
+            List<Role> roleList = roleMapper.selectByExample(roleExample);
+            if (!CollectionUtils.isEmpty(userRoleList) && !CollectionUtils.isEmpty(roleList)){
+                UserRole userRole = new UserRole();
+                UserRole userRole1 = userRoleList.get(0);
+                Role role = roleList.get(0);
+                userRole.setSerialId(userRole1.getSerialId());
+                userRole.setRoleId(role.getId());
+                userRole.setModifyTime(new Date());
+                userRole.setModifyId(verificationData.getUserName());
+                userRoleMapper.updateByPrimaryKeySelective(userRole);
+            }
+
+
+        }
         int i = userMapper.updateByPrimaryKeySelective(user);
         if (i != 0){
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"修改成功");

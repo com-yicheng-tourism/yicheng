@@ -26,7 +26,7 @@ public class SendEmailServiceImpl  implements SendEmailService {
     private static final Logger logger = LogManager.getLogger(SendEmailServiceImpl.class);
 
     @Override
-    public boolean SendEamil(String msg,String receiver) throws GeneralSecurityException, MessagingException {
+    public Boolean SendEamil(String msg,String receiver) throws GeneralSecurityException, MessagingException {
         //创建一个配置文件并保存
         Properties properties = new Properties();
 

@@ -1,211 +1,350 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>登录</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>登录</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../index2.html"><b>驿程旅游网登录</b></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-<!--      <p class="login-box-msg">登录</p>-->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- icheck bootstrap -->
+        <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="../index2.html"><b>驿程旅游网登录</b></a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <div class="row mt-4">
+                        <nav class="w-100">
+                            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab"
+                                   href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">账号密码登录</a>
+                                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab"
+                                   href="#product-comments" role="tab" aria-controls="product-comments"
+                                   aria-selected="false">邮箱登录</a>
+                                <!--            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">电话登陆</a>-->
+                            </div>
+                        </nav>
+                        <div class="tab-content p-3" id="nav-tabContent" style="margin: auto;">
+                            <div class="tab-pane fade show active" id="product-desc" role="tabpanel"
+                                 aria-labelledby="product-desc-tab">
+                                <form action="##" onsubmit="return false;" method="post">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="username" class="form-control" placeholder="请在此输入账号">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-user"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="password" id="password" class="form-control" placeholder="请在此输入密码">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="password" id="verCode" class="form-control" placeholder="请在此输入验证码"
+                                               style="height: 50px;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                    <span><a href="javascript:getVerifiCode()">
+                                    <img id="yzm_img"
+                                         style="cursor:pointer;width: 80px;height: 30px;margin: 0px;border-radius: 3px;"
+                                         title="点击刷新验证码" src="verCode/getVerCode"/>
+                                </a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="rememberMe">
+                                                <label for="rememberMe">
+                                                    记住我
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-4">
+                                            <button type="submit" onclick="login()" class="btn btn-primary btn-block"
+                                                    id="login-btn">登录
+                                            </button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;margin-bottom: -20px;">
+                                        <div class="col-8" style="flex: 0 0 40%;max-width: 40%;">
+                                            <div class="icheck-primary">
+                                                <a href="#">忘记密码</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-4" style="flex: 0 0 60%;max-width: 60%;">
+                                            <label style="margin-left: 45px;margin-top: 5px;">没有账号?<a href="/register">去注册</a></label>
 
-<!--      <form action="##" onsubmit="return false;"  method="post">-->
-<!--        <div class="input-group mb-3">-->
-<!--          <input type="text" id="username" class="form-control" placeholder="请在此输入账号">-->
-<!--          <div class="input-group-append">-->
-<!--            <div class="input-group-text">-->
-<!--              <span class="fas fa-user"></span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="input-group mb-3">-->
-<!--          <input type="password" id="password" class="form-control" placeholder="请在此输入密码">-->
-<!--          <div class="input-group-append">-->
-<!--            <div class="input-group-text">-->
-<!--              <span class="fas fa-lock"></span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--          <div class="col-8">-->
-<!--            <div class="icheck-primary">-->
-<!--              <input type="checkbox" id="remember">-->
-<!--              <label for="remember">-->
-<!--                记住我-->
-<!--              </label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          &lt;!&ndash; /.col &ndash;&gt;-->
-<!--          <div class="col-4">-->
-<!--            <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>-->
-<!--          </div>-->
-<!--          &lt;!&ndash; /.col &ndash;&gt;-->
-<!--        </div>-->
-<!--      </form>-->
-      <div class="row mt-4">
-        <nav class="w-100">
-          <div class="nav nav-tabs" id="product-tab" role="tablist">
-            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">账号密码登录</a>
-            <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">邮箱登录</a>
-<!--            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">电话登陆</a>-->
-          </div>
-        </nav>
-        <div class="tab-content p-3" id="nav-tabContent" style="margin: auto;">
-          <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-            <form action="##" onsubmit="return false;"  method="post">
-              <div class="input-group mb-3">
-                <input type="text" id="username" class="form-control" placeholder="请在此输入账号">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-user"></span>
-                  </div>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="product-comments" role="tabpanel"
+                                 aria-labelledby="product-comments-tab">
+                                <form action="##" onsubmit="return false;" method="post">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="mail" class="form-control" placeholder="请在此输入邮箱账号">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-mail-bulk"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="verCard" class="form-control" placeholder="请在此输入验证码" style="height: 50px">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span><input type="button" value="获取验证码"
+                                                             class="btn btn_default sameBtn btnCur"
+                                                             style="cursor:pointer;width: 145px;height: 30px;margin: 0px;border-radius: 3px;"/></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="icheck-primary">
+                                                <!--                    <input type="checkbox" id="remember">-->
+                                                <!--                    <label for="remember">-->
+                                                <!--                      记住我-->
+                                                <!--                    </label>-->
+                                            </div>
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-4">
+                                            <button type="submit" onclick="loginByMail()" class="btn btn-primary btn-block">
+                                                登录
+                                            </button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="product-rating" role="tabpanel"
+                                 aria-labelledby="product-rating-tab"></div>
+                        </div>
+                    </div>
+
+
                 </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="password" id="password" class="form-control" placeholder="请在此输入密码">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <div class="icheck-primary">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">
-                      记住我
-                    </label>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-4">
-                  <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>
-                </div>
-                <!-- /.col -->
-              </div>
-            </form>
-          </div>
-          <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
-            <form action="##" onsubmit="return false;"  method="post">
-              <div class="input-group mb-3">
-                <input type="text" id="mail" class="form-control" placeholder="请在此输入邮箱账号">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-mail-bulk"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="password" id="verCard" class="form-control" placeholder="请在此输入验证码">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-code"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <div class="icheck-primary">
-<!--                    <input type="checkbox" id="remember">-->
-<!--                    <label for="remember">-->
-<!--                      记住我-->
-<!--                    </label>-->
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-4">
-                  <button type="submit" onclick="login()" class="btn btn-primary btn-block">登录</button>
-                </div>
-                <!-- /.col -->
-              </div>
-            </form>
-          </div>
-          <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"></div>
+                <!-- /.login-card-body -->
+            </div>
         </div>
-      </div>
+        <!-- /.login-box -->
 
-<!--      <div class="social-auth-links text-center mb-3">-->
-<!--        <p>- OR -</p>-->
-<!--        <a href="#" class="btn btn-block btn-primary">-->
-<!--          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
-<!--        </a>-->
-<!--        <a href="#" class="btn btn-block btn-danger">-->
-<!--          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
-<!--        </a>-->
-<!--      </div>-->
-      <!-- /.social-auth-links -->
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.min.js"></script>
+      <script src="/dist/js/Verification.js"></script>
+      <script src="/dist/js/countDown.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                initView();
 
-<!--      <p class="mb-1">-->
-<!--        <a href="examples/forgot-password.html">I forgot my password</a>-->
-<!--      </p>-->
-<!--      <p class="mb-0">-->
-<!--        <a href="examples/register.html" class="text-center">Register a new membership</a>-->
-<!--      </p>-->
-    </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
+                // $("#login-btnn").click(function () {
+                //
+                //   window.location.reload()
+                // });
+              $(".btnCur").CountDownF({
+                time:60,
+                countState:true,
+                callback:function(){
+                  var email = $('#mail').val();
+                  var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
+                  if(email == '' || email == null){
+                    alert("邮箱不能为空!")
+                    return;
+                  }
+                  if(!EmailReg.test(email)){
+                    alert("邮箱格式错误!");
+                    return;
+                  }
+                    function f1(callback) {
+                      setTimeout(function(){
+                        $(".btnCur").CountDownF('clearState');
+                      },60000);
+                      callback();
+                    }
+                    function f2() {
+                      $.ajax({
+                        type: "GET",
+                        url : "/sendMail",
+                        dataType: "json",
+                        async:false,
+                        data: {
+                          receiver : $('#mail').val()
+                        },
+                        success: function (response) {
+                            alert(response.data);
+                        }
+                      });
+                    }
+                    f1(f2);
+                  }
 
-<!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
-<script type="text/javascript">
-  function login() {
-    var userName=$("#username").val();
-    var userPassword=$("#password").val();
-    var data = {"userName":userName,"userPassword":userPassword,"loginType":0};
-    $.ajax({
-      type : "POST", //方法类型
-      dataType : "json", //预期服务器返回数据类型
-      url : "user/login",
-      contentType : "application/json;charset=utf-8",
-      data : JSON.stringify(data),
-      success : function (result) {
-        if (result.code == "000_001_008"){
-          // setCookie("token",result.data.userToken);
-          sessionStorage.setItem("userId",JSON.stringify(result.data))
-          window.location.href="/index";
-        }
-        if (result.code == "000_001_003"){
-          alert("登录失败,"+result.message);
-          return ;
-        }
-      },
-      error : function () {
-        alert("接口异常,请联系管理员!");
-        return ;
-      }
-    })
-  }
-  function setCookie(name, value) {
-    let date = new Date();
-    date.setTime(date.getTime()+30*24*60*60*1000);//设置过期时间
-    document.cookie=name+"="+escape(value)+";expires="+date.toDateString()+"path=/"
-  }
-</script>
-</body>
+
+              });
+            });
+
+            function initView() {
+                if (getCookie("cookie_username")) {
+                    $("#username").val(getCookie("cookie_username"));
+                }
+                if (getCookie("cookie_password")) {
+                    $("#password").val(getCookie("cookie_password"));
+                }
+                if (getCookie("cookie_mail")) {
+                    $("#mail").val(getCookie("cookie_mail"));
+                }
+                if (getCookie("rememberMe")) {
+                    console.log("获取到了复选框状态")
+                    $("#rememberMe").attr("checked", getCookie("rememberMe"));
+                }
+                $("#username").focus(function () {
+                    this.select();
+                });
+                $("#password").focus(function () {
+                    this.select();
+                });
+            }
+
+            /**
+             * 写入cookie
+             * @param name  cookie 名
+             * @param value  cookie 值
+             */
+            function setCookie(name, value) {
+                var Days = 30; //此 cookie 将被保存 30 天
+                var exp = new Date();
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+            }
+
+            /**
+             * 删除cookie
+             * @param name
+             */
+            function delCookie(name) {
+                var exp = new Date();
+                exp.setTime(exp.getTime() - 1);
+                var cval = getCookie(name);
+                if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+            }
+
+            /**
+             * 读取cookie
+             * @param name
+             * @returns
+             */
+            function getCookie(name) {
+                var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+                if (arr != null)
+                    return unescape(arr[2]);
+                return null;
+            }
+
+            function loginByMail() {
+                setCookie("cookie_mail", $("#mail").val());
+                var mail = $("#mail").val();
+                var data = {"mail": mail, "loginType": 1};
+                $.ajax({
+                    type: "POST", //方法类型
+                    dataType: "json", //预期服务器返回数据类型
+                    url: "user/login",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        if (result.code == "000_001_008") {
+                            // setCookie("token",result.data.userToken);
+                            sessionStorage.setItem("userId", JSON.stringify(result.data))
+                            window.location.href = "/index";
+                        }
+                        if (result.code == "000_001_003") {
+                            alert("登录失败," + result.message);
+                            return;
+                        }
+                    },
+                    error: function () {
+                        alert("接口异常,请联系管理员!");
+                        return;
+                    }
+                })
+            }
+            function login() {
+                if ($("#rememberMe").is(":checked")) {
+                    console.log("设置cookies")
+                    setCookie("cookie_username", $("#username").val());
+                    setCookie("cookie_password", $("#password").val());
+                    setCookie("rememberMe", true);
+                } else {
+                    delCookie("cookie_account");
+                    delCookie("cookie_password");
+                    delCookie("rememberMe");
+                }
+                if ($("#username").val() == null || $("#username").val() == "") {
+                    alert("用户名不能为空");
+                }
+                if ($("#password").val() == null || $("#password").val() == "") {
+                    alert("密码不能为空");
+                }
+                var userName = $("#username").val();
+                var userPassword = $("#password").val();
+                var data = {"userName": userName, "userPassword": userPassword, "loginType": 0};
+                $.ajax({
+                    type: "POST", //方法类型
+                    dataType: "json", //预期服务器返回数据类型
+                    url: "user/login",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        if (result.code == "000_001_008") {
+                            // setCookie("token",result.data.userToken);
+                            sessionStorage.setItem("userId", JSON.stringify(result.data))
+                            window.location.href = "/index";
+                        }
+                        if (result.code == "000_001_003") {
+                            alert("登录失败," + result.message);
+                            return;
+                        }
+                    },
+                    error: function () {
+                        alert("接口异常,请联系管理员!");
+                        return;
+                    }
+                })
+            }
+
+            // function setCookie(name, value) {
+            //   let date = new Date();
+            //   date.setTime(date.getTime()+30*24*60*60*1000);//设置过期时间
+            //   document.cookie=name+"="+escape(value)+";expires="+date.toDateString()+"path=/"
+            // }
+        </script>
+    </body>
 </html>

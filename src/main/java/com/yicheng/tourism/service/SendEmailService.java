@@ -5,5 +5,5 @@ import javax.mail.NoSuchProviderException;
 import java.security.GeneralSecurityException;
 
 public interface SendEmailService {
-    boolean SendEamil(String msg,String receiver) throws GeneralSecurityException, MessagingException;
+    Boolean SendEamil(String msg,String receiver) throws GeneralSecurityException, MessagingException;
 }

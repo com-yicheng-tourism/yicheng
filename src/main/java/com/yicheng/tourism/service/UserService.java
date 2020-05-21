@@ -42,7 +42,7 @@ public interface UserService {
      * @param req
      * @return
      */
-    BaseResponse<String> edit(UpdateUserInfoReq req);
+    BaseResponse<String> edit(UpdateUserInfoReq req,HttpServletRequest request);
 
     /**
      * 按条件进行用户信息查询

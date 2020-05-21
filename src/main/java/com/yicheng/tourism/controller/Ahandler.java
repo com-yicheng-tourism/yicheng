@@ -135,6 +135,22 @@ public class Ahandler {
         }
         return "/pages/user";
     }
+    @RequestMapping(value = "/productManager",method = RequestMethod.GET)
+    public String product(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
+        return "/pages/product-manage";
+    }
+    @RequestMapping(value = "/orderManager",method = RequestMethod.GET)
+    public String order(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
+        return "/pages/order-manage";
+    }
     @RequestMapping(value = "/datetest",method = RequestMethod.GET)
     public String testUserElement() {
         return "/testDate";

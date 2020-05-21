@@ -307,12 +307,24 @@
                     "                                    <p>店铺管理</p>\n" +
                     "                                </a>\n" +
                     "                            </li>\n" +
-                    "<!--                            <li class=\"nav-item\" id=\"commodity-manage\">-->\n" +
-                    "<!--                                <a href=\"#\"  onclick=\"jumpToCommodity()\" class=\"nav-link\">-->\n" +
-                    "<!--                                    <i class=\"fa fa-store nav-icon\"></i>-->\n" +
-                    "<!--                                    <p>商品管理</p>-->\n" +
-                    "<!--                                </a>-->\n" +
-                    "<!--                            </li>-->")
+                    "                            <li class=\"nav-item\" id=\"product-manage\">\n" +
+                    "                                <a href=\"#\"  onclick=\"productManager()\" class=\"nav-link\">\n" +
+                    "                                    <i class=\"fa fa-exclamation-triangle nav-icon\"></i>\n" +
+                    "                                    <p>产品管理</p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n"+
+                    "                            <li class=\"nav-item\" id=\"order-manage\">\n" +
+                    "                                <a href=\"#\"  onclick=\"orderManager()\" class=\"nav-link\">\n" +
+                    "                                    <i class=\"fa fa-list nav-icon\"></i>\n" +
+                    "                                    <p>订单管理</p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n"+
+                    "                            <li class=\"nav-item\" id=\"store-manage\">\n" +
+                    "                                <a href=\"#\"  onclick=\"commentManager()\" class=\"nav-link\">\n" +
+                    "                                    <i class=\"fa fa-text-width nav-icon\"></i>\n" +
+                    "                                    <p>评价管理</p>\n" +
+                    "                                </a>\n" +
+                    "                            </li>\n")
             }
             else if (name.type == 2){
                 $('#nav-manage').append("<li class=\"nav-item\">\n" +
@@ -380,6 +392,15 @@
             function jumpToProfile() {
 
                 document.getElementById("main").innerHTML = '<object type="text/html" data="/profileUser" width="100%" height="700px"></object>';
+            }
+            function commentManager() {
+                document.getElementById("main").innerHTML = '<object type="text/html" data="/commentManager" width="100%" height="700px"></object>';
+            }
+            function productManager() {
+                document.getElementById("main").innerHTML = '<object type="text/html" data="/productManager" width="100%" height="700px"></object>';
+            }
+            function orderManager() {
+                document.getElementById("main").innerHTML = '<object type="text/html" data="/orderManager" width="100%" height="700px"></object>';
             }
             function home() {
                 if (name.type == 1){

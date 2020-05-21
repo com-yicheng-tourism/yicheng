@@ -219,7 +219,7 @@ $('#saveButton').click(function () {
 $('#editButton').click(function () {
     var userType=$('#edit_type').val() == "管理员" ? '1' : ($('#edit_type').val() == "租户" ? "2" : "3");
     var data = {"userName": $('#edit_username').val(), "nickName": $('#edit_nick_name').val()
-        ,"birthday":$('#edit_birthday').val(),"type": userType,"userAddress":$('#edit_address').val()};
+        ,"birthday":$('#edit_birthday').val(),"type": userType,"userAddress":$('#edit_address').val(),"role" : $('#edit_role').val()};
     $.ajax({
         type: 'POST',//方法类型
         dataType: "json",//预期服务器返回的数据类型
@@ -236,6 +236,7 @@ $('#editButton').click(function () {
             if (result.code == "000_000_000") {
                 $('#modalEdit').modal('hide');
                 //reload
+                alert(result.data)
                 reload();
             }
         },

@@ -101,6 +101,19 @@
                     </div>
                 </div><!-- // step3 end -->
             </div>
+            <div class="row" style="margin-top: 10px;margin-bottom: -20px;">
+                <div class="col-8" style="flex: 0 0 40%;max-width: 40%; float: left">
+                    <div class="icheck-primary">
+<!--                        <a href="#">忘记密码</a>-->
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4" style="flex: 0 0 60%;max-width: 60%;float: right;margin-top: -5px">
+                    <label style="margin-left: 45px;margin-top: 5px;">已有账号?<a href="/login" style="color: #1D00AF">去登录</a></label>
+
+                </div>
+                <!-- /.col -->
+            </div>
         </div><!-- // container end -->
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
@@ -117,9 +130,9 @@
                     var htmlCon = '';
                     if(txt != ''){
                         if(status != 0 && status != undefined){
-                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="images/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>'+txt+'</div>';
+                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/dist/images/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>'+txt+'</div>';
                         }else{
-                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/images/err.png" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>'+txt+'</div>';
+                            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/dist/images/err.png" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>'+txt+'</div>';
                         }
                         $('body').prepend(htmlCon);
                         if(time == '' || time == undefined){
@@ -152,17 +165,17 @@
                         }else{
                             var click=true;
                             var i = $(this).index()+1;
+                            var postData = {"userName" : $(".email").val()=="" ? "" : $(".email").val(),
+                                "userPassword" : md5($(".passwd").val()),
+                                "verificationCode" : $(".verifyCode").val(),
+                                "registerStep" : i};
                             $.ajax({
                                 type: "POST",
                                 url : "user/register",
                                 contentType : "application/json",
                                 dataType: "json",
                                 async:false,
-                                data: {
-                                    userName : $(".email").val()=="" ? "" : $(".email").val(),
-                                    userPassword : md5($(".passwd").val()),
-                                    verificationCode : $(".verifyCode").val()
-                                },
+                                data: JSON.stringify(postData),
                                 success: function (response) {
                                     if (response.data == "验证码错误"){
                                         showTips(response.data,1000,0);

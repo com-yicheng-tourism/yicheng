@@ -67,8 +67,8 @@ public class UserController {
 
     @ApiOperation(value = "用户编辑/修改")
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    public BaseResponse<String> edit(@RequestBody UpdateUserInfoReq req){
-        return userService.edit(req);
+    public BaseResponse<String> edit(@RequestBody UpdateUserInfoReq req,HttpServletRequest request){
+        return userService.edit(req,request);
     }
 
     @ApiOperation(value = "用户按条件分页查询")
