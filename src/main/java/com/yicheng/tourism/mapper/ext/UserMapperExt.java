@@ -1,12 +1,14 @@
 package com.yicheng.tourism.mapper.ext;
 
 import com.yicheng.tourism.dto.home.resp.HomeCountResp;
+import com.yicheng.tourism.dto.order.req.OrderCarReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface UserMapperExt {
@@ -53,4 +55,6 @@ public interface UserMapperExt {
 
     @Select("select user_pwd from t_user where user_name = #{userName}")
     String findByUserName(@Param("userName") String userName);
+
+    void updatePriceByUserName(@Param("c") OrderCarReq req);
 }

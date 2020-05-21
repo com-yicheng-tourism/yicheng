@@ -99,6 +99,16 @@
         where user_name=#{c.userName}
     </update>
 
+    <update id="updatePriceByUsername" parameterType="com.yicheng.tourism.entity.User">
+        update t_user
+        <set>
+            <if test="c.commodityPrice != null">
+                balance = balance-#{c.commodityPrice,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where user_name=#{c.userName}
+    </update>
+
     <select id="verification" parameterType="String" resultType="Integer">
         select count(*) from t_user t1,t_user_role t2,t_nav t3,t_role_nav t4 where t1.user_name=t2.user_id
          and t2.role_id = t4.role_id and t4.nav_id=t3.id and t1.user_name=#{username} and t3.api_url=#{apiUrl}

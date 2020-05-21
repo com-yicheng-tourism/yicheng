@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.controller.VerCodeController;
+import com.yicheng.tourism.dto.order.req.OrderCarReq;
 import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
@@ -16,6 +17,7 @@ import com.yicheng.tourism.mapper.PermissionMapper;
 import com.yicheng.tourism.mapper.RoleMapper;
 import com.yicheng.tourism.mapper.UserMapper;
 import com.yicheng.tourism.mapper.UserRoleMapper;
+import com.yicheng.tourism.mapper.ext.OrderMapperExt;
 import com.yicheng.tourism.mapper.ext.UserMapperExt;
 import com.yicheng.tourism.mapper.ext.UserRoleMapperExt;
 import com.yicheng.tourism.service.UserService;
@@ -32,6 +34,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +61,8 @@ public class UserServiceImpl implements UserService {
     private UserMapperExt userMapperExt;
     @Autowired
     private UserRoleMapperExt userRoleMapperExt;
+    @Autowired
+    private OrderMapperExt orderMapperExt;
 
     private HashedCredentialsMatcher matcher;
 
@@ -390,10 +395,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object pasdVer(User user) {
-        String pasd = userMapperExt.findByUserName(user.getUserName());
-        if (MD5Util.encrypt(user.getUserPwd()).equals(pasd)){
-
+    public Object pasdVer(OrderCarReq req) {
+        String pasd = userMapperExt.findByUserName(req.getUserName());
+        Order order = new Order();
+        order.setId(CreateTestDataUtil.createSerialId());
+        order.setCommodityId(req.getCommodityId());
+        order.setCommodityName(req.getCommodityName());
+        order.setActrualPrice(req.getCommodityPrice().doubleValue());
+        order.setCreateTime(CreateTestDataUtil.createTime());
+        if (MD5Util.encrypt(req.getPassword()).equals(pasd)){
+            userMapperExt.updatePriceByUserName(req);
+            orderMapperExt.insert(order);
             return 0;
         } else {
             return -1;

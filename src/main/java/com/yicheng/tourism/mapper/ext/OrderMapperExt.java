@@ -11,4 +11,6 @@ public interface OrderMapperExt {
     List<Order> qryByCondition(@Param("c")OrderQueryReq req);
 
     List<Order> qryByUserId(String userId);
+
+    void insert(@Param("c")Order order);
 }

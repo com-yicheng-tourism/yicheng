@@ -27,4 +27,18 @@
             </if>
         </where>
     </sql>
+
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.Order">
+        INSERT INTO t_order
+        VALUES
+        (#{c.id,jdbcType=VARCHAR},
+        #{c.storeId,jdbcType=VARCHAR},
+        #{c.commodityName,jdbcType=VARCHAR},
+        #{c.commodityId,jdbcType=VARCHAR},
+        #{c.userId,jdbcType=VARCHAR},
+        #{c.planPrice,jdbcType=DOUBLE},
+        #{c.ifDiscount,jdbcType=VARCHAR},
+        #{c.actrualPrice,jdbcType=DOUBLE},
+        #{c.createTime,jdbcType=TIMESTAMP},
+    </insert>
 </mapper>

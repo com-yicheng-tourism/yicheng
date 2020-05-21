@@ -29,6 +29,23 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+<style>
+    .round_icon{
+        width: 34px;
+        height: 34px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin: auto;
+        left: 50%;
+        right: 50%;
+        top: 50%;
+        bottom: 50%;
+        text-align: center;
+    }
+</style>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
@@ -68,14 +85,14 @@
 
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
-                                <tr>
-                                    <td>
-                                        <lable>订单ID:</lable>
-                                    </td>
-                                    <td>
-                                        <P id="orderId">4F3S8J</P>
-                                    </td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <lable>订单ID:</lable>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <P id="orderId">4F3S8J</P>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
                                 <tr>
                                     <td>
                                         <lable>截止付款日期:</lable>
@@ -84,14 +101,14 @@
                                         <P id="paymentDue">5/20/2020</P>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <lable>账户:</lable>
-                                    </td>
-                                    <td>
-                                        <P id="account"></P>
-                                    </td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <lable>账户:</lable>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <P id="account"></P>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
                             </div>
                             <!-- /.col -->
                         </div>
@@ -105,6 +122,19 @@
                                 <div id="orderPager"></div>
                             </div>
                         </div>
+<!--                        <div class="content">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-12">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <table id="orderTable" class="table table-bordered">-->
+<!--                                            </table>-->
+<!--                                            <div id="orderPager"></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <!-- /.row -->
 
                         <div class="row">
@@ -170,15 +200,12 @@
                     </div>
                     <div class="modal-body">
                         <form id="editForm">
-                            <div class="form-group">
-                                <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
-                            </div>
                             <table class="table table-bordered">
                                 <tr>
                                     <p>请输入密码</p>
                                 </tr>
                                 <tr>
-                                    <input type="text" name="password" id="password" class="form-control" maxlength="50"
+                                    <input type="password" name="password" id="password" class="form-control" maxlength="50"
                                                tips="3" style="height: 35px;" placeholder="密码">
                                 </tr>
                             </table>
@@ -211,9 +238,6 @@
 <script src=" /plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src=" /plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
 <script src=" /plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->

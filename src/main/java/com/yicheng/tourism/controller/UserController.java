@@ -2,6 +2,7 @@ package com.yicheng.tourism.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
+import com.yicheng.tourism.dto.order.req.OrderCarReq;
 import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
@@ -32,9 +33,9 @@ public class UserController {
     @Autowired
     private UserService userService;
     @ApiOperation(value = "查询所有的用户信息")
-    @GetMapping("queryS")
-    public String qryAllUser(){
-        return null;
+    @RequestMapping(value = "/queryById",method = RequestMethod.POST)
+    public Object qryAllUser(@RequestBody UpdateUserInfoReq req){
+        return userService.queryById(req);
     }
 
     @ApiOperation(value = "用户注册")
@@ -98,10 +99,10 @@ public class UserController {
         return userService.verification(request);
     }
 
-    @ApiOperation(value = "权限验证")
+    @ApiOperation(value = "验证")
     @RequestMapping(value = "/pasdver",method = RequestMethod.POST)
-    public Object pasdVer(User user) {
+    public Object pasdVer(OrderCarReq req) {
 
-        return userService.pasdVer(user);
+        return userService.pasdVer(req);
     }
 }

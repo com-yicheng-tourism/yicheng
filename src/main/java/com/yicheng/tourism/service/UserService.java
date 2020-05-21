@@ -2,6 +2,7 @@ package com.yicheng.tourism.service;
 
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
+import com.yicheng.tourism.dto.order.req.OrderCarReq;
 import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
@@ -72,5 +73,5 @@ public interface UserService {
 
     Object queryById(UpdateUserInfoReq req);
 
-    Object pasdVer(User user);
+    Object pasdVer(OrderCarReq req);
 }

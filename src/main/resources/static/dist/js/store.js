@@ -228,14 +228,10 @@ function toDelete(){
                 data: JSON.stringify(rowid),
                 success: function (r) {
                     if (r.resultCode == 200) {
-                        swal("删除成功", {
-                            icon: "success",
-                        });
+                        alert("删除成功")
                         $("#storeTable").trigger("reloadGrid");
                     } else {
-                        swal("删除失败", {
-                            icon: "error",
-                        });
+                        alert("删除失败")
                     }
                 }
             });
@@ -271,24 +267,17 @@ $('#saveButton').click(function () {
             success: function (result) {
                 console.log(result);//打印服务端返回的数据
                 if (result == 0) {
-                    swal("保存成功", {
-                        icon: "success",
-                    });
+                    alert("保存成功")
                     $('#modalAdd').modal('hide');
                     reload();
-                }
-                else {
-                    swal("新增失败", {
-                        icon: "error",
-                    });
+                } else {
+                    alert("保存失败")
                 }
                 ;
             },
             error: function () {
                 reset();
-                swal("操作失败", {
-                    icon: "error",
-                });
+                alert("操作失败")
             }
         });
 
@@ -321,16 +310,12 @@ $('#editButton').click(function () {
             success: function (result) {
                 console.log(result);//打印服务端返回的数据
                 if (result == 0) {
-                    swal("修改成功", {
-                        icon: "success",
-                    });
+                    alert("修改成功")
                     $('#modalEdit').modal('hide');
                     reload();
                 }
                 else {
-                    swal("修改失败", {
-                        icon: "error",
-                    });
+                    alert("修改失败")
                 }
                 ;
             },
@@ -400,8 +385,8 @@ function reset() {
  */
 function reload() {
     reset();
-    var page = $("#storeTable").storeTable('getGridParam', 'page');
-    $("#storeTable").storeTable('setGridParam', {
+    var page = $("#storeTable").jqGrid('getGridParam', 'page');
+    $("#storeTable").jqGrid('setGridParam', {
         page: page
     }).trigger("reloadGrid");
 }

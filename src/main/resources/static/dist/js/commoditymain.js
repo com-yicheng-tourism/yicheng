@@ -89,4 +89,9 @@ function change(price){
     $("#price").text("￥ "+price);
 }
 
+function  toPayment() {
+    $('#modalPay').modal('show');
+    document.getElementById("payPage").innerHTML = '<object type="text/html" data="/myShop" width="100%" height="700px"></object>';
+
+}
 

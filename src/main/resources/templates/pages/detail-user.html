@@ -134,7 +134,7 @@
 
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="shopping-cart" style="min-height: 400px">
+                  <div class="tab-pane" id="shopping-car" style="min-height: 400px">
                     <div style="margin-top: 25%;margin-bottom: auto;text-align: center">
                       暂未添加商品到购物车
                     </div>
@@ -189,8 +189,8 @@
     $('#signature_profile').text(userInfo.signature == ""  ? "未添加个性签名" : userInfo.signature);//个性签名
 
       sessionStorage.setItem("qryType","1");
-      document.getElementById("order").innerHTML = '<object type="text/html" data="/myorder" width="100%" height="700px"></object>';
-      document.getElementById("shopping-cart").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
+      document.getElementById("order").innerHTML = '<object type="text/html" data="/orderList" width="100%" height="700px"></object>';
+      document.getElementById("shopping-car").innerHTML = '<object type="text/html" data="/commodity" width="100%" height="700px"></object>';
 
   </script>
 </body>
