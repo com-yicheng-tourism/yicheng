@@ -82,7 +82,7 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public Object insertCommodity(CommodityQueryReq req) {
         try {
-            Commodity com = null;
+            Commodity com = new Commodity();
             com.setId(CreateTestDataUtil.createSerialId());
             com.setCommodityNumber(CreateTestDataUtil.createUserName());
             com.setCommodityName(req.getCommodityName());
@@ -93,7 +93,7 @@ public class CommodityServiceImpl implements CommodityService {
             com.setCreateBy(req.getUserId());
             commodityMapperExt.insert(com);
 
-            StoreCommodity storeCommodity = null;
+            StoreCommodity storeCommodity = new StoreCommodity();
             storeCommodity.setId(CreateTestDataUtil.createSerialId());
             storeCommodity.setStoreId(req.getStoreNumber());
             storeCommodity.setCommodityId(com.getId());

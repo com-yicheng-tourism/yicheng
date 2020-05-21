@@ -20,5 +20,5 @@ public interface CommodityMapperExt {
 
     List<Commodity> findById(@Param("com")Commodity com);
 
-    List<Commodity> getShoppingCart(String userId);
+    List<Commodity> getShoppingCart(@Param("userId") String userId);
 }
