@@ -20,6 +20,20 @@ $(function () {
         $("#storeTable").setGridWidth($(".card-body").width());
     });
 });
+
+function toSearch(){
+    var storeNameFind = $("#storeNameFind").val();
+    var storeAuthor = $("#storeAuthor").val();
+    $("#storeTable").jqGrid('setGridParam',{
+        url:'store/query',
+        postData: {
+            "storeName" : storeNameFind,
+            "createBy" : storeAuthor
+        },
+        page:1
+    }).trigger("reloadGrid");
+}
+
 function init() {
     $("#storeTable").jqGrid({
         url: 'store/query',
@@ -96,6 +110,7 @@ function init() {
         }
     });
 }
+
 function typeFormat(type) {
     return type == "0" ? "开启" : (type == "1" ? "关闭" : "封禁中");
 }
