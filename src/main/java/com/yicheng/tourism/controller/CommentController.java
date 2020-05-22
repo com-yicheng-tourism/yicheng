@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +33,11 @@ public class CommentController {
     @RequestMapping(value = "/qry",method = RequestMethod.GET)
     public BaseResponse<List<QryCommentResp>> qry(QryCommentReq req){
         return commentService.qry(req);
+    }
+
+    @ApiOperation("查看评论")
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    public Object insert(@RequestBody ReplyCommentReq req){
+        return commentService.insert(req);
     }
 }

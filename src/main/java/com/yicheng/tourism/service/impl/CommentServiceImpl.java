@@ -11,6 +11,7 @@ import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.ReplyMapper;
 import com.yicheng.tourism.mapper.ext.CommentMapperExt;
 import com.yicheng.tourism.service.CommentService;
+import com.yicheng.tourism.util.CreateTestDataUtil;
 import com.yicheng.tourism.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,5 +68,25 @@ public class CommentServiceImpl implements CommentService {
             comment.setReplyList(replyResp);
         });
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),comments);
+    }
+
+    @Override
+    public String insert(ReplyCommentReq req) {
+        Comment comment = new Comment();
+        try {
+            comment.setSerialId(CreateTestDataUtil.createSerialId());
+            comment.setCommentImg(req.getCommentImg());
+            comment.setCommentText(req.getCommentText());
+            comment.setUserId(req.getUserId());
+            comment.setCreateTime(CreateTestDataUtil.createTime());
+            comment.setCommodityId(req.getCommodityId());
+            comment.setCreateId(req.getUserId());
+            commentMapperExt.insert(comment);
+            return "评论成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "评论失败";
+        }
+
     }
 }

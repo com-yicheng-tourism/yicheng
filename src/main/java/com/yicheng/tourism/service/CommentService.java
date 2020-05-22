@@ -21,4 +21,6 @@ public interface CommentService {
      * @return
      */
     BaseResponse<List<QryCommentResp>> qry(QryCommentReq req);
+
+    String insert(ReplyCommentReq req);
 }

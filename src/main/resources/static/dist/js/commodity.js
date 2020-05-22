@@ -605,26 +605,10 @@ $('#saveButton').click(function () {
             success: function (result) {
                 alert(result.message);
                 window.location.href="/commodity";
-                // console.log(result);//打印服务端返回的数据
-                // if (result == 0) {
-                //     swal("保存成功", {
-                //         icon: "success",
-                //     });
-                //     $('#modalAdd').modal('hide');
-                //     reload();
-                // }
-                // else {
-                //     swal("新增失败", {
-                //         icon: "error",
-                //     });
-                // }
-                // ;
             },
             error: function () {
                 reset();
-                swal("操作失败", {
-                    icon: "error",
-                });
+                alert("操作失败！")
             }
         });
 

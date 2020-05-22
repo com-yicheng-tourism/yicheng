@@ -25,4 +25,23 @@
         from t_reply t1, t_user t2
         where comment_id = #{commentId} AND  t1.user_id = t2.user_name
     </select>
+
+    <insert id="insert" parameterType="com.yicheng.tourism.entity.Comment">
+        INSERT INTO t_comment
+        (serial_id, user_id, shop_id,commodity_id, source_level,
+        create_time,create_id,modify_time,modify_id,comment_text,comment_img,notes)
+        VALUES
+        (#{c.serialId,jdbcType=VARCHAR},
+        #{c.userId,jdbcType=VARCHAR},
+        #{c.shopId,jdbcType=VARCHAR},
+        #{c.commodityId,jdbcType=VARCHAR},
+        #{c.sourceLevel,jdbcType=VARCHAR},
+        #{c.createTime,jdbcType=TIMESTAMP},
+        #{c.createId,jdbcType=VARCHAR},
+        #{c.modifyTime,jdbcType=TIMESTAMP},
+        #{c.modifyId,jdbcType=VARCHAR},
+        #{c.commentText,jdbcType=VARCHAR},
+        #{c.commentImg,jdbcType=VARCHAR},
+        #{c.notes,jdbcType=VARCHAR})
+    </insert>
 </mapper>

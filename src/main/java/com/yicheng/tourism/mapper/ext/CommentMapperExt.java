@@ -1,6 +1,7 @@
 package com.yicheng.tourism.mapper.ext;
 
 import com.yicheng.tourism.dto.comment.req.QryCommentReq;
+import com.yicheng.tourism.dto.comment.req.ReplyCommentReq;
 import com.yicheng.tourism.dto.comment.resp.QryCommentResp;
 import com.yicheng.tourism.dto.comment.resp.ReplyResp;
 import com.yicheng.tourism.dto.coupon.req.QryCouponReq;
@@ -23,4 +24,6 @@ public interface CommentMapperExt {
      * @return
      */
    List<ReplyResp> qryReply(String commentId);
+
+    void insert( @Param("c") Comment comment);
 }

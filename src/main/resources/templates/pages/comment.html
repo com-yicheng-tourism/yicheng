@@ -51,14 +51,13 @@
                                     <h6 class="modal-title" id="modalAddTitle">添加评论</h6>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="addForm">
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td style="width: 120px;">
                                                     <label >评论文字：<span style="color: red;">*</span></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
+                                                    <input type="text" name="commentContext" id="commentContext" class="form-control" maxlength="50"
                                                            tips="3" style="height: 35px;" placeholder="评论内容">
                                                 </td>
                                             </tr>
@@ -66,21 +65,24 @@
                                             <tr>
                                                 <td style="width: 120px;">
                                                     <label >评论图片：</label>
+                                                    <p id="imgUrl" style="display: none"></p>
                                                 </td>
                                                 <td>
-                                                    <!--                      <input type="file" name="storeScript" id="storeScript" accept="image/*" class="form-control" maxlength="200"-->
-                                                    <!--                             tips="3" style="height: 35px;" placeholder="上传评论图片">-->
-                                                    <img id="preview"  alt="" />
-                                                    <form class="am-form" method="post" enctype="multipart/form-data" id="uploadPicForm" action="/img/upload">
-                                                        <input type="file"  name="file" onchange="previewImage(this)" >
-                                                        <button type="submit" class="am-btn am-btn-primary am-btn-xs" >保存</button>
-                                                    </form>
+
+                                                    <!--这个是为了将页面返回的图片展示出来的.默认隐藏-->
+                                                    <div id="preview">
+                                                        　　<!--这个是为了将页面返回的图片展示出来的.默认隐藏-->
+                                                        　　<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
+                                                    </div>
+                                                    <input type="file" id="file" name="file" onchange="javascript:preview(this)" >
+                                                    <button type="submit" id="save" onclick="javascript:submitForm()" class="btn btn-primary" >提交</button>
+
                                                 </td>
 
                                             </tr>
 
                                         </table>
-                                    </form>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -281,6 +283,20 @@
         </script>
         <script>
             // 上传图片前预览
+            function preview(file) {
+                $("#imgHidden").css("display", "none");
+                var prevDiv = document.getElementById('preview');
+                if (file.files && file.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(evt) {
+                        prevDiv.innerHTML = '<img style="width: 100px;height: 100px;" src="' + evt.target.result + '" />';
+                    }
+                    reader.readAsDataURL(file.files[0]);
+                } else {
+                    prevDiv.innerHTML = '<div class="img" style="width: 100px;height:100px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' +
+                        file.value + '\'"></div>';
+                }
+            }
             function previewImage(file) {
                 var MAXWIDTH = 120;  // 最大图片宽度
                 var MAXHEIGHT = 120;  // 最大图片高度
@@ -305,6 +321,53 @@
                 }
             }
 
+            function submitForm() {
+                var formData = new FormData(); //将需要提交的参数封装起来
+                formData.append("type", 3);
+                //有file提交的时候走的接口
+                formData.append("file", $("#file")[0].files[0]);
+                $.ajax({
+                    url : '/img/editMovieInfo',
+                    type : 'post',
+                    data : formData,
+                    processData : false,
+                    contentType : false,
+                    success : function(value) {
+                        console.log(value);
+                        $("#imgUrl").text(value);
+                    }
+                });
+            }
+
+            $('#saveButton').click(function () {
+                var comment = $("#commentContext").val();
+                var imgUrl = $("#imgUrl").text();
+                let name = JSON.parse(sessionStorage.getItem("userId"));
+                var userId = name.userName;
+                console.log(userId);
+                let commodity = JSON.parse(sessionStorage.getItem("commodity"));
+                var commodityId = commodity.commodityNumber;
+                console.log(commodityId);
+                var data = {
+                    "userId" : userId,
+                    "commodityId":commodityId,
+                    "commentText": comment,
+                    "commentImg": imgUrl
+                };
+                $.ajax({
+                    type: 'POST',//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: 'comment/insert',//url
+                    contentType: "application/json; charset=utf-8",
+                    async : false,
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        console.log(result);
+                        alert(result.message);
+                        window.location.href="/comment"
+                    }
+                });
+            });
             // 获取缩放的尺寸
             function getZoomParam(maxWidth, maxHeight, width, height) {
                 var param = { top: 0, left: 0, width: width, height: height };

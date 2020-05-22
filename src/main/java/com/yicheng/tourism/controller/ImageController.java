@@ -128,7 +128,7 @@ public class ImageController {
         // 生成新的文件名
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
         String date = df.format(new Date());
-        String realPath = path + "/" + UUID.randomUUID().toString().replace("-", "")+date+".jpg";
+        String realPath = path + "/" +date+".jpg";
         File dest = new File(realPath);
         // 判断文件父目录是否存在
         if (!dest.getParentFile().exists()) {
