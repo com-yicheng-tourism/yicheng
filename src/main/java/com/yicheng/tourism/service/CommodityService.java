@@ -22,4 +22,6 @@ public interface CommodityService {
     List<Commodity> getShoppingCart(String userId);
 
     BaseResponse<String> addToShoppingCart(CommodityQueryReq req, HttpServletRequest request);
+
+    BaseResponse<String> changeState(String id,HttpServletRequest request);
 }

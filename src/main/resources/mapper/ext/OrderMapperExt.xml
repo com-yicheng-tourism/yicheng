@@ -10,12 +10,13 @@
     </select>
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.order.req.OrderQueryReq"
             resultMap="com.yicheng.tourism.mapper.OrderMapper.BaseResultMap">
-        select *
-        from t_order
+        select t1.*,t2.store_name storeName
+        from t_order t1, t_store t2
         <include refid="query_sql_where"></include>
     </select>
     <sql id="query_sql_where">
         <where>
+            t1.store_id = t2.store_number
             <if test="c.storeNumber != null and '' != c.storeNumber">
                 and store_id=#{c.storeNumber}
             </if>

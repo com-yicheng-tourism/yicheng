@@ -28,6 +28,12 @@ public class StoreManageController {
     @Autowired
     private StoreManageService storeManageService;
 
+    @ApiOperation(value = "根据当前用户获取店铺")
+    @RequestMapping(value = "/getStore",method = RequestMethod.GET)
+    public BaseResponse<Store> getStore(String userId){
+        return storeManageService.getStore(userId);
+    }
+
     @ApiOperation(value = "商铺按条件分页查询")
     @RequestMapping(value = "/query",method = RequestMethod.GET)
     public BaseResponse<PageInfo<Store>> findPageDate(StoreQueryReq req){

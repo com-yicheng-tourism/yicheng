@@ -118,14 +118,16 @@
 
         <script>
             let name = JSON.parse(sessionStorage.getItem("userId"));
+            // let storeInfo = sessionStorage.getItem("store_detail");
+            let commodity = JSON.parse(sessionStorage.getItem("commodity"));
             $.ajax({
                 type : "GET",
                 url : "comment/qry",
                 dataType : "json",
                 async : false,
                 data : {
-                    shopId : "",
-                    commodityId : ""
+                    // shopId : storeInfo.storeId,
+                    commodityId : commodity.commodityNumber
                 },
                 success:function (result) {
                     let data = result.data;
@@ -259,11 +261,9 @@
                                 commentText : $('#replyComment').val()
                             },
                             success:function (result) {
-                                if (result.data == "评价成功"){
 
                                     alert(result.data);
                                     window.location.href = "/comment";
-                                }
                             }
                         });
                     }

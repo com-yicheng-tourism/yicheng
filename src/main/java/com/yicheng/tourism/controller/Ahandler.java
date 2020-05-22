@@ -148,6 +148,14 @@ public class Ahandler {
         }
         return "/pages/product-manage";
     }
+    @RequestMapping(value = "/sensitiveWord",method = RequestMethod.GET)
+    public String sensitiveWord(HttpServletRequest request) {
+        User user = userService.getToken(request);
+        if (StringUtils.isEmpty(user)){
+            return "/pages/404";
+        }
+        return "/pages/sensitive-word";
+    }
     @RequestMapping(value = "/orderManager",method = RequestMethod.GET)
     public String order(HttpServletRequest request) {
         User user = userService.getToken(request);

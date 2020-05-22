@@ -122,4 +122,10 @@ public class StoreManageServiceImpl implements StoreManageService {
         }
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"关闭失败");
     }
+
+    @Override
+    public BaseResponse<Store> getStore(String userId) {
+        Store store = storeMapperExt.getStore(userId);
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),store);
+    }
 }

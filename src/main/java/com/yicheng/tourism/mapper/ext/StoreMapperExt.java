@@ -35,4 +35,6 @@ public interface StoreMapperExt {
     int deleteStore(@Param("id")String id);
 
     void insertBatch(@Param("list")List<Store> list);
+
+    Store getStore(String userId);
 }

@@ -4,23 +4,32 @@
 
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.commodity.req.CommodityQueryReq"
             resultMap="com.yicheng.tourism.mapper.CommodityMapper.BaseResultMap">
-        select t1.*
-        from
-        <choose>
-            <when test="c.storeNumber !=null and '' != c.storeNumber">
-                t_commodity t1,t_store_commodity t2,t_store t3
-            </when>
-            <otherwise>
-                t_commodity t1
-            </otherwise>
-        </choose>
+        select t1.*,t3.store_name
+        from  t_commodity t1,t_store_commodity t2,t_store t3
+<!--        <choose>-->
+<!--            <when test="c.storeNumber !=null and '' != c.storeNumber">-->
+<!--                t_commodity t1,t_store_commodity t2,t_store t3-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                t_commodity t1-->
+<!--            </otherwise>-->
+<!--        </choose>-->
         <include refid="query_sql_where"></include>
     </select>
     <sql id="query_sql_where">
         <where>
-            <if test="c.storeNumber !=null and '' != c.storeNumber">
-                AND t3.store_number = #{c.storeNumber} AND t3.id =t2.store_id AND t2.commodity_id = t1.id
-            </if>
+            <choose>
+                <when test="c.storeNumber !=null and '' != c.storeNumber">
+                    AND t3.store_number = #{c.storeNumber} AND t3.id =t2.store_id AND t2.commodity_id = t1.id
+                </when>
+                <otherwise>
+                    and t1.id = t2.commodity_id AND t2.store_id = t3.id
+                </otherwise>
+            </choose>
+
+<!--            <if test="c.storeNumber !=null and '' != c.storeNumber">-->
+<!--                AND t3.store_number = #{c.storeNumber} AND t3.id =t2.store_id AND t2.commodity_id = t1.id-->
+<!--            </if>-->
 
             <if test="c.id != null and '' != c.id">
                 and t1.id=#{c.id}

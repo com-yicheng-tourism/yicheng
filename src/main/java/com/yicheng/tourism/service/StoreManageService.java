@@ -42,4 +42,6 @@ public interface StoreManageService {
      * @return
      */
     BaseResponse<String> closeStore(String id , HttpServletRequest request);
+
+    BaseResponse<Store> getStore(String userId);
 }

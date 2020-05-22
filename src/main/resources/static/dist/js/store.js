@@ -111,10 +111,12 @@ function cmgStateFormat(type) {
     if (userType == '1') {
         if (type == "0"){
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
+                "<button class=\"btn btn-info\" onclick=\"toStoreMain()\">进入店铺</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toClose()\">关闭</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }else {
             return "<button class=\"btn btn-info\" onclick=\"toStoreEdit()\">编辑</button>" +
+                "<button class=\"btn btn-info\" onclick=\"toStoreMain()\">进入店铺</button>"+
                 "<button class=\"btn btn-danger\" onclick=\"toClose()\">开启</button>" +
                 "<button class=\"btn btn-danger\" onclick=\"toDelete()\">删除</button>";
         }

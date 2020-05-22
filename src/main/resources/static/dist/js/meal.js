@@ -4,6 +4,7 @@ $(function () {
 
 function init(){
     let rowData = sessionStorage.getItem("commodityId");
+
     let commodityInfo = JSON.parse(rowData);
     console.log(commodityInfo)
     var commodityId = commodityInfo.id;

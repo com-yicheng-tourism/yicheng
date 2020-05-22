@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>dsdsfsd</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/plugins/jqGrid-5.4.0/ui.jqgrid-bootstrap.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="/plugins/bootstrap/js/css/bootstrap.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <style>
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper" style="padding-top : 3%;padding-bottom : 3%;padding-left: 1%">
+            <!-- Content Wrapper. Contains page content -->
+            <div style="margin-left: 0px;height: 700px;" id="content-wrapper-user" class="content-wrapper">
+
+                <!-- Main content -->
+                <div class="content">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+<!--                                    <div style="float: left;width: 50%;text-align: left">-->
+<!--                                        <input type="text" class="form-control select2-hidden-accessible"-->
+<!--                                               id="find_keyWords" placeholder="关键字"-->
+<!--                                               aria-hidden="true" style="width: 50%;display: inline">-->
+
+<!--                                        <select class="form-control custom-select" id="find-user-type" style="width: 49%;display: inline;margin-top: -6px">-->
+<!--                                            <option selected="" disabled=""><font style="vertical-align: inherit;"><font-->
+<!--                                                    style="vertical-align: inherit;">选择身份</font></font></option>-->
+<!--                                            <option><font style="vertical-align: inherit;"><font-->
+<!--                                                    style="vertical-align: inherit;">管理员</font></font></option>-->
+<!--                                            <option><font style="vertical-align: inherit;"><font-->
+<!--                                                    style="vertical-align: inherit;">租户</font></font></option>-->
+<!--                                            <option ><font style="vertical-align: inherit;"><font-->
+<!--                                                    style="vertical-align: inherit;">游客</font></font></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+                                    <div style="width: 50%;float: right;text-align: right">
+<!--                                        <div class="input-group" style="width: 50%; float: left;">-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                      <span class="input-group-text">-->
+<!--                        <i class="far fa-calendar-alt"></i>-->
+<!--                      </span>-->
+<!--                                            </div>-->
+<!--                                            <input type="text" class="form-control float-right find-birthday" id="reservation">-->
+<!--                                        </div>-->
+                                        <button class="btn btn-block btn-default"  onclick="wordAdd()" style="display: inline-block;width: 15%;"><i class="fa fa-plus"></i>&nbsp;添加</button>
+<!--                                        <button class="btn btn-block btn-info"  id="downloadByCondition" style="display: inline-block;width: 15%;margin-right: 5%;margin-top: 0px;"><i-->
+<!--                                                class="glyphicon glyphicon-save	"></i>&nbsp;导出-->
+<!--                                        </button>-->
+                                    </div>
+                                    <!--                  <input type="text" class="form-control select2-hidden-accessible test1"-->
+                                    <!--                         id="find_date_start" placeholder="开始日期"-->
+                                    <!--                         aria-hidden="true" style="width: 20%;display: inline">-->
+                                    <!--                  <input type="text" class="form-control select2-hidden-accessible test1"-->
+                                    <!--                         id="find_date_end" placeholder="结束日期"-->
+                                    <!--                         aria-hidden="true" style="width: 20%;display: inline">-->
+                                </div>
+                                <div class="card-body">
+                                    <table id="jqGrid" class="table table-bordered">
+                                    </table>
+                                    <div id="jqGridPager"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="modalAddTitle">敏感词添加</h6>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="form-group">
+                                        <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label>敏感词：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control select2-hidden-accessible"
+                                                       id="add_name" placeholder="敏感词"
+                                                       aria-hidden="true">
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="addButton">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal -->
+            </div>
+
+            <div class="content">
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="modalEditTitle">用户编辑</h6>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="form-group">
+                                        <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label>敏感词：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control select2-hidden-accessible"
+                                                       id="edit_name" placeholder="敏感词"
+                                                       aria-hidden="true">
+                                            </td>
+                                        </tr>
+                                        <tr style="display: none">
+                                            <td style="width: 120px;">
+                                                <label>敏感词：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control select2-hidden-accessible"
+                                                       id="edit_id" placeholder="敏感词id"
+                                                       aria-hidden="true">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="editButton">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal -->
+            </div>
+
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/plugins/jqGrid-5.4.0/grid.locale-cn.js"></script>
+        <script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="/dist/js/demo.js"></script>
+        <script>
+            $(function () {
+
+                //隐藏错误提示框
+                $('.alert-danger').css("display", "none");
+
+                //modal绑定hide事件
+                $('#modalAdd').on('hide.bs.modal', function () {
+                    reset();
+                })
+                $('#modalEdit').on('hide.bs.modal', function () {
+                    reset();
+                });
+                $("#jqGrid").jqGrid({
+                    url: 'sensitiveWord/qry',
+                    datatype: "json",
+                    colModel: [
+                        {label: '主键', name: 'id', index: 'id', width: 50, key: true,hidden : true},
+                        {label: '敏感词', name: 'name', index: 'name', width: 50},
+                        {
+                            label: '创建时间',
+                            name: 'createTime',
+                            index: 'createTime',
+                            width: 80,
+                            sortable: false,
+                            align: "center"
+                        },
+                        {
+                            label: '创建人',
+                            name: 'createBy',
+                            index: 'createBy',
+                            sortable: false,
+                            align: "center",
+                            width: 50
+                        },
+                        {
+                            label: '修改时间',
+                            name: 'modifyTime',
+                            index: 'modifyTime',
+                            sortable: false,
+                            align: "center",
+                            width: 60
+                        },
+                        {
+                            label: '修改人',
+                            name: 'modifyBy',
+                            index: 'modifyBy',
+                            sortable: false,
+                            align: "center",
+                            width: 35
+                        },
+                        {
+                            label: '操作',
+                            name: 'state',
+                            index: 'state',
+                            width: 80,
+                            sortable: false,
+                            align: "center",
+                            edittype: "button",
+                            formatter: cmgStateFormat
+                        }
+                    ],
+                    height: 600,
+                    rowNum: 10,
+                    rowList: [10, 30, 50],
+                    styleUI: 'Bootstrap',
+                    loadtext: '信息读取中...',
+                    emptyrecords: "<div  style='position: absolute;top: 0%;left: 0%;width: 100%;height: 30px;z-index: 101;padding: 6px;margin: 5px;text-align: center;font-weight: bold;font-size: 14px;background-color: #FFF;border: 2px solid #8EB8D1;color: #E2B018;display: block;'>暂        无        数        据</div>",
+                    // rownumWidth: 80,
+                    autowidth: true,
+                    multiselect: false,
+                    multiboxonly: true,
+                    altRows: true,
+                    shrinkToFit: true,
+                    onSelectRow: function (rowId, status, e) {
+                        var lastSel;
+                        if (rowId == lastSel) {
+                            $(this).jqGrid("resetSelection");
+                            lastSel = undefined;
+                            status = false;
+                        } else {
+                            lastSel = rowId;
+                        }
+                    },
+                    beforeSelectRow: function (rowId, e) {
+                        $(this).jqGrid("resetSelection");
+                        return true;
+                    },
+                    pager: "#jqGridPager",
+                    jsonReader: {
+                        root: "data.list",
+                        page: "data.pageNum",
+                        total: "data.pages",
+                        records: "data.total"
+                    },
+                    prmNames: {
+                        page: "page",
+                        rows: "rows",
+                        order: "order"
+                    },
+                    gridComplete: function () {
+                        //隐藏grid底部滚动条
+                        $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+                    }
+                });
+
+                function cmgStateFormat() {
+                    return "<button class='btn btn-warning ' onclick=\"wordEdit()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>修改</button> " +
+                        "<button class='btn btn-danger ' onclick=\"wordDel()\" style='width: 46.4px;height: 30.4px;font-size: 14px;padding: 2px 4px;'>删除</button>";
+                }
+            });
+
+            function wordAdd() {
+                $('#modalAddTitle').html('敏感词添加');
+                $('#modalAdd').modal('show');
+            }
+            $('#addButton').click(function () {
+                let name = JSON.parse(sessionStorage.getItem("userId"));
+                let name1 = $('#add_name').val();
+                // console.log("输入值:",$('#add_name').val())
+                // var data = {"name": name1,"userId" : name.userName};
+                var data = {"name": $('#add_name').val(),"userId" : name.userName};
+                $.ajax({
+                    type: 'POST',//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: 'sensitiveWord/insert',//url
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    async : false,
+                    beforeSend: function (request) {
+                        //设置header值
+                        // request.setRequestHeader("token", getCookie("token"));
+                    },
+                    success: function (result) {
+                        alert(result.data)
+                        window.location.href="/sensitiveWord"
+                    }
+
+                });
+            });
+            function wordEdit() {
+                var id=$('#jqGrid').jqGrid('getGridParam','selrow');
+                if (id == null) {
+                    return;
+                }
+                var rowData = $("#jqGrid").jqGrid('getRowData',id);
+                $('#edit_id').val(rowData.id);
+                $('#edit_name').val(rowData.name);
+                $('#modalEditTitle').html('敏感词编辑');
+                $('#modalEdit').modal('show');
+            }
+            $('#editButton').click(function () {
+                let name = JSON.parse(sessionStorage.getItem("userId"));
+                var data = {"name": $('#edit_name').val(), "id": $('#edit_id').val(),"userId" : name.userName};
+                $.ajax({
+                    type: 'POST',//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: 'sensitiveWord/edit',//url
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    beforeSend: function (request) {
+                        //设置header值
+                        // request.setRequestHeader("token", getCookie("token"));
+                    },
+                    success: function (result) {
+                        alert(result.data)
+                        window.location.href="/sensitiveWord"
+                    }
+
+                });
+            });
+            function wordDel() {
+                
+            }
+        </script>
+    </body>
+</html>

@@ -21,6 +21,16 @@ public class Order {
 
     private Date createTime;
 
+    private String storeName;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName == null ? null : storeName.trim();
+    }
+
     public String getId() {
         return id;
     }

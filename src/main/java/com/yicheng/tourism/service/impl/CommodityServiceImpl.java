@@ -4,12 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yicheng.tourism.base.resp.BaseResponse;
 import com.yicheng.tourism.dto.commodity.req.CommodityQueryReq;
-import com.yicheng.tourism.entity.Commodity;
-import com.yicheng.tourism.entity.ShoppingCart;
-import com.yicheng.tourism.entity.User;
-import com.yicheng.tourism.entity.StoreCommodity;
-import com.yicheng.tourism.entity.UserStore;
+import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
+import com.yicheng.tourism.mapper.CommodityMapper;
 import com.yicheng.tourism.mapper.ShoppingCartMapper;
 import com.yicheng.tourism.mapper.ext.CommodityMapperExt;
 import com.yicheng.tourism.mapper.ext.StoreCommodityMapperExt;
@@ -42,6 +39,8 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Autowired
     private StoreCommodityMapperExt storeCommodityMapperExt;
+    @Autowired
+    private CommodityMapper commodityMapper;
 
     /**
      * 返回商品页面信息
@@ -88,7 +87,8 @@ public class CommodityServiceImpl implements CommodityService {
             com.setCommodityName(req.getCommodityName());
             com.setCommodityScript(req.getCommodityScript());
             com.setCommodityPrice(req.getCommodityPrice());
-            com.setCommodityState(req.getCommodityState());
+//            com.setCommodityState(req.getCommodityState());
+            com.setNumber(req.getNumber());
             com.setNumber(req.getNumber());
             com.setCreateBy(req.getUserId());
             commodityMapperExt.insert(com);
@@ -179,5 +179,30 @@ public class CommodityServiceImpl implements CommodityService {
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"添加成功");
         }
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"添加失败,请联系管理员处理!");
+    }
+
+    @Override
+    public BaseResponse<String> changeState(String id, HttpServletRequest request) {
+
+//        BaseResponse<User> verification = userService.verification(request);
+//        User user = verification.getData();
+        CommodityExample commodityExample = new CommodityExample();
+        CommodityExample.Criteria criteria = commodityExample.createCriteria();
+        criteria.andIdEqualTo(id);
+        List<Commodity> commodities = commodityMapper.selectByExample(commodityExample);
+        String status = null ;
+        if (!StringUtils.isEmpty(commodities.get(0))){
+            status = commodities.get(0).getCommodityState().equals("0")  ? "1" : "0";
+        }
+        Commodity commodity = new Commodity();
+        commodity.setId(id);
+        commodity.setCommodityState(status);
+        commodity.setUpdateTime(new Date());
+
+        int i = commodityMapper.updateByPrimaryKeySelective(commodity);
+        if (i != 0){
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"状态切换成功");
+        }
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"状态切换失败");
     }
 }

@@ -356,16 +356,7 @@
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td style="width: 120px;">
-                                        <label for="commodityScript">商品描述：</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
-                                               tips="3" style="height: 35px;" placeholder="商品描述">
-                                    </td>
 
-                                </tr>
                                 <tr>
                                     <td style="width: 120px;">
                                         <label for="price">商品价格：<span style="color: red;">*</span></label>
@@ -375,19 +366,37 @@
                                                tips="3" style="height: 35px;" placeholder="商品价格">
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td style="width: 120px;">
-                                        <label for="state">状态：<span style="color: red;">*</span></label>
+                                        <label for="price">商品数量：<span style="color: red;">*</span></label>
                                     </td>
                                     <td>
-                                        <select name="state" id="state" class="form-control" maxlength="50"
-                                                tips="3" style="height: 35px;" placeholder="状态">
-                                            <option value="0">已上架</option>
-                                            <option value="1">已下架</option>
-                                            <option value="2">待审核</option>
-                                        </select>
+                                        <input type="text" name="price" id="number" class="form-control" maxlength="11"
+                                               tips="3" style="height: 35px;" placeholder="商品数量">
                                     </td>
+                                </tr>
+<!--                                <tr>-->
+<!--                                    <td style="width: 120px;">-->
+<!--                                        <label for="state">库存：<span style="color: red;">*</span></label>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <select name="state" id="state" class="form-control" maxlength="50"-->
+<!--                                                tips="3" style="height: 35px;" placeholder="状态">-->
+<!--                                            <option value="0">已上架</option>-->
+<!--                                            <option value="1">已下架</option>-->
+<!--                                            <option value="2">待审核</option>-->
+<!--                                        </select>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <tr>
+                                    <td style="width: 120px;">
+                                        <label for="commodityScript">商品描述：</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="commodityScript" id="commodityScript" class="form-control" maxlength="200"
+                                               tips="3" style="height: 35px;" placeholder="商品描述">
+                                    </td>
+
                                 </tr>
                             </table>
                         </form>
@@ -442,6 +451,6 @@
 <script src="/plugins/jqGrid-5.4.0/jquery.jqGrid.min.js"></script>
 <!-- ./wrapper -->
 <script src="/dist/js/commodity.js"></script>
-<script src="/dist/js/meal.js"></script>
+<!--<script src="/dist/js/meal.js"></script>-->
 </body>
 </html>

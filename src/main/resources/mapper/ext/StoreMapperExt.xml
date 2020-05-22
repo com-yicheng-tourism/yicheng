@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yicheng.tourism.mapper.ext.StoreMapperExt">
 
+    <select id="getStore" resultType="com.yicheng.tourism.entity.Store">
+        select t1.*
+        from t_store t1,t_user_store t2
+        where t1.id = t2.store_id and t2.user_id =#{storeId} and t2.create_by =#{storeId}
+    </select>
     <select id="qryByCondition" parameterType="com.yicheng.tourism.dto.store.req.StoreQueryReq"
             resultMap="com.yicheng.tourism.mapper.StoreMapper.BaseResultMap">
         select t1.*,t2.nick_name nickName

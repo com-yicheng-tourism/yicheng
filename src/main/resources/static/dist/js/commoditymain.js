@@ -90,6 +90,13 @@ function change(price){
 }
 
 function  toPayment() {
+    let commodity = JSON.parse(sessionStorage.getItem("commodity"));
+
+    var data ={
+        "storeId" : commodity.storeNumber,
+        "storeName" : commodity.storeName,
+    };
+    console.log("data:",JSON.stringify(data))
     $('#modalPay').modal('show');
     document.getElementById("payPage").innerHTML = '<object type="text/html" data="/myShop" width="100%" height="700px"></object>';
 

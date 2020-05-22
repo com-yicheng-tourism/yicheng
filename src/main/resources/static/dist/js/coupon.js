@@ -22,14 +22,58 @@ function init(){
     $('#modalEdit').on('hide.bs.modal', function () {
         reset();
     })
+    let name = JSON.parse(sessionStorage.getItem("userId"));
+    var userType = name.type;
+    let store = "";
+    $.ajax({
+        type : "GET",
+        url : "store/getStore",
+        dataType : "json",
+        async : false,
+        data : {
+            userId : name.userName
+        },
+        success : function (result) {
+            store = result.data.storeNumber;
+            // console.log("storeNumber:",storeNumber)
+        }
+    });
+    let qryType = JSON.parse(sessionStorage.getItem("qryType"));
+    let userName="";
+    let storeNumber="";
+    if (qryType === 1){
+        let item = sessionStorage.getItem("user_detail");
+        let userInfo="";
+        if (item != null && item !== ""){
+            userInfo = JSON.parse(item);
+        }
+        if (userInfo.userName != null && userInfo.userName !== ""){
+            userName = userInfo.userName;
+            sessionStorage.setItem("user_detail",name.userName);
+        }else {
+            userName = name.userName;
+            console.log(userName)
+        }
+    }else if (qryType === 2){
+        let rowData = sessionStorage.getItem("store_detail");
+        let storeInfo = JSON.parse(rowData);
 
-    let rowData = sessionStorage.getItem("store_detail");
-    let storeInfo = JSON.parse(rowData);
-    var storeId="";
-    if (storeInfo != null && storeInfo.storeNumber !== ""){
-        storeId = storeInfo.id;
-        console.log(storeId);
+        if (storeInfo != null && storeInfo.storeNumber !== ""){
+            storeNumber = storeInfo.storeNumber;
+        }else {
+            storeNumber = store;
+        }
+    }else if (qryType === 0){
+        userName="";
+        storeNumber=""
     }
+    // let rowData = sessionStorage.getItem("store_detail");
+    // let storeInfo = JSON.parse(rowData);
+    // var storeId="";
+    // if (storeInfo != null && storeInfo.storeNumber !== ""){
+    //     storeId = storeInfo.id;
+    //     console.log(storeId);
+    // }
 
     $("#couponTable").jqGrid({
         url: 'coupon/qry',
@@ -77,7 +121,7 @@ function init(){
             order: "order"
         },
         postData: {
-            "storeId":storeId,
+            storeId:storeNumber,
             keyWords: ""
         },
         gridComplete: function () {

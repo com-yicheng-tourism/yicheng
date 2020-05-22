@@ -1,6 +1,7 @@
 package com.yicheng.tourism.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -37,6 +38,17 @@ public class Commodity {
     private String updateBy;
 
     private Date updateTime;
+
+    @Transient
+    private String storeName;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName == null ? null : storeName.trim();
+    }
 
     public String getId() {
         return id;

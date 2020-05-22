@@ -67,4 +67,10 @@ public class CommodityController {
     public BaseResponse<String> addToShoppingCart(@RequestBody  CommodityQueryReq req, HttpServletRequest request){
         return commodityService.addToShoppingCart(req,request);
     }
+
+    @ApiOperation(value = "上下架商品")
+    @RequestMapping(value = "/close",method = RequestMethod.POST)
+    public BaseResponse<String> changeState(String id, HttpServletRequest request){
+        return commodityService.changeState(id ,request);
+    }
 }

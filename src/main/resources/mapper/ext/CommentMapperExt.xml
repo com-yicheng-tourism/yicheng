@@ -11,12 +11,12 @@
     <sql id="sql_where_qry">
         <where>
         AND t1.user_id = t2.user_name
-            <if test="c.shopId != null and c.shopId != ''">
-                AND t1.shop_id = #{c.shopId}
+<!--            <if test="c.shopId != null and c.shopId != ''">-->
+<!--                AND t1.shop_id = #{c.shopId}-->
                 <if test="c.commodityId !=null and c.commodityId !=''">
                     AND t1.commodity_id = #{c.commodityId}
                 </if>
-            </if>
+            <!--</if>-->
 
         </where>
     </sql>
