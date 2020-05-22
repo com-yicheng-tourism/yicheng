@@ -95,6 +95,7 @@ function init4(){
             {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
             {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
             {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品数量', name: 'number', index: 'number', width: 80},
             {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
             {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
             {label: '上架时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 50},
@@ -161,6 +162,7 @@ function init3(){
             {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
             {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
             {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品数量', name: 'number', index: 'number', width: 80},
             {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
             {label: '商品库存', name: 'number', index: 'number', sortable: false,align: "center", width: 50},
             {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
@@ -306,6 +308,7 @@ function init2(){
             {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
             {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
             {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品数量', name: 'number', index: 'number', width: 80},
             {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
             {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
             {label: '上架时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 50},
@@ -419,6 +422,7 @@ function init(){
             {label: '商品编号', name: 'commodityNumber', index: 'commodityNumber', hidden:true,width: 30},
             {label: '商品', name: 'img1', index: 'img1', width: 30,formatter: imgFormat},
             {label: '商品名称', name: 'commodityName', index: 'commodityName', width: 80},
+            {label: '商品数量', name: 'number', index: 'number', width: 80},
             {label: '商品价格', name: 'commodityPrice', index: 'commodityPrice', sortable: false,align: "center", width: 50},
             {label: '商品状态', name: 'commodityState', index: 'commodityState', sortable: false,align: "center", width: 50,formatter:typeFormat},
             {label: '上架时间', name: 'createTime', index: 'createTime', sortable: false,align: "center", width: 50},
@@ -625,7 +629,7 @@ $('#saveButton').click(function () {
 });
 
 //绑定modal上的编辑按钮
-$('#editButton').click(function () {
+$('#saveEdit').click(function () {
     //验证数据
     if (validObjectForEdit()) {
         //一切正常后发送网络请求
@@ -634,14 +638,11 @@ $('#editButton').click(function () {
         var commodityScript = $("#editForm #commodityScript").val();
         var price =$("#editForm #price").val();
         var number =$("#editForm #number").val();
-        let name = JSON.parse(sessionStorage.getItem("userId"));
-        var userId = name.userNumber;
         var data = {
             "id": id,
             "commodityName": commodityName,
             "commodityScript": commodityScript,
             "commodityPrice": price,
-            "userId": userId,
             "number": number
         };
         $.ajax({
@@ -651,23 +652,18 @@ $('#editButton').click(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (result) {
-                // alert(result.message);
-                window.location.href="/commodity"
-                // console.log(result);//打印服务端返回的数据
-                // if (result == 0) {
-                //     swal("修改成功", {
-                //         icon: "success",
-                //     });
-                //     $('#modalEdit').modal('hide');
-                //     reload();
-                // }
-                // else {
-                //     swal("修改失败", {
-                //         icon: "error",
-                //     });
-                // }
-                // ;
+                console.log(result);
+                if (result == 0) {
+                    alert("更新成功");
+                } else {
+                    alert("更新失败")
+                }
+                window.location.href="/commodity";
             },
+            error: function () {
+                reset();
+                alert("操作失败！")
+            }
         });
 
     }
@@ -682,8 +678,8 @@ $('#editButton').click(function () {
 function validObjectForEdit() {
     var commodityName =$("#editForm #commodityNameEd").val();
     var price =$("#editForm #price").val();
-    var state =$("#editForm #state").val();
-    if (isNull(commodityName) || isNull(price) || isNull(state)) {
+    var number = $("#editForm #number").val();
+    if (isNull(commodityName) || isNull(price) || isNull(number)) {
         showErrorInfo("数据错误！");
         return false;
     }

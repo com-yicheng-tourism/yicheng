@@ -23,12 +23,12 @@
                 and t1.store_name like concat("%",#{c.storeName},"%")
             </if>
             <if test="c.createBy != null and '' != c.createBy">
-                and t1.create_by like concat("%",#{c.createBy},"%")
+                and t2.nick_name like concat("%",#{c.createBy},"%")
             </if>
         </where>
     </sql>
 
-    <update id="updateStore" parameterType="com.yicheng.tourism.entity.Store">
+    <update id="updateStore" parameterType="com.yicheng.tourism.dto.store.req.StoreUpdateReq">
         update t_store
         <set>
             <if test="c.storeName != null">

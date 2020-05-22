@@ -54,10 +54,13 @@
                 commodity_script = #{c.commodityScript,jdbcType=VARCHAR},
             </if>
             <if test="c.commodityPrice != null">
-                commodity_price = #{c.commodityPrice,jdbcType=Double},
+                commodity_price = #{c.commodityPrice,jdbcType=DOUBLE},
             </if>
             <if test="c.commodityState != null">
                 commodity_state = #{c.commodityState,jdbcType=CHAR},
+            </if>
+            <if test="c.number != null">
+                number = #{c.number,jdbcType=DECIMAL},
             </if>
             <if test="c.updateBy != null">
                 update_by = #{c.updateBy,jdbcType=VARCHAR},
