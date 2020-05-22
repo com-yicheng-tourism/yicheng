@@ -8,8 +8,11 @@ import com.yicheng.tourism.dto.coupon.req.InsertCouponReq;
 import com.yicheng.tourism.dto.coupon.req.QryCouponReq;
 import com.yicheng.tourism.entity.Coupon;
 import com.yicheng.tourism.entity.MealPrice;
+import com.yicheng.tourism.entity.Store;
+import com.yicheng.tourism.entity.StoreExample;
 import com.yicheng.tourism.enumerate.RespStatusEnum;
 import com.yicheng.tourism.mapper.CouponMapper;
+import com.yicheng.tourism.mapper.StoreMapper;
 import com.yicheng.tourism.mapper.ext.CouponMapperExt;
 import com.yicheng.tourism.service.CouponService;
 import com.yicheng.tourism.util.UUIDUtil;
@@ -35,6 +38,9 @@ public class CouponServiceImpl implements CouponService {
 
     @Autowired
     private CouponMapper couponMapper;
+
+    @Autowired
+    private StoreMapper storeMapper;
 
     /**
      * 根据条件查询优惠券
@@ -71,16 +77,47 @@ public class CouponServiceImpl implements CouponService {
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"请求对象为空");
         }
         log.error("请求参数:{}", JSON.toJSONString(req));
+        StoreExample storeExample = new StoreExample();
+        StoreExample.Criteria criteria = storeExample.createCriteria();
+        criteria.andCreateByEqualTo(req.getUserId());
+        List<Store> stores = storeMapper.selectByExample(storeExample);
         Coupon coupon = new Coupon();
         BeanUtils.copyProperties(req,coupon);
+        coupon.setUseType("1");
         coupon.setSerialCode(UUIDUtil.get());
+        coupon.setStoreId(stores.get(0).getStoreNumber());
         coupon.setCreateTime(new Date());
-        coupon.setCreateId("laowang");
+        coupon.setCreateId(req.getUserId());
         log.error("入库参数:{}",JSON.toJSONString(coupon));
         int i = couponMapper.insertSelective(coupon);
         if (i != 0 ){
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"插入成功");
         }
         return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"插入失败");
+    }
+
+    /**
+     * 编辑优惠券信息
+     *
+     * @param req
+     * @return
+     */
+    @Override
+    public BaseResponse<String> edit(InsertCouponReq req) {
+        if (StringUtils.isEmpty(req)){
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"请求对象为空");
+        }
+        log.error("请求参数:{}", JSON.toJSONString(req));
+        Coupon coupon = new Coupon();
+        BeanUtils.copyProperties(req,coupon);
+        coupon.setUseType("1");
+        coupon.setCreateTime(new Date());
+        coupon.setCreateId(req.getStoreId());
+        log.error("入库参数:{}",JSON.toJSONString(coupon));
+        int i = couponMapper.updateByPrimaryKeySelective(coupon);
+        if (i != 0 ){
+            return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"修改成功");
+        }
+        return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),"修改失败");
     }
 }

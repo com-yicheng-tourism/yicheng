@@ -11,6 +11,9 @@ import java.util.Date;
 @Data
 public class InsertCouponReq {
 
+    @ApiModelProperty(value = "主键",dataType = "String")
+    private String serialCode;
+
     @ApiModelProperty(value = "优惠券名称",dataType = "String")
     private String name;
 
@@ -45,4 +48,7 @@ public class InsertCouponReq {
 
     @ApiModelProperty(value = "备注",dataType = "String")
     private String remark;
+
+    @ApiModelProperty(value = "创建人",dataType = "String")
+    private String userId;
 }

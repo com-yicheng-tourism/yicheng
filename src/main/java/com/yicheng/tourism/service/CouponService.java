@@ -21,4 +21,10 @@ public interface CouponService {
      * @return
      */
     BaseResponse<String> insert(InsertCouponReq req);
+
+    /**编辑优惠券信息
+     * @param req
+     * @return
+     */
+    BaseResponse<String> edit(InsertCouponReq req);
 }

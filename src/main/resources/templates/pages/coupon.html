@@ -57,33 +57,32 @@
                         <div class=" padd" style="box-sizing: border-box">
                             <table class="table border-none" style="width: auto;">
                                 <tr>
+<!--                                    <td>-->
+<!--                                        <label for="storeName">店铺名称</label>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" maxlength="50" class="form-control" name="storeName" id="storeName">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <label for="storeAuthor">店主</label>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" maxlength="50" class="form-control" name="storeAuthor" id="storeAuthor">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <button type="button" class="btn btn-primary" id="paramSearch"-->
+<!--                                                onclick="toSearch()">查询-->
+<!--                                        </button>-->
+<!--                                    </td>-->
                                     <td>
-                                        <label for="storeName">店铺名称</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" maxlength="50" class="form-control" name="storeName" id="storeName">
-                                    </td>
-                                    <td>
-                                        <label for="storeAuthor">店主</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" maxlength="50" class="form-control" name="storeAuthor" id="storeAuthor">
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary" id="paramSearch"
-                                                onclick="toSearch()">查询
+                                        <button  class="btn btn-default" id="couponAdd">新增
                                         </button>
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-default"
-                                                onclick="toAdd()">新增
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-default"
-                                                onclick="toExport()">导出
-                                        </button>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <button type="button" class="btn btn-default"-->
+<!--                                                onclick="toExport()">导出-->
+<!--                                        </button>-->
+<!--                                    </td>-->
                                 </tr>
                             </table>
                         </div>
@@ -112,7 +111,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h6 class="modal-title" id="modalAddTitle">商铺添加</h6>
+                                <h6 class="modal-title" id="modalAddTitle">优惠券添加</h6>
                             </div>
                             <div class="modal-body">
                                 <form id="addForm">
@@ -122,44 +121,84 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label >店铺名称：<span style="color: red;">*</span></label>
+                                                <label >优惠名称：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
-                                                       tips="3" style="height: 35px;" placeholder="店铺名称">
+                                                <input type="text" name="couponType" id="coupon-name" class="form-control" maxlength="50"
+                                                       tips="3" style="height: 35px;" placeholder="优惠券名称">
                                             </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 120px;">
-                                                <label >店铺描述：</label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                                                       tips="3" style="height: 35px;" placeholder="店铺描述">
-                                            </td>
-
                                         </tr>
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label >联系电话：<span style="color: red;">*</span></label>
+                                                <label >优惠类型：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
-                                                       tips="3" style="height: 35px;" placeholder="联系电话">
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 120px;">
-                                                <label >状态：<span style="color: red;">*</span></label>
-                                            </td>
-                                            <td>
-                                                <select name="state" id="state" class="form-control" maxlength="50"
-                                                        tips="3" style="height: 35px;" placeholder="状态">
-                                                    <option value="0">开启</option>
-                                                    <option value="1">关闭</option>
+                                                <select class="form-control custom-select" id="couponType">
+                                                    <option selected="" disabled=""><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">选择一个</font></font></option>
+                                                    <option><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">满减</font></font></option>
+                                                    <option><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">立减</font></font></option>
+                                                    <option selected=""><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">折扣</font></font></option>
                                                 </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >满减达到金额：</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="reached-amount" id="reached-amount" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="满减达到金额">
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >满减金额：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="minus-amount" id="minus-amount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="满减金额">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >立减金额：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="reduce-amount" id="reduce-amount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="立减金额">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >折扣率：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="discount" id="discount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="折扣率">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >生效时间：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="effective-time" id="effective-time" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="生效时间">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >失效时间：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="expiration-time" id="expiration-time" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="失效时间">
                                             </td>
                                         </tr>
                                     </table>
@@ -189,46 +228,95 @@
                                         <div class="alert alert-danger add-error-info">错误信息展示栏。</div>
                                     </div>
                                     <table class="table table-bordered">
-                                        <tr>
+                                        <tr style="display: none">
                                             <td style="width: 120px;">
-                                                <label >店铺名称：<span style="color: red;">*</span></label>
+                                                <label >优惠id：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="storeName" id="storeName" class="form-control" maxlength="50"
-                                                       tips="3" style="height: 35px;" placeholder="店铺名称">
+                                                <input type="text" name="couponType" id="edit-coupon-id" class="form-control" maxlength="50"
+                                                       tips="3" style="height: 35px;" placeholder="优惠券名称">
                                             </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 120px;">
-                                                <label >店铺描述：</label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="storeScript" id="storeScript" class="form-control" maxlength="200"
-                                                       tips="3" style="height: 35px;" placeholder="店铺描述">
-                                            </td>
-
                                         </tr>
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label >联系电话：<span style="color: red;">*</span></label>
+                                                <label >优惠名称：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" name="phone" id="phone" class="form-control" maxlength="11"
-                                                       tips="3" style="height: 35px;" placeholder="联系电话">
+                                                <input type="text" name="couponType" id="edit-coupon-name" class="form-control" maxlength="50"
+                                                       tips="3" style="height: 35px;" placeholder="优惠券名称">
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td style="width: 120px;">
-                                                <label >状态：<span style="color: red;">*</span></label>
+                                                <label >优惠类型：<span style="color: red;">*</span></label>
                                             </td>
                                             <td>
-                                                <select name="state" id="state" class="form-control" maxlength="50"
-                                                        tips="3" style="height: 35px;" placeholder="状态">
-                                                    <option value="0">开启</option>
-                                                    <option value="1">关闭</option>
+                                                <select class="form-control custom-select" id="edit-couponType">
+                                                    <option selected="" disabled=""><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">选择一个</font></font></option>
+                                                    <option><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">满减</font></font></option>
+                                                    <option><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">立减</font></font></option>
+                                                    <option selected=""><font style="vertical-align: inherit;"><font
+                                                            style="vertical-align: inherit;">折扣</font></font></option>
                                                 </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >满减达到金额：</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="reached-amount" id="edit-reached-amount" class="form-control" maxlength="200"
+                                                       tips="3" style="height: 35px;" placeholder="满减达到金额">
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >满减金额：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="minus-amount" id="edit-minus-amount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="满减金额">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >立减金额：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="reduce-amount" id="edit-reduce-amount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="立减金额">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >折扣率：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="discount" id="edit-discount" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="折扣率">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >生效时间：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="effective-time" id="edit-effective-time" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="生效时间">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 120px;">
+                                                <label >失效时间：<span style="color: red;">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="expiration-time" id="edit-expiration-time" class="form-control" maxlength="11"
+                                                       tips="3" style="height: 35px;" placeholder="失效时间">
                                             </td>
                                         </tr>
                                     </table>

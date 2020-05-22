@@ -44,9 +44,15 @@ public class CouponController {
     }
 
     @ApiOperation(value = "插入优惠券信息")
-    @RequestMapping(value = "/insert",method = RequestMethod.GET)
-    public BaseResponse<String> insert(InsertCouponReq req){
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    public BaseResponse<String> insert(@RequestBody InsertCouponReq req){
         return couponService.insert(req);
+    }
+
+    @ApiOperation(value = "编辑优惠券信息")
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public BaseResponse<String> edit(@RequestBody InsertCouponReq req){
+        return couponService.edit(req);
     }
 
 }
