@@ -9,6 +9,7 @@ import com.yicheng.tourism.dto.role.req.AssignRoleReq;
 import com.yicheng.tourism.dto.user.req.UpdateUserInfoReq;
 import com.yicheng.tourism.dto.user.req.UserQryConditionReq;
 import com.yicheng.tourism.dto.user.req.UserRegisterOrLoginReq;
+import com.yicheng.tourism.dto.user.resp.UserExcel;
 import com.yicheng.tourism.dto.user.resp.UserQryResp;
 import com.yicheng.tourism.entity.*;
 import com.yicheng.tourism.enumerate.LoginTypeEnum;
@@ -34,11 +35,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -302,11 +305,29 @@ public class UserServiceImpl implements UserService {
             req.setRows(10);
         }
         PageHelper.startPage(req.getPage(),req.getRows());
-        List<User> users = userMapperExt.qryByCondition(req);
-            users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+user.getProfilePic()));
+//        List<User> users = userMapperExt.qryByCondition(req);
+        List<User> users = qry(req);
+        users.forEach(user -> user.setProfilePic("http://localhost:8080/img/seekExperts?type=1&picName="+user.getProfilePic()));
             PageInfo<User> pageInfo = new PageInfo<>(users);
             return new BaseResponse<>(RespStatusEnum.SUCCESS.getCode(),RespStatusEnum.SUCCESS.getMessage(),pageInfo);
 //        return new BaseResponse<>(RespStatusEnum.FAIL.getCode(),RespStatusEnum.FAIL.getMessage());
+    }
+    public List<User> qry(UserQryConditionReq req){
+       return userMapperExt.qryByCondition(req);
+    }
+
+    /**
+     * 按条件进行用户信息查询
+     *
+     * @param req      请求参数
+     * @param response
+     * @return 数据列表
+     */
+    @Override
+    public void getExcel(UserQryConditionReq req, HttpServletResponse response) {
+        List<User> users = qry(req);
+        List<UserExcel> excelData = users.stream().map(UserExcel::new).collect(Collectors.toList());
+        EasyExcelUtil.writeExcel(response, excelData, "用户信息" + System.currentTimeMillis(), "用户信息", UserExcel.class);
     }
 
     /**

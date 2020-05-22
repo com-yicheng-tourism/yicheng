@@ -10,6 +10,15 @@ $(function () {
         reset();
     });
 
+    $('#downloadByCondition').click(function () {
+        // window.location.href = "/user/download"
+       // $.ajax({
+       //     type : "GET",
+       //     url : "user/download",
+       //     async : false
+       // })
+    });
+
     $("#searchByCondition").click(function(){
         let findType = $('#find-user-type').val();
         if (findType !== null && findType !== ""){

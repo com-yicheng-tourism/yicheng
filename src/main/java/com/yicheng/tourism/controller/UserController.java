@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Api(value = "用户信息接口",description = "用户信息接口")
@@ -78,6 +79,12 @@ public class UserController {
         return userService.qryByCondition(req);
     }
 
+    @ApiOperation(value = "导出用户信息")
+    @RequestMapping(path = "download",method = RequestMethod.GET)
+    public void downloadExcel(UserQryConditionReq req, HttpServletResponse response){
+        userService.getExcel(req,response);
+    }
+
     @ApiOperation(value = "获取用户IP")
     @RequestMapping(value = "/getIp",method = RequestMethod.GET)
     public BaseResponse<String> getIp(HttpServletRequest request){
@@ -105,4 +112,6 @@ public class UserController {
 
         return userService.pasdVer(req);
     }
+
+
 }

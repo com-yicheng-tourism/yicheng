@@ -14,6 +14,7 @@ import com.yicheng.tourism.entity.User;
 import com.yicheng.tourism.model.PageParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface UserService {
@@ -52,6 +53,14 @@ public interface UserService {
      * @return 数据列表
      */
     BaseResponse<PageInfo<User>> qryByCondition(UserQryConditionReq req);
+
+    /**
+     * 按条件进行用户信息查询
+     * @param req 请求参数
+     *
+     * @return 数据列表
+     */
+    void getExcel(UserQryConditionReq req, HttpServletResponse response);
 
     /**为用户分配角色
      * @param roleReq
