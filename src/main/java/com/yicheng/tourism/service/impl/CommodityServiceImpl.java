@@ -42,6 +42,9 @@ public class CommodityServiceImpl implements CommodityService {
     @Autowired
     private CommodityMapper commodityMapper;
 
+    @Autowired
+    private UserStoreMapperExt userStoreMapperExt;
+
     /**
      * 返回商品页面信息
      * @param req
@@ -87,15 +90,16 @@ public class CommodityServiceImpl implements CommodityService {
             com.setCommodityName(req.getCommodityName());
             com.setCommodityScript(req.getCommodityScript());
             com.setCommodityPrice(req.getCommodityPrice());
-//            com.setCommodityState(req.getCommodityState());
-            com.setNumber(req.getNumber());
+            com.setCommodityState(req.getCommodityState());
             com.setNumber(req.getNumber());
             com.setCreateBy(req.getUserId());
             commodityMapperExt.insert(com);
 
+            UserStore userStore = userStoreMapperExt.findById(req.getUserId());
+
             StoreCommodity storeCommodity = new StoreCommodity();
             storeCommodity.setId(CreateTestDataUtil.createSerialId());
-            storeCommodity.setStoreId(req.getStoreNumber());
+            storeCommodity.setStoreId(userStore.getStoreId());
             storeCommodity.setCommodityId(com.getId());
             storeCommodity.setCreateBy(req.getUserId());
             storeCommodityMapperExt.insert(storeCommodity);

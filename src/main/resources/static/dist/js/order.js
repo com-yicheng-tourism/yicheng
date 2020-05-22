@@ -3,7 +3,7 @@ $(function () {
 });
 
 function init(){
-    let rowData = sessionStorage.getItem("user_detail");
+    let rowData = sessionStorage.getItem("userId");
     let userData = JSON.parse(rowData);
     var data = {
         "userName":userData.userName
@@ -33,14 +33,14 @@ function init(){
     let userName="";
     var storeNumber="";
     if (qryType === 1){
-        let item = sessionStorage.getItem("user_detail");
+        let item = sessionStorage.getItem("userId");
         let userInfo="";
         if (item != null && item !== ""){
             userInfo = JSON.parse(item);
         }
         if (userInfo.userName != null && userInfo.userName !== ""){
             userName = userInfo.userName;
-            sessionStorage.setItem("user_detail",name.userName);
+            sessionStorage.setItem("userId",name.userName);
         }else {
             userName = name.userName;
             console.log(userName)
@@ -135,23 +135,24 @@ function toPayment(){
         alert("请选中商品！");
         return;
     }
+    var rowData = $("#orderTable").jqGrid('getRowData',id);
+    sessionStorage.setItem("carInfo",JSON.stringify(rowData));
+    console.log("data",rowData);
     $('#modalPay').modal('show');
 }
 $('#payButton').click(function () {
-    var id = $("#orderTable").jqGrid("getGridParam", "selrow");
-    console.log("rowId",id)
-    if (id == null) {
-        return;
-    }
-    //根据选中行id获取行数据
-    var rowData = $("#orderTable").jqGrid('getRowData',id);
-    var commodityId = rowData.commodityNumber;
-    var commodityName = rowData.commodityName;
-    var price = rowData.commodityPrice;
+    let rowData = sessionStorage.getItem("carInfo");
+    console.log(rowData);
+    let car = JSON.parse(rowData);
+    console.log(car);
+    var commodityId = car.commodityNumber;
+    var commodityName = car.commodityName;
+    var price = car.commodityPrice;
+    console.log(price);
     var  password=  $("#password").val();
     console.log("commodityId="+commodityId+",commodityName="+commodityName+",price="+price);
     if (password != null) {
-        let name = JSON.parse(sessionStorage.getItem("user_detail"));
+        let name = JSON.parse(sessionStorage.getItem("userId"));
         var userName = name.userName;
         //一切正常后发送网络请求
         var data = {

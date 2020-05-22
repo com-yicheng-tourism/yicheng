@@ -40,6 +40,6 @@
         #{c.planPrice,jdbcType=DOUBLE},
         #{c.ifDiscount,jdbcType=VARCHAR},
         #{c.actrualPrice,jdbcType=DOUBLE},
-        #{c.createTime,jdbcType=TIMESTAMP},
+        #{c.createTime,jdbcType=TIMESTAMP})
     </insert>
 </mapper>

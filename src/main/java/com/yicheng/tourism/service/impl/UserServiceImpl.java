@@ -406,6 +406,7 @@ public class UserServiceImpl implements UserService {
         if (MD5Util.encrypt(req.getPassword()).equals(pasd)){
             userMapperExt.updatePriceByUserName(req);
             orderMapperExt.insert(order);
+
             return 0;
         } else {
             return -1;

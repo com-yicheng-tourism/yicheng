@@ -101,7 +101,7 @@ public class UserController {
 
     @ApiOperation(value = "验证")
     @RequestMapping(value = "/pasdver",method = RequestMethod.POST)
-    public Object pasdVer(OrderCarReq req) {
+    public Object pasdVer(@RequestBody OrderCarReq req) {
 
         return userService.pasdVer(req);
     }

@@ -15,10 +15,10 @@
 
     <insert id="insert" parameterType="com.yicheng.tourism.entity.StoreCommodity">
         INSERT INTO t_store_commodity
-        (id, store_id, commodity_id
+        (id, store_id, commodity_id,
         create_by, create_time)
         VALUES
-        (#{c.userStoreId,jdbcType=VARCHAR},
+        (#{c.id,jdbcType=VARCHAR},
         #{c.storeId,jdbcType=VARCHAR},
         #{c.commodityId,jdbcType=VARCHAR},
         #{c.createBy,jdbcType=VARCHAR},

@@ -99,7 +99,7 @@
         where user_name=#{c.userName}
     </update>
 
-    <update id="updatePriceByUsername" parameterType="com.yicheng.tourism.entity.User">
+    <update id="updatePriceByUserName" parameterType="com.yicheng.tourism.dto.order.req.OrderCarReq">
         update t_user
         <set>
             <if test="c.commodityPrice != null">

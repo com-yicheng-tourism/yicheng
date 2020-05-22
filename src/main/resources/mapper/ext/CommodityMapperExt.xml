@@ -76,15 +76,16 @@
     <insert id="insert" parameterType="com.yicheng.tourism.entity.Commodity">
         INSERT INTO t_commodity
         (id, commodity_number, commodity_name,
-        commodity_script, commodity_price, commodity_state,
+        commodity_script, commodity_price, commodity_state,number,
         create_by, create_time)
         VALUES
         (#{c.id,jdbcType=VARCHAR},
         #{c.commodityNumber,jdbcType=VARCHAR},
         #{c.commodityName,jdbcType=VARCHAR},
         #{c.commodityScript,jdbcType=VARCHAR},
-        #{c.commodityPrice,jdbcType=VARCHAR},
+        #{c.commodityPrice,jdbcType=DOUBLE},
         #{c.commodityState,jdbcType=VARCHAR},
+        #{c.number,jdbcType=DECIMAL},
         #{c.createBy,jdbcType=VARCHAR},
         now())
     </insert>

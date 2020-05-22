@@ -586,14 +586,18 @@ $('#saveButton').click(function () {
         //一切正常后发送网络请求
         var commodityName =$("#addForm #commodityNameAdd").val();
         var commodityScript = $("#addForm #commodityScriptAdd").val();
+        var commodityState = $("#addForm #stateAdd").val();
         var price =$("#addForm #priceAdd").val();
-        var number =$("#addForm #number").val();
-        var authorStore = $("#addForm #authorStoreAdd").val();
+        var number =$("#addForm #numberAdd").val();
+        console.log(number);
+        let name = JSON.parse(sessionStorage.getItem("userId"));
+        var userId = name.userName;
         var data = {
             "commodityName": commodityName,
             "commodityScript": commodityScript,
+            "commodityState" : commodityState,
             "commodityPrice": price,
-            "commodityAuthorNumber": authorStore,
+            "userId": userId,
             "number": number
         };
         $.ajax({
@@ -603,7 +607,12 @@ $('#saveButton').click(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             success: function (result) {
-                alert(result.message);
+                console.log(result);
+                if (result == 0) {
+                    alert("新增成功");
+                } else {
+                    alert("新增失败")
+                }
                 window.location.href="/commodity";
             },
             error: function () {
@@ -625,13 +634,14 @@ $('#editButton').click(function () {
         var commodityScript = $("#editForm #commodityScript").val();
         var price =$("#editForm #price").val();
         var number =$("#editForm #number").val();
-        var authorStore = $("#editForm #authorStore").val();
+        let name = JSON.parse(sessionStorage.getItem("userId"));
+        var userId = name.userNumber;
         var data = {
             "id": id,
             "commodityName": commodityName,
             "commodityScript": commodityScript,
             "commodityPrice": price,
-            "commodityAuthorNumber": authorStore,
+            "userId": userId,
             "number": number
         };
         $.ajax({
@@ -673,8 +683,7 @@ function validObjectForEdit() {
     var commodityName =$("#editForm #commodityNameEd").val();
     var price =$("#editForm #price").val();
     var state =$("#editForm #state").val();
-    var authorStore = $("#editForm #authorStore").val();
-    if (isNull(commodityName) || isNull(price) || isNull(state) || isNull(authorStore)) {
+    if (isNull(commodityName) || isNull(price) || isNull(state)) {
         showErrorInfo("数据错误！");
         return false;
     }
@@ -701,8 +710,7 @@ function validObjectForAdd() {
     var commodityName =$("#addForm #commodityNameAdd").val();
     var price =$("#addForm #priceAdd").val();
     var state =$("#addForm #stateAdd").val();
-    var authorStore = $("#addForm #authorStoreAdd").val();
-    if (isNull(commodityName) || isNull(price) || isNull(state) || isNull(authorStore)) {
+    if (isNull(commodityName) || isNull(price) || isNull(state)) {
         showErrorInfo("数据错误！");
         return false;
     }
